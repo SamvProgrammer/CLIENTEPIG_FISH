@@ -1,0 +1,30 @@
+page-paginaentrar {
+
+}
+.botones {
+    /* position: fixed; */
+    position: fixed;
+  top: 70%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+.seleccionador {
+    /* position: fixed; */
+    position: fixed;
+  top: 60%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.logo{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    position: fixed;
+  top: 20%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}

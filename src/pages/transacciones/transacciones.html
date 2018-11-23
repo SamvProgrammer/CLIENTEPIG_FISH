@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Transacciones del día
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('../../assets/fondo.jpg')">
+  <ion-refresher (ionRefresh)="actualizandoTransacciones($event)" >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list >
+    <ion-item-sliding >
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/hombre.jpg">
+        </ion-avatar>
+        <h2>Cuenta: Santiago</h2>
+        <p>Número de folio: 64467</p>
+        <strong item-end>Total: $0.00</strong>
+      </ion-item>  
+      <ion-item-options side="right">
+        <button color="light" ion-button><ion-icon name="print"></ion-icon>Reimprimir
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding >
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/hombre.jpg">
+        </ion-avatar>
+        <h2>Cuenta: Joel</h2>
+        <p>Número de folio: 2345</p>
+        <strong item-end>Total: $0.00</strong>
+      </ion-item>  
+      <ion-item-options side="right">
+        <button color="light" ion-button><ion-icon name="print"></ion-icon>Reimprimir
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding >
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/hombre.jpg">
+        </ion-avatar>
+        <h2>Cuenta: Mario</h2>
+        <p>Número de folio: 3245</p>
+        <strong item-end>Total: $0.00</strong>
+      </ion-item>  
+      <ion-item-options side="right">
+        <button color="light" ion-button><ion-icon name="print"></ion-icon>Reimprimir
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab right bottom #fab>
+    <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab (click)="ingresarSistema(fab);"><ion-icon name="person"></ion-icon></button>      
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

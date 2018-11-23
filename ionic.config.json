@@ -1,0 +1,7 @@
+{
+  "name": "punto_ventacliente",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
