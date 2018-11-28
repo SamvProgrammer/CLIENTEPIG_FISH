@@ -7,6 +7,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { PaginaentrarPage } from '../pages/paginaentrar/paginaentrar';
 
 import { LoginProvider } from '../providers/login/login';
+import { UsuariosPage } from '../pages/usuarios/usuarios';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -14,6 +16,8 @@ import { LoginProvider } from '../providers/login/login';
 export class MyApp {
   rootPage:any = PaginaentrarPage;
   rootPage2:any = TabsPage;
+  usuarios:any = UsuariosPage;
+  inicio:any=TabsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
   private prdVerificaEntrar:LoginProvider,private menuCtrl:MenuController) {
@@ -23,13 +27,19 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    
   }
 
   public verificaEntrar():boolean{
     return this.prdVerificaEntrar.getEntrar();
   }
 
-  public openPage(){
-      this.menuCtrl.close();
+  public verificaRol():boolean{
+      return true; 
+  }
+
+  public openPage(pagina){
+    this.menuCtrl.close();
+    this.rootPage2 = pagina;
   }
 }

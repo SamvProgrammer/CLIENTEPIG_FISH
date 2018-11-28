@@ -9,6 +9,7 @@ import { catalogosTab } from '../pages/catalogos/catalogosTab';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SubcatalogosPage } from '../pages/subcatalogos/subcatalogos';
 import { PaginaentrarPage } from '../pages/paginaentrar/paginaentrar';
+import { UsuariosPage } from '../pages/usuarios/usuarios';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +23,8 @@ import { LoginProvider } from '../providers/login/login';
     catalogosTab,
     TabsPage,
     SubcatalogosPage,
-    PaginaentrarPage
+    PaginaentrarPage,
+    UsuariosPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { LoginProvider } from '../providers/login/login';
     catalogosTab,
     TabsPage,
     SubcatalogosPage,
-    PaginaentrarPage
+    PaginaentrarPage,
+    UsuariosPage
   ],
   providers: [
     StatusBar,

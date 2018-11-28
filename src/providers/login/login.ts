@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController,ToastController  } from 'ionic-angular';
 
-/*
-  Generated class for the LoginProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class LoginProvider {
 
   private entrar:boolean = false;
-  constructor(private alerta:AlertController) {
+  private objUsuario:any;
+  constructor(private alerta:AlertController,private toasCtrl:ToastController) {
     
   }
 
+
+  //Establece si aparece la pantalla número uno....
   public getEntrar():boolean{
     return this.entrar;
   }
@@ -22,6 +20,8 @@ export class LoginProvider {
      this.entrar = parametro;
   }
 
+
+  //Para logearse al sistema....
   public entrarSistema(){
     let alerta1 = this.alerta.create({
       title:'Usuario',
@@ -38,12 +38,57 @@ export class LoginProvider {
       buttons:[{
           text:"Ingresar",
           handler:datos=>{
-            console.log(datos);
+            let respuesta = this.ingresarUsuarios(datos.usuario,datos.password);
+            if(!respuesta){
+              const toast = this.toasCtrl.create({
+                message: 'Usuario y/o Contraseña invalida',
+                duration: 3000
+              });
+              toast.present();
+            }else{
+               this.objUsuario = respuesta;
+            }
           }                  
       }]
 
    });
    alerta1.present();
+  }
+
+
+
+  //Se obtiene el rol del usuario validos solamente 1:Adminitrador, 2:Mesero y 3:Inventarios....
+  public guardaUsuario():any{
+    return this.objUsuario;
+  }
+
+
+  public ingresarUsuarios(usuario:any,contraseña:any):any{
+    let usuarios = [{
+      usuario:'administrador',
+      rol:1,
+      contraseña:'12345'
+    },{
+      usuario:'mesero',
+      rol:2,
+      contraseña:'12345'
+    },{
+      usuario:'inventario',
+      rol:3,
+      contraseña:'12345'
+    }];
+
+    let respuesta:any = null;
+    usuarios.forEach(o => {
+      
+       if(o.usuario == usuario && o.contraseña == contraseña){
+        respuesta = o;
+       }
+    });
+
+    respuesta = respuesta !=  null? respuesta:false;
+
+    return respuesta;
   }
 
 }
