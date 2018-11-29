@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController,FabContainer } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
+import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 
 @Component({
   selector: 'page-cuentas',
@@ -10,6 +11,7 @@ export class cuentasPage {
 
   public mesas:Array<object>=[];
   public folio=0;//Esta variable es temporal... favor de eliminar...
+  
   constructor(public navCtrl: NavController, public alerta: AlertController,private login:LoginProvider) {
 
   }

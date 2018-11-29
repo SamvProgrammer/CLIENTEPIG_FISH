@@ -23,4 +23,8 @@ export class catalogosTab {
     fab.close();
     this.login.entrarSistema();
   }
+
+  public salir(){
+    this.login.setEntrar(false);
+  }
 }

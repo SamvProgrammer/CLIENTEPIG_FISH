@@ -3,10 +3,17 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons end>
+        <button (click)="salir()" ion-button icon-end>
+            Salir
+          
+        </button>
+      </ion-buttons>
 
     <ion-title>
       Cátalogos
     </ion-title>
+   
   </ion-navbar>
 </ion-header>
 
@@ -39,6 +46,7 @@
   <ion-fab right bottom #fab>
       <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
       <ion-fab-list side="top">
+          <button ion-fab (click) ="salir();"><ion-icon name="exit" ></ion-icon></button>
           <button ion-fab (click) ="ingresarSistema(fab);"><ion-icon name="person" ></ion-icon></button>
       </ion-fab-list>
     </ion-fab>

@@ -6,6 +6,7 @@ import { AlertController,ToastController  } from 'ionic-angular';
 export class LoginProvider {
 
   private entrar:boolean = false;
+  private activarMenu:boolean = false;
   private objUsuario:any;
   constructor(private alerta:AlertController,private toasCtrl:ToastController) {
     
@@ -20,6 +21,13 @@ export class LoginProvider {
      this.entrar = parametro;
   }
 
+  public setActivaMenu(activa:boolean){
+    this.activarMenu = activa;
+  }
+  public getActivaMenu():boolean{
+
+    return this.activarMenu;
+  }
 
   //Para logearse al sistema....
   public entrarSistema(){
@@ -47,6 +55,13 @@ export class LoginProvider {
               toast.present();
             }else{
                this.objUsuario = respuesta;
+               this.activarMenu = true;
+               const alert = this.alerta.create({
+                title: 'Aviso',
+                subTitle: 'Usuario ingresado al sistema sastifactoriamente.',
+                buttons: ['OK']
+              });
+              alert.present();
             }
           }                  
       }]
