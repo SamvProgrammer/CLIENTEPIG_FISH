@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, MenuController, AlertController } from 'ionic-angular';
+import { Platform, MenuController, AlertController,ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -20,7 +20,8 @@ export class MyApp {
   inicio: any = TabsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController) {
+    private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
+    private toasCtrl:ToastController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -53,12 +54,17 @@ export class MyApp {
         handler: () => {
           this.menuCtrl.close();
           this.rootPage2 = this.inicio;
+          const toast = this.toasCtrl.create({
+            message: 'Se cerro sesión con exito',
+            duration: 3000
+          });
+          toast.present();
           setTimeout(o => {
             this.prdVerificaEntrar.setActivaMenu(false);
           }, 100);
         }
       },{
-        text:"Salir",
+        text:"Cancelar",
         handler:()=>{}
       }]
 

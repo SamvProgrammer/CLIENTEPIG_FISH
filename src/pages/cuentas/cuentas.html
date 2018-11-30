@@ -11,10 +11,12 @@
 </ion-header>
 
 <ion-content style="background-image: url('../../assets/fondo.jpg');">
-
+  <ion-refresher (ionRefresh)="actualizandoTransacciones($event)" >
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <ion-list>
       <ion-item-sliding *ngFor="let i of mesas;let indice = index;">
-          <ion-item color="sinproductos">
+          <ion-item  (click) = "entrarDetalle(i)">
             <ion-avatar item-start>
               <img src="../../assets/hombre.jpg">
             </ion-avatar>

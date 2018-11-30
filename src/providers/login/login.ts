@@ -56,12 +56,11 @@ export class LoginProvider {
             }else{
                this.objUsuario = respuesta;
                this.activarMenu = true;
-               const alert = this.alerta.create({
-                title: 'Aviso',
-                subTitle: 'Usuario ingresado al sistema sastifactoriamente.',
-                buttons: ['OK']
+               const toast = this.toasCtrl.create({
+                message: 'Se ingreso al sistema con exito',
+                duration: 3000
               });
-              alert.present();
+              toast.present();
             }
           }                  
       }]

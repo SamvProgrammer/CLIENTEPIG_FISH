@@ -11,12 +11,47 @@
     </button>
 
     <ion-title>
-      Usuarios
+      Cátalogos de Usuarios
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-   hola que tal
+<ion-content style="background-image: url('../../assets/fondo.jpg')">
+  <ion-list>
+    <ion-list-header color="light">
+      <strong>Usuarios</strong>
+      <ion-icon item-end name="person"></ion-icon>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let i of arreglo">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/hombre.jpg">
+        </ion-avatar>
+      <h2>{{i.id_user}} {{i.login}}</h2>
+      <p>{{i.nombre}} </p>
+        <strong item-end>{{i.nombre_rol}}</strong>
+      </ion-item>
+      <ion-item-options side="right">
+          <button color="success" ion-button (click) = "actualizar(i)">
+              <ion-icon name="brush"></ion-icon>Editar
+            </button>
+        <button color="danger" (click) = "eliminar(i)" ion-button>
+          <ion-icon name="trash"></ion-icon>Eliminar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+  </ion-list>
+  <ion-fab right bottom #fab>
+    <button ion-fab color="botonflotante">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
