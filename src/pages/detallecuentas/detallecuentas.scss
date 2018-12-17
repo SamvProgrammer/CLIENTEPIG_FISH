@@ -4,6 +4,24 @@ page-detallecuentas {
 }
 
 
+.estilobotones{
+
+}
+.estilobotones button{
+    width: 25px;
+}
+.estilobotones input{
+ width: 30px;
+}
+.personal{
+
+ width: 100%;
+}
+.estilobotones p{
+ width: 100%;
+ text-align: center;
+}
+
 ion-segment {
     display: block;
     white-space: nowrap;
@@ -34,4 +52,9 @@ ion-toolbar {
 
     height: 100%;
     width: 100%;
+}
+
+.letras{
+
+    font-size: 15px;
 }

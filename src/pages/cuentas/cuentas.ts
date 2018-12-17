@@ -43,7 +43,7 @@ export class cuentasPage {
             fecha: '21/11/2018'
           }
           this.mesas.push(obj);
-          const mdl = this.modal.create(this.detalle);
+          const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id});
           mdl.present();
         }
       }]
@@ -61,9 +61,9 @@ export class cuentasPage {
     this.login.entrarSistema();
   }
 
-  public entrarDetalle(): any {
+  public entrarDetalle(obj): any {
 
-    const mdl = this.modal.create(this.detalle);
+    const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id});
     mdl.present();
   }
 }
