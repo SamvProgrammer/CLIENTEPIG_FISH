@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { direcciones } from '../../assets/direcciones';
 import { Observable } from 'rxjs/observable';
 /*
@@ -25,6 +25,30 @@ export class UsuariosProvider {
   public eliminarUsuario(id):Observable<any>{
    this.data = this.http.delete(this.direccion+"/"+id);
    return this.data;
+  }
+
+  public insertar(obj):Observable<any>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    
+    let json = JSON.stringify(obj);
+    return this.http.post(this.direccion,json,httpOptions);
+  }
+
+  public modificar(obj):Observable<any>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    
+    let json = JSON.stringify(obj);
+    return this.http.put(this.direccion,json,httpOptions);
   }
 
 }

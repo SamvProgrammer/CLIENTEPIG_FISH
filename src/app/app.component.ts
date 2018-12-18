@@ -8,6 +8,12 @@ import { PaginaentrarPage } from '../pages/paginaentrar/paginaentrar';
 
 import { LoginProvider } from '../providers/login/login';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
+import { SucursalesPage } from '../pages/sucursales/sucursales';
+import { HistorialPage } from '../pages/historial/historial';
+import { InventarioPage } from '../pages/inventario/inventario';
+import { PedidosPage } from '../pages/pedidos/pedidos';
+import { ConfiguracionPage } from '../pages/configuracion/configuracion';
+
 
 
 @Component({
@@ -18,6 +24,11 @@ export class MyApp {
   rootPage2: any = TabsPage;
   usuarios: any = UsuariosPage;
   inicio: any = TabsPage;
+  sucursales: any = SucursalesPage;
+  historial:any = HistorialPage;
+  inventario:any = InventarioPage;
+  pedidos: any = PedidosPage;
+  configuracion:any = ConfiguracionPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,

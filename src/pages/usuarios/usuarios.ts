@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams,ToastController } from 'ionic-angular';
+import {  NavController, NavParams,ToastController,FabContainer,AlertController } from 'ionic-angular';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
+import { UsuariosAddPage } from '../usuarios-add/usuarios-add';
 
 /**
  * Generated class for the UsuariosPage page.
@@ -19,23 +20,44 @@ export class UsuariosPage {
   public arreglo:any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private usuariosprd:UsuariosProvider,
-  private toasCtrl:ToastController) {
+  private toasCtrl:ToastController,private alertaCtrl : AlertController) {
     this.usuariosprd.getUsuarios().subscribe(respuesta =>{
       this.arreglo = respuesta;
-      console.log(this.arreglo);
     });
   }
 
   public actualizar(obj:any){
-    console.log(obj);
+    this.navCtrl.push(UsuariosAddPage,{parametro:obj,boton:"Actualizar"});
   }
 
   public eliminar(obj){
      let id = obj.id_user;
-     this.usuariosprd.eliminarUsuario(id).subscribe(resp => {
-        console.log(resp.respuesta);
+     let alerta = this.alertaCtrl.create({title:"Aviso",subTitle:"¿Deseas eliminar el registro?",buttons:[{text:"Aceptar",handler:()=>{
+      this.usuariosprd.eliminarUsuario(id).subscribe(resp => {
+        this.usuariosprd.getUsuarios().subscribe(res => {
+          this.arreglo = res;
+        });
+        let toas = this.toasCtrl.create({message:"Registro Eliminado",duration:1500});
+        toas.present();
      });
+
+     }},"Cancelar"]});
+     
+
+     alerta.present();
+
   }
   
+  public agregar(fab: FabContainer){
+    fab.close();
+    this.navCtrl.push(UsuariosAddPage,{boton:"Agregar"});
+  }
+
+  public actualizando(refresher): any {
+    this.usuariosprd.getUsuarios().subscribe(res => {
+      this.arreglo = res;
+      refresher.complete();
+    });
+  }
 
 }

@@ -18,6 +18,9 @@
 
 
 <ion-content style="background-image: url('../../assets/fondo.jpg')">
+  <ion-refresher (ionRefresh)="actualizando($event)" >
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <ion-list>
     <ion-list-header color="light">
       <strong>Usuarios</strong>
@@ -28,13 +31,13 @@
         <ion-avatar item-start>
           <img src="../../assets/hombre.jpg">
         </ion-avatar>
-      <h2>{{i.id_user}} {{i.login}}</h2>
-      <p>{{i.nombre}} </p>
-        <strong item-end>{{i.nombre_rol}}</strong>
+      <h2><strong>Usuario:</strong> {{i.login}}</h2>
+      <p><strong>Nombre:</strong>{{i.nombre}} </p>
+        <strong >{{i.nombre_rol}}</strong>
       </ion-item>
       <ion-item-options side="right">
           <button color="success" ion-button (click) = "actualizar(i)">
-              <ion-icon name="brush"></ion-icon>Editar
+              <ion-icon name="brush"></ion-icon>Modificar
             </button>
         <button color="danger" (click) = "eliminar(i)" ion-button>
           <ion-icon name="trash"></ion-icon>Eliminar
@@ -48,8 +51,8 @@
     <button ion-fab color="botonflotante">
       <ion-icon name="arrow-dropup"></ion-icon>
     </button>
-    <ion-fab-list side="top">
-      <button ion-fab>
+    <ion-fab-list  side="top">
+      <button ion-fab  (click) = "agregar(fab);">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>

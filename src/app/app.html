@@ -1,48 +1,47 @@
-  
-  <ion-menu id="menu-dark" [content]="content" *ngIf = "verificaRol();" >
-    <ion-header class="sidemenuHeader">
-      <ion-toolbar>
-        <ion-item no-lines>
-          <ion-avatar item-left>
-            <h2>P&F</h2>
-          </ion-avatar>
-          <h2>Administrador</h2>
-          <p>Santiago Antonio!</p>
-        </ion-item>
-      </ion-toolbar>
-    </ion-header>
+<ion-menu id="menu-dark" [content]="content" *ngIf="verificaRol();">
+  <ion-header class="sidemenuHeader">
+    <ion-toolbar>
+      <ion-item no-lines>
+        <ion-avatar item-left>
+          <h2>P&F</h2>
+        </ion-avatar>
+        <h2>Administrador</h2>
+        <p>Santiago Antonio!</p>
+      </ion-item>
+    </ion-toolbar>
+  </ion-header>
 
 
-    <ion-content class="menu" style="background-image: url('../../assets/fondo.jpg');">
-      <ion-list>
-        <button menuClose="left" ion-item  (click)="openPage(inicio)">
-          <ion-icon name="home" item-left></ion-icon> Inicio
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="person" item-left></ion-icon> Usuarios
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="paper" item-left></ion-icon> Historial de cuentas
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="car" item-left></ion-icon> Sucursales
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="list-box" item-left></ion-icon> Inventario
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="basket" item-left></ion-icon> Pedidos
-        </button>
-        <button menuClose="left" ion-item  (click)="openPage(usuarios)">
-          <ion-icon name="settings" item-left></ion-icon> Configuraciones
-        </button>
-        <button menuClose="left" style="color:rgb(145, 0, 0)" color = "danger" ion-item  (click)="salir()">
-          <ion-icon name="exit" item-left></ion-icon> Salir
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  
-<ion-nav  id="nav" #content></ion-nav>
-<ion-nav  *ngIf = "!verificaEntrar();" [root]="rootPage" ></ion-nav>
-<ion-nav  *ngIf = "verificaEntrar();" [root]="rootPage2"></ion-nav>
+  <ion-content class="menu" style="background-image: url('../../assets/fondo.jpg');">
+    <ion-list>
+      <button menuClose="left" ion-item (click)="openPage(inicio)">
+        <ion-icon name="home" item-left></ion-icon> Inicio
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(usuarios)">
+        <ion-icon name="person" item-left></ion-icon> Usuarios
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(sucursales)">
+        <ion-icon name="car" item-left></ion-icon> Sucursales
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(historial)">
+        <ion-icon name="paper" item-left></ion-icon> Historial de cuentas
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(inventario)">
+        <ion-icon name="list-box" item-left></ion-icon> Inventario
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(pedidos)">
+        <ion-icon name="basket" item-left></ion-icon> Pedidos
+      </button>
+      <button menuClose="left" ion-item (click)="openPage(configuracion)">
+        <ion-icon name="settings" item-left></ion-icon> Configuraciones
+      </button>
+      <button menuClose="left" style="color:rgb(145, 0, 0)" color="danger" ion-item (click)="salir()">
+        <ion-icon name="exit" item-left></ion-icon> Salir
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav id="nav" #content></ion-nav>
+<ion-nav *ngIf="!verificaEntrar();" [root]="rootPage"></ion-nav>
+<ion-nav *ngIf="verificaEntrar();" [root]="rootPage2"></ion-nav>
