@@ -18,6 +18,8 @@ import { HistorialPage } from '../pages/historial/historial';
 import { InventarioPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
+import { SucursalesAddPage } from '../pages/sucursales-add/sucursales-add';
+import { ProductosPage } from '../pages/productos/productos';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +44,9 @@ import { CarritoProvider } from '../providers/carrito/carrito';
     HistorialPage,
     InventarioPage,
     PedidosPage,
-    ConfiguracionPage
+    ConfiguracionPage,
+    SucursalesAddPage,
+    ProductosPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,9 @@ import { CarritoProvider } from '../providers/carrito/carrito';
     HistorialPage,
     InventarioPage,
     PedidosPage,
-    ConfiguracionPage
+    ConfiguracionPage,
+    SucursalesAddPage,
+    ProductosPage
   ],
   providers: [
     StatusBar,

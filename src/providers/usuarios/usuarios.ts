@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { direcciones } from '../../assets/direcciones';
 import { Observable } from 'rxjs/observable';
+import { ToastController } from 'ionic-angular';
 /*
   Generated class for the UsuariosProvider provider.
 
@@ -13,11 +14,13 @@ export class UsuariosProvider {
   private direccion = "";
   private data:Observable<any>;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,private toas:ToastController) {
     this.direccion = direcciones.usuarios;
   }
 
   public getUsuarios():Observable<any>{    
+
+ 
    this.data = this.http.get(this.direccion);
    return this.data;
   }

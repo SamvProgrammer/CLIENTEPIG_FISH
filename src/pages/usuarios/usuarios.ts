@@ -23,6 +23,10 @@ export class UsuariosPage {
   private toasCtrl:ToastController,private alertaCtrl : AlertController) {
     this.usuariosprd.getUsuarios().subscribe(respuesta =>{
       this.arreglo = respuesta;
+    },error => {
+      let alerta = toasCtrl.create({message:error.message +"\n"+error.name,duration:3000});
+      alerta.present();
+      console.log(error.message +"\n"+error.name);
     });
   }
 

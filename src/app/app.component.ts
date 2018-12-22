@@ -13,6 +13,7 @@ import { HistorialPage } from '../pages/historial/historial';
 import { InventarioPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
+import { ProductosPage } from '../pages/productos/productos';
 
 
 
@@ -29,6 +30,7 @@ export class MyApp {
   inventario:any = InventarioPage;
   pedidos: any = PedidosPage;
   configuracion:any = ConfiguracionPage;
+  productos:any = ProductosPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,

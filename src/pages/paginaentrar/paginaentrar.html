@@ -12,8 +12,7 @@
   <ion-item class="seleccionador">
       <ion-label>Seleccionar Carrito</ion-label>
       <ion-select [(ngModel)]="gender">
-        <ion-option value="f">Plaza del valle</ion-option>
-        <ion-option value="m">Llano</ion-option>
+        <ion-option *ngFor="let i of arreglo"  value = "{{i.id}}">{{i.nombre}}</ion-option>
       </ion-select>
     </ion-item>
   <button ion-button icon-end class="botones" (click)="ingresar()">
