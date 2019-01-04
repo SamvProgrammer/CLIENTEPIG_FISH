@@ -54,4 +54,12 @@ export class UsuariosProvider {
     return this.http.put(this.direccion,json,httpOptions);
   }
 
+  public getUsuarioEspecifico(usuario):Observable<any>{    
+ 
+    console.log(usuario);
+    this.data = this.http.get(this.direccion+"/buscarusuario/"+usuario);
+    return this.data;
+   }
+  
+
 }

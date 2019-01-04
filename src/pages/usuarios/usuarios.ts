@@ -21,15 +21,22 @@ export class UsuariosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private usuariosprd:UsuariosProvider,
   private toasCtrl:ToastController,private alertaCtrl : AlertController) {
+    this.traerUsuarios();
+  }
+
+  public traerUsuarios(){
     this.usuariosprd.getUsuarios().subscribe(respuesta =>{
       this.arreglo = respuesta;
     },error => {
-      let alerta = toasCtrl.create({message:error.message +"\n"+error.name,duration:3000});
+      let alerta = this.toasCtrl.create({message:error.message +"\n"+error.name,duration:3000});
       alerta.present();
       console.log(error.message +"\n"+error.name);
     });
   }
 
+  ionViewDidEnter() {
+    this.traerUsuarios();
+}
   public actualizar(obj:any){
     this.navCtrl.push(UsuariosAddPage,{parametro:obj,boton:"Actualizar"});
   }
@@ -54,7 +61,7 @@ export class UsuariosPage {
   
   public agregar(fab: FabContainer){
     fab.close();
-    this.navCtrl.push(UsuariosAddPage,{boton:"Agregar"});
+    this.navCtrl.push(UsuariosAddPage,{boton:"Agregar"})
   }
 
   public actualizando(refresher): any {

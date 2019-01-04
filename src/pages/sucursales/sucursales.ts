@@ -22,11 +22,20 @@ export class SucursalesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private carritoPrd:CarritoProvider,private alertaCtrl:AlertController,private toasCtrl:ToastController) {
-    this.carritoPrd.getCarritos().subscribe(datos => {this.arreglo = datos;});
+    this.trerCarritos();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SucursalesPage');
+  }
+
+ public trerCarritos():any{
+            this.carritoPrd.getCarritos().subscribe(datos => {this.arreglo = datos;});
+ }
+
+  ionViewDidEnter(){
+    this.trerCarritos();
+
   }
   public actualizando(refresher): any {
     this.carritoPrd.getCarritos().subscribe(res => {
