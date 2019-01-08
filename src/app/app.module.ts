@@ -24,6 +24,7 @@ import { CategoriasPage } from '../pages/productoscategorias/categorias';
 import { ProductoscategoriasAddPage } from '../pages/productoscategorias-add/productoscategorias-add';
 import { ProductosproductosPage } from '../pages/productosproductos/productosproductos';
 import { ProductosproductosAddPage } from '../pages/productosproductos-add/productosproductos-add';
+import { SubcatalogosOrdenPage } from '../pages/subcatalogos-orden/subcatalogos-orden';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -57,7 +58,8 @@ import { ProductosProvider } from '../providers/productos/productos';
     CategoriasPage,
     ProductoscategoriasAddPage,
     ProductosproductosPage,
-    ProductosproductosAddPage
+    ProductosproductosAddPage,
+    SubcatalogosOrdenPage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { ProductosProvider } from '../providers/productos/productos';
     CategoriasPage,
     ProductoscategoriasAddPage,
     ProductosproductosPage,
-    ProductosproductosAddPage
+    ProductosproductosAddPage,
+    SubcatalogosOrdenPage
   ],
   providers: [
     StatusBar,
