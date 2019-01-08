@@ -18,43 +18,39 @@
 
 
 <ion-content style="background-image: url('../../assets/fondo.jpg')">
-    <ion-grid style="background-image: url('../../assets/fondo1.jpg');height: 30%;">
-        <ion-row  style="height: 100%;">
-          
-        </ion-row>
-      </ion-grid>
-      <ion-list>
-          <ion-list-header color="light">
-              <strong>Productos</strong>
-              <ion-icon item-end name="pizza"></ion-icon>
-            </ion-list-header>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/iconcomida.jpg">
-            </ion-avatar>
-            <h2>Cher</h2>
-            <p>Ugh. As if.</p>
-          </ion-item>
-          <ion-item >
-              <ion-avatar item-start>
-                <img src="../../assets/iconcomida.jpg">
-              </ion-avatar>
-              <h2>Cher</h2>
-              <p>Ugh. As if.</p>
-            </ion-item>
-            <ion-item>
-                <ion-avatar item-start>
-                  <img src="../../assets/iconcomida.jpg">
-                </ion-avatar>
-                <h2>Cher</h2>
-                <p>Ugh. As if.</p>
-              </ion-item>
-        </ion-list>
+      <ion-card *ngFor = "let i of arreglo">
+        <img src="../../assets/imgs/cards.jpg"/>
+        <ion-card-content>
+          <ion-card-title>
+            {{i.nombre}}
+            </ion-card-title>
+          <p>
+            <strong>Descripcion:</strong>
+            {{i.descripcion}}
+          </p>
+          <p>
+           <strong>Precio:</strong> {{i.precio | currency}} Pesos
+          </p>
+        </ion-card-content>
+        <ion-row>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="logo-youtube"></ion-icon>
+                <div>Ver Vídeo</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="add"></ion-icon>
+                <div>Añadir a Orden</div>
+              </button>
+            </ion-col>
+          </ion-row>
+      </ion-card>
      <ion-fab right bottom #fab>
         <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
         <ion-fab-list side="top">
             <button (click)="ingresarSistema(fab);" ion-fab><ion-icon name="person"></ion-icon></button>
-          <button ion-fab><ion-icon name="add"></ion-icon></button>
         </ion-fab-list>
       </ion-fab>
 </ion-content>

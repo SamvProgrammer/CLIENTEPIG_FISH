@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { CategoriasPage } from '../productoscategorias/categorias';
+import { ProductosproductosPage } from '../productosproductos/productosproductos';
 
 /**
  * Generated class for the ProductosPage page.
@@ -27,13 +29,13 @@ export class ProductosPage {
 
     switch(tipo){
       case 'producto':
-      console.log("productos");
+      this.navCtrl.push(ProductosproductosPage);
       break;
       case 'combos':
       console.log("combos");
       break;
       case 'categorias':
-      console.log("categorias");
+      this.navCtrl.push(CategoriasPage);
       break;
       default:
          let mensaje = this.toasCtrl.create({message:"Error en el menu",duration:1500});

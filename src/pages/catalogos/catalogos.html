@@ -18,30 +18,20 @@
 </ion-header>
 
 <ion-content style="background-image: url('../../assets/fondo.jpg')" class="card-background-page">
-  <ion-card (click)="clickimagen(1)">
-    <img src="../../assets/chapatas.jpg"/>
-    <div class="card-title">CHAPATAS</div>
-    <div class="card-subtitle">Chapatas con un buen toque</div>
-  </ion-card>
-  <ion-card (click)="clickimagen(2)">
-    <img src="../../assets/hamburgesas.jpg"/>
-    <div class="card-title">HAMBURGESAS</div>
-    <div class="card-subtitle">Prueba nuestra hamburgesas estilo Pig and Fish</div>
-  </ion-card>
-  <ion-card (click)="clickimagen(3)" >
-    <img src="../../assets/tacos.jpg"/>
-    <div class="card-title">TACOS</div>
-    <div class="card-subtitle">Toda la especialidad</div>
-  </ion-card>
-  <ion-card (click)="clickimagen(4)">
-    <img src="../../assets/bebidas.jpg"/>
-    <div class="card-title">BEBIDAS</div>
-    <div class="card-subtitle">Nuestra barra libre</div>
+  <ion-card *ngFor="let i of arreglo" (click)="clickimagen(i.id)">
+    <img src="../../assets//imgs/presentaciones.jpg"/>
+    <div class="card-title">{{i.nombre}}</div>
+    <div class="card-subtitle">{{i.descripcion}}</div>
   </ion-card>
   <ion-card (click)="clickimagen(5)">
     <img src="../../assets/combos.jpg"/>
     <div class="card-title">COMBOS</div>
     <div class="card-subtitle">Checa nuestros combos</div>
+  </ion-card>
+  <ion-card (click)="clickimagen(5)">
+    <img src="../../assets/imgs/promociones.jpg"/>
+    <div class="card-title">PROMOCIONES</div>
+    <div class="card-subtitle">Promociones del día</div>
   </ion-card>
   <ion-fab right bottom #fab>
       <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>

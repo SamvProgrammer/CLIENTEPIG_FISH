@@ -20,6 +20,10 @@ import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { SucursalesAddPage } from '../pages/sucursales-add/sucursales-add';
 import { ProductosPage } from '../pages/productos/productos';
+import { CategoriasPage } from '../pages/productoscategorias/categorias';
+import { ProductoscategoriasAddPage } from '../pages/productoscategorias-add/productoscategorias-add';
+import { ProductosproductosPage } from '../pages/productosproductos/productosproductos';
+import { ProductosproductosAddPage } from '../pages/productosproductos-add/productosproductos-add';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +31,9 @@ import { LoginProvider } from '../providers/login/login';
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { RolesProvider } from '../providers/roles/roles';
 import { CarritoProvider } from '../providers/carrito/carrito';
+import { ProductoscategoriasProvider } from '../providers/productoscategorias/productoscategorias';
+import { ProductosProvider } from '../providers/productos/productos';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +53,11 @@ import { CarritoProvider } from '../providers/carrito/carrito';
     PedidosPage,
     ConfiguracionPage,
     SucursalesAddPage,
-    ProductosPage
+    ProductosPage,
+    CategoriasPage,
+    ProductoscategoriasAddPage,
+    ProductosproductosPage,
+    ProductosproductosAddPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +82,11 @@ import { CarritoProvider } from '../providers/carrito/carrito';
     PedidosPage,
     ConfiguracionPage,
     SucursalesAddPage,
-    ProductosPage
+    ProductosPage,
+    CategoriasPage,
+    ProductoscategoriasAddPage,
+    ProductosproductosPage,
+    ProductosproductosAddPage
   ],
   providers: [
     StatusBar,
@@ -80,7 +95,9 @@ import { CarritoProvider } from '../providers/carrito/carrito';
     LoginProvider,
     UsuariosProvider,
     RolesProvider,
-    CarritoProvider
+    CarritoProvider,
+    ProductoscategoriasProvider,
+    ProductosProvider
   ]
 })
 export class AppModule {}

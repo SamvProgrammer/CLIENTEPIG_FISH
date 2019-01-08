@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,FabContainer } from 'ionic-angular';
 import { SubcatalogosPage } from '../subcatalogos/subcatalogos';
 import { LoginProvider } from '../../providers/login/login';
+import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
 
 @Component({
   selector: 'page-catalogos',
@@ -9,8 +10,12 @@ import { LoginProvider } from '../../providers/login/login';
 })
 export class catalogosTab {
 
-  constructor(public navCtrl: NavController,private login:LoginProvider) {
+  public arreglo:any = [];
 
+  constructor(public navCtrl: NavController,private login:LoginProvider,private productoPrd:ProductoscategoriasProvider) {
+    this.productoPrd.getCategorias().subscribe(datos => {
+        this.arreglo = datos;
+    });
   }
 
 
