@@ -24,6 +24,11 @@ export class TicketsProvider {
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }
+   public getTicketsCanceladosCobrados(id_carrito):Observable<any>{   
+    let filtrarDireccion = this.direccion +"/canceladoscobrados/"+id_carrito;
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+   }
 
    public insert(obj):Observable<any>{
 
@@ -35,5 +40,16 @@ export class TicketsProvider {
     
     let json = JSON.stringify(obj);
     return this.http.post(this.direccion,json,httpOptions);
+   }
+
+   public cancelar(id_Ticket):Observable<any>{   
+    let filtrarDireccion = this.direccion +"/cancelar/"+id_Ticket;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    this.data = this.http.post(filtrarDireccion,{},httpOptions);
+    return this.data;
    }
 }

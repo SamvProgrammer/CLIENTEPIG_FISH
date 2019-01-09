@@ -13,16 +13,25 @@ export class cuentasPage {
   private detalle: any = DetallecuentasPage;
   public folio = 0;//Esta variable es temporal... favor de eliminar...
   public arreglo:any = [];
+  private id_carrito;
   constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController,
   private ticketsPrd:TicketsProvider,private toasCtrl:ToastController) {
+    this.id_carrito = login.getCarrito();
+    this.traerCuentas();
+  }
 
+  public traerCuentas():any{
+    this.ticketsPrd.getTickets(this.id_carrito).subscribe(datos => {
+      this.arreglo = datos;
+     });
   }
 
   public actualizandoTransacciones(refresher): any {
 
-    setTimeout(() => {
+    this.ticketsPrd.getTickets(this.id_carrito).subscribe(datos => {
+      this.arreglo = datos;
       refresher.complete();
-    }, 1000);
+     });
   }
   public agregarCuenta(fab: FabContainer) {
     fab.close();
@@ -42,7 +51,10 @@ export class cuentasPage {
              nombre:identificadorCuenta,
              id_carrito:this.login.getCarrito()
           };
-          console.log(objTicket);
+          this.ticketsPrd.getTickets(this.id_carrito).subscribe(d1 => {
+            console.log(d1);
+            this.arreglo = d1;
+           });
           this.ticketsPrd.insert(objTicket).subscribe(datos => {
             let t1 = this.toasCtrl.create({message:datos.respuesta,duration:1000});
             t1.present();
@@ -58,7 +70,14 @@ export class cuentasPage {
   }
 
   public cancelar(indice): any {
-    console.log(indice);
+    let mensaje = this.alerta.create({title:"¿Desea cancelar la cuenta?",buttons:[{text:"Si",handler:()=>{
+        this.ticketsPrd.cancelar(indice).subscribe(datos => {
+          let toast = this.toasCtrl.create({message:"Cuenta cancelada correctamente",duration:1500});
+          toast.present();
+          this.traerCuentas();
+        });
+    }},{text:"No"}]});
+    mensaje.present();
   }
 
   public ingresarSistema(fab: FabContainer): any {
