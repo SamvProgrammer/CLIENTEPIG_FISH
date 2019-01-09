@@ -30,12 +30,13 @@ export class PaginaentrarPage {
   }
 
   public ingresar():any{
+     this.loginprovider.setCarrito(this.gender);
       if(this.gender == ""){
           let toas = this.toasCtrl.create({message:"Se debe elegir la sucursal a entrar",closeButtonText:"Cerrar",showCloseButton:true});
           toas.present();
       }else{
         this.loginprovider.setEntrar(true);      
-
+        
       }
   }
 

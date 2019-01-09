@@ -25,6 +25,9 @@ import { ProductoscategoriasAddPage } from '../pages/productoscategorias-add/pro
 import { ProductosproductosPage } from '../pages/productosproductos/productosproductos';
 import { ProductosproductosAddPage } from '../pages/productosproductos-add/productosproductos-add';
 import { SubcatalogosOrdenPage } from '../pages/subcatalogos-orden/subcatalogos-orden';
+import { ProductoscombosypromocionesPage } from '../pages/productoscombosypromociones/productoscombosypromociones';
+import { ProductoscombosPage } from '../pages/productoscombos/productoscombos';
+import { ProductospromocionesPage } from '../pages/productospromociones/productospromociones';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,6 +37,7 @@ import { RolesProvider } from '../providers/roles/roles';
 import { CarritoProvider } from '../providers/carrito/carrito';
 import { ProductoscategoriasProvider } from '../providers/productoscategorias/productoscategorias';
 import { ProductosProvider } from '../providers/productos/productos';
+import { TicketsProvider } from '../providers/tickets/tickets';
 
 
 @NgModule({
@@ -59,7 +63,10 @@ import { ProductosProvider } from '../providers/productos/productos';
     ProductoscategoriasAddPage,
     ProductosproductosPage,
     ProductosproductosAddPage,
-    SubcatalogosOrdenPage
+    SubcatalogosOrdenPage,
+    ProductoscombosypromocionesPage,
+    ProductoscombosPage,
+    ProductospromocionesPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +96,10 @@ import { ProductosProvider } from '../providers/productos/productos';
     ProductoscategoriasAddPage,
     ProductosproductosPage,
     ProductosproductosAddPage,
-    SubcatalogosOrdenPage
+    SubcatalogosOrdenPage,
+    ProductoscombosypromocionesPage,
+    ProductoscombosPage,
+    ProductospromocionesPage
   ],
   providers: [
     StatusBar,
@@ -100,7 +110,8 @@ import { ProductosProvider } from '../providers/productos/productos';
     RolesProvider,
     CarritoProvider,
     ProductoscategoriasProvider,
-    ProductosProvider
+    ProductosProvider,
+    TicketsProvider
   ]
 })
 export class AppModule {}

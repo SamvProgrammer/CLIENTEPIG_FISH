@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, FabContainer, ModalController } from 'ionic-angular';
+import { NavController, AlertController, FabContainer, ModalController,ToastController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
+import { TicketsProvider } from '../../providers/tickets/tickets';
 
 @Component({
   selector: 'page-cuentas',
@@ -9,11 +10,11 @@ import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 })
 export class cuentasPage {
 
-  public mesas: Array<object> = [];
   private detalle: any = DetallecuentasPage;
   public folio = 0;//Esta variable es temporal... favor de eliminar...
-
-  constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController) {
+  public arreglo:any = [];
+  constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController,
+  private ticketsPrd:TicketsProvider,private toasCtrl:ToastController) {
 
   }
 
@@ -36,15 +37,19 @@ export class cuentasPage {
         text: "Ingresar",
         handler: datos => {
           let identificadorCuenta = datos.cuenta;
-          this.folio = this.folio + 1;
-          let obj = {
-            id: this.folio,
-            nombre: identificadorCuenta,
-            fecha: '21/11/2018'
-          }
-          this.mesas.push(obj);
-          const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id});
-          mdl.present();
+          let objTicket = {
+             id_user:12,
+             nombre:identificadorCuenta,
+             id_carrito:this.login.getCarrito()
+          };
+          console.log(objTicket);
+          this.ticketsPrd.insert(objTicket).subscribe(datos => {
+            let t1 = this.toasCtrl.create({message:datos.respuesta,duration:1000});
+            t1.present();
+            const mdl = this.modal.create(this.detalle,{orden:datos.nombre,folio:datos.id_folio});
+            mdl.present();
+         });
+         
         }
       }]
 

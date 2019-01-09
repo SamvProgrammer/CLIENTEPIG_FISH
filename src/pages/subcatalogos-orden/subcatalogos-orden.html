@@ -21,89 +21,23 @@
 
     <div class="grid-full">
       <ion-row>
-        <ion-col>
+        <ion-col *ngFor = "let i of arreglo">
           <ion-card>
-            <h1 orange>27</h1>
-            <p>A homolar</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 grey>10</h1>
-            <p>Encerradas</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>41</h1>
-            <p>Em gozo</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>18</h1>
-            <p>Homologadas</p>
-          </ion-card>
-        </ion-col>
-        <ion-col>
-          <ion-card>
-            <h1 orange>27</h1>
-            <p>A homolar</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 grey>10</h1>
-            <p>Encerradas</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>41</h1>
-            <p>Em gozo</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>18</h1>
-            <p>Homologadas</p>
-          </ion-card>
-        </ion-col>
-        <ion-col>
-          <ion-card>
-            <h1 orange>27</h1>
-            <p>A homolar</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 grey>10</h1>
-            <p>Encerradas</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>41</h1>
-            <p>Em gozo</p>
-          </ion-card>
-        </ion-col>
-
-        <ion-col>
-          <ion-card>
-            <h1 green>18</h1>
-            <p>Homologadas</p>
+            <h1 orange>{{i.nombre}}</h1>
+            <p>Cuenta abierta </p>
+            <button (click)="agregarCarrito(i)" style="width:100%" ion-button icon-only color="morado">
+              <ion-icon name="cart"></ion-icon>
+            </button>
           </ion-card>
         </ion-col>
       </ion-row>
     </div>
 
   </div>
+  <ion-fab right bottom #fab>
+    <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab (click)="agregarCuenta(fab);"><ion-icon name="cart"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -10,6 +10,7 @@ export class LoginProvider {
   private entrar: boolean = false;
   private activarMenu: boolean = false;
   private objUsuario: any;
+  private id_carrito:any;
   constructor(private alerta: AlertController, private toasCtrl: ToastController,
     private usuariosPrd: UsuariosProvider) {
 
@@ -115,6 +116,14 @@ export class LoginProvider {
     respuesta = respuesta != null ? respuesta : false;
 
     return respuesta;
+  }
+
+  public setCarrito(id):any{
+    this.id_carrito = id;
+  }
+
+  public getCarrito():any{
+    return this.id_carrito;
   }
 
 }

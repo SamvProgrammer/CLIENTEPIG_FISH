@@ -1,0 +1,54 @@
+<!--
+  Generated template for the ProductoscombosypromocionesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Combos y Promociones
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content >
+  <div cards>
+
+    <div class="grid-full">
+      <ion-row>
+        <ion-col>
+          <ion-card>
+            <h4 orange><strong>COMBOS</strong></h4>
+            <p>Módulo para la gestión de combos. </p>
+            <button (click)="ingresarCombo()" style="width:100%" ion-button icon-only color="success">
+              Gestionar<ion-icon name="arrow-round-forward"></ion-icon> 
+            </button>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <h4 orange><strong>PROMOCIONES</strong></h4>
+            <p>Módulo para la gestión de promociones. </p>
+            <button (click)="ingresarPromociones()" style="width:100%" ion-button icon-only color="success">
+              Gestionar<ion-icon name="arrow-round-forward"></ion-icon> 
+            </button>
+          </ion-card>
+        </ion-col>
+      
+      </ion-row>
+    </div>
+
+  </div>
+  <ion-fab right bottom #fab>
+    <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab (click)="agregarCuenta(fab);"><ion-icon name="cart"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
