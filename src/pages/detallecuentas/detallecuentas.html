@@ -22,34 +22,19 @@
   <ion-slides #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
       <ion-content>
-        <ion-list class="fondo">
-          <ion-list-header color="light">
-            <strong>Productos</strong>
-            <p>
-              <strong>Folio: {{folio}}</strong> Mesero : 1 - Orden: {{orden}}</p>
-          </ion-list-header>
-          <ion-item *ngFor="let i of arreglo;let indice = index">
-            <ion-avatar item-start>
-              <img src="../../assets/tacos.jpg">
-            </ion-avatar>
-            <h2>{{i.nombre}}</h2>
-            <strong>Precio: {{i.precio | currency}}</strong>
-            <div item-end class="estilobotones">
-              <button ion-button color="rojo" (click)="restar(indice);" icon-only>
-                <ion-icon name="remove"></ion-icon>
-              </button>
-              <input type="text" placeholder=" " [value]="getcantidad(indice)" disabled>
-              <button ion-button icon-only color="botones" (click)="sumar(indice);">
-                <ion-icon name="add"></ion-icon>
-              </button>
-              <p>
-                <button (click)="agregarCarrito(indice)" style="width:100%" ion-button icon-only color="morado">
-                  <ion-icon name="cart"></ion-icon>
-                </button>
-              </p>
+          <div cards>
+
+              <div class="grid-full">
+                <ion-row>
+                  <ion-col *ngFor = "let i of arreglo" (click) = "agregar(i)">
+                    <ion-card color="verdesito">
+                      <h4 orange><strong>{{i.nombre}}</strong></h4>
+                      <p>{{i.descripcion}} </p>
+                    </ion-card>
+                  </ion-col>          
+                </ion-row>
+              </div>          
             </div>
-          </ion-item>
-        </ion-list>
       </ion-content>
     </ion-slide>
     <ion-slide>

@@ -28,6 +28,7 @@ import { SubcatalogosOrdenPage } from '../pages/subcatalogos-orden/subcatalogos-
 import { ProductoscombosypromocionesPage } from '../pages/productoscombosypromociones/productoscombosypromociones';
 import { ProductoscombosPage } from '../pages/productoscombos/productoscombos';
 import { ProductospromocionesPage } from '../pages/productospromociones/productospromociones';
+import { DetallecuentasProductosPage } from '../pages/detallecuentas-productos/detallecuentas-productos';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -66,7 +67,8 @@ import { TicketsProvider } from '../providers/tickets/tickets';
     SubcatalogosOrdenPage,
     ProductoscombosypromocionesPage,
     ProductoscombosPage,
-    ProductospromocionesPage
+    ProductospromocionesPage,
+    DetallecuentasProductosPage
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ import { TicketsProvider } from '../providers/tickets/tickets';
     SubcatalogosOrdenPage,
     ProductoscombosypromocionesPage,
     ProductoscombosPage,
-    ProductospromocionesPage
+    ProductospromocionesPage,
+    DetallecuentasProductosPage
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ViewController, Slides, ToastController, AlertController, ActionSheetController } from 'ionic-angular';
-
+import { NavController, NavParams, ViewController, Slides, ToastController, AlertController, ActionSheetController , ModalController} from 'ionic-angular';
+import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
+import { DetallecuentasProductosPage } from '../detallecuentas-productos/detallecuentas-productos';
 
 @Component({
   selector: 'page-detallecuentas',
@@ -11,15 +12,20 @@ export class DetallecuentasPage {
   @ViewChild("segments") segments;
   page: any;
   public valor = 1;
-  public arreglo = [{ nombre: "chapata", precio: 50, cantidad: 1 }, { nombre: "Torta", precio: 60, cantidad: 1 }, { nombre: "Arrachera", precio: 80, cantidad: 1 }, { nombre: "Agua", precio: 70, cantidad: 1 }];
+  public arreglo = [];
   public order = [{ nombre: "chapata", precio: 50, cantidad: 2 }, { nombre: "Torta", precio: 60, cantidad: 4 }, { nombre: "Arrachera", precio: 80, cantidad: 1 }, { nombre: "Agua", precio: 70, cantidad: 3 }];
   public orden: any;
   public folio: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController) {
+    private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
+    private categoriasPrd:ProductoscategoriasProvider,private modalCtrl:ModalController) {
 
     this.orden = navParams.get("orden");
     this.folio = navParams.get("folio");
+    this.categoriasPrd.getCategorias().subscribe(datos => {
+      this.arreglo = datos;
+      console.log(datos);
+    });
   }
 
   // Initialize slider
@@ -182,5 +188,11 @@ export class DetallecuentasPage {
     });
     actionSheet.present();
 
+  }
+
+  public agregar(obj):any{
+      let modal = this.modalCtrl.create(DetallecuentasProductosPage);
+      modal.present();
+      
   }
 }
