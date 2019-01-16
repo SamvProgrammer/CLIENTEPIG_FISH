@@ -31,6 +31,7 @@ import { ProductospromocionesPage } from '../pages/productospromociones/producto
 import { DetallecuentasProductosPage } from '../pages/detallecuentas-productos/detallecuentas-productos';
 import { ProductoscombosAddPage } from '../pages/productoscombos-add/productoscombos-add';
 import { ProductoscombosAddmodalproductoPage } from '../pages/productoscombos-addmodalproducto/productoscombos-addmodalproducto';
+import { DetallecuentasResumenPage } from '../pages/detallecuentas-resumen/detallecuentas-resumen';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -73,7 +74,8 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductospromocionesPage,
     DetallecuentasProductosPage,
     ProductoscombosAddPage,
-    ProductoscombosAddmodalproductoPage
+    ProductoscombosAddmodalproductoPage,
+    DetallecuentasResumenPage
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductospromocionesPage,
     DetallecuentasProductosPage,
     ProductoscombosAddPage,
-    ProductoscombosAddmodalproductoPage
+    ProductoscombosAddmodalproductoPage,
+    DetallecuentasResumenPage
   ],
   providers: [
     StatusBar,

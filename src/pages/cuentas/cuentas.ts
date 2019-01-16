@@ -86,8 +86,8 @@ export class cuentasPage {
   }
 
   public entrarDetalle(obj): any {
-
-    const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id});
+    console.log(obj);
+    const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id_ticket});
     mdl.present();
   }
 }

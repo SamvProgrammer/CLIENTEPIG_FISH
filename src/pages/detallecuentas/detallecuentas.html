@@ -40,7 +40,7 @@
     <ion-slide>
       <ion-content>
         <ion-grid class="fondo letras">
-          <ion-row *ngFor="let i of order">
+          <ion-row *ngFor="let i of detalle">
             <ion-col col-5>
               {{i.nombre}}
             </ion-col>
@@ -56,8 +56,24 @@
               {{(i.cantidad * i.precio) | currency}}
             </ion-col>
           </ion-row>
+          <ion-row style="background: papayawhip;">
+              <ion-col col-9 style="text-align: center">
+                  <strong>Total:</strong>
+              </ion-col>
+              <ion-col >
+                  <strong>{{total | currency}}</strong>
+              </ion-col>
+          </ion-row>
         </ion-grid>
       </ion-content>
+      <ion-footer>
+        <ion-toolbar color="gris">
+          <button (click) = "cobrar();" ion-button icon-only color="primary" style="width: 30%;">
+            
+            Cobrar
+          </button>
+        </ion-toolbar>
+      </ion-footer>
     </ion-slide>
   </ion-slides>
 </ion-content>

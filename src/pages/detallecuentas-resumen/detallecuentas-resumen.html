@@ -1,0 +1,70 @@
+<!--
+  Generated template for the DetallecuentasResumenPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Resumen de la cuenta</ion-title>
+    <ion-buttons left>
+      <button (click)="salir()" ion-button icon-end icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-content>
+    <ion-grid>
+      <ion-row class="cabecera">
+        <ion-col col-3>
+          <STRONG>Nombre</STRONG>
+        </ion-col>
+        <ion-col col-3>
+          <STRONG>Cantidad</STRONG>
+        </ion-col>
+        <ion-col col-3>
+          <STRONG>C/U</STRONG>
+        </ion-col>
+        <ion-col>
+          <STRONG>Total</STRONG>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let i of arreglo">
+        <ion-col col-3>
+          {{i.nombre}}
+        </ion-col>
+        <ion-col col-3>
+          {{i.cantidad}}
+        </ion-col>
+        <ion-col col-3>
+          {{i.unitario | currency}}
+        </ion-col>
+        <ion-col>
+          {{i.precio_total | currency}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="cabecera" >
+        <ion-col col-9>
+          <strong>Total: </strong>
+        </ion-col>
+        <ion-col>
+          <strong>{{total | currency}}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
+  <ion-footer>
+    <ion-toolbar color="gris" style="text-align: center">
+      <button (click) = "cobrar();" ion-button icon-only color="primary" style="width: 30%;">
+            
+        Cerrar Cuenta
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+
+  

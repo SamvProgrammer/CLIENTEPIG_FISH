@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ViewController, Slides, ToastController, AlertController, ActionSheetController , ModalController} from 'ionic-angular';
 import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
 import { DetallecuentasProductosPage } from '../detallecuentas-productos/detallecuentas-productos';
+import { TicketsProvider } from '../../providers/tickets/tickets';
+import { DetallecuentasResumenPage } from '../../pages/detallecuentas-resumen/detallecuentas-resumen';
 
 @Component({
   selector: 'page-detallecuentas',
@@ -13,18 +15,28 @@ export class DetallecuentasPage {
   page: any;
   public valor = 1;
   public arreglo = [];
-  public order = [{ nombre: "chapata", precio: 50, cantidad: 2 }, { nombre: "Torta", precio: 60, cantidad: 4 }, { nombre: "Arrachera", precio: 80, cantidad: 1 }, { nombre: "Agua", precio: 70, cantidad: 3 }];
   public orden: any;
   public folio: any;
+  public detalle:any = [];
+  public total = 0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
-    private categoriasPrd:ProductoscategoriasProvider,private modalCtrl:ModalController) {
+    private categoriasPrd:ProductoscategoriasProvider,private modalCtrl:ModalController,
+    private ticketsPrd:TicketsProvider) {
 
     this.orden = navParams.get("orden");
     this.folio = navParams.get("folio");
     this.categoriasPrd.getCategorias().subscribe(datos => {
       this.arreglo = datos;
-      console.log(datos);
+    });
+
+    this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+      this.detalle = datos;
+      this.total  = 0;
+      for(let item of datos){
+        this.total = this.total + (item.cantidad * item.precio);
+      }
     });
   }
 
@@ -164,10 +176,10 @@ export class DetallecuentasPage {
               buttons: [{
                 text: "Aceptar",
                 handler: () => {
-                  this.order.splice(obj,1);
+                 // this.order.splice(obj,1);
                   let toast = this.toastCtrl.create({ message: "Productos eliminados", duration: 1500 });
                   toast.present();
-                  console.log(this.order);
+                  //console.log(this.order);
                 }
               },
               {
@@ -191,12 +203,24 @@ export class DetallecuentasPage {
   }
 
   public agregar(obj):any{
-      let modal = this.modalCtrl.create(DetallecuentasProductosPage,{id:obj.id});
+    console.log(this.folio);
+      let modal = this.modalCtrl.create(DetallecuentasProductosPage,{id:obj.id,folio:this.folio});
       modal.present();
 
       modal.onDidDismiss(() => {
-        //Evento cuando se cierra la ventana 
+        this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+          this.detalle = datos;
+          this.total = 0;
+          for(let item of datos){
+            this.total = this.total + (item.cantidad * item.precio);
+          }
+        });
       });
       
   }
+
+  public cobrar():any{
+    let modal =  this.modalCtrl.create(DetallecuentasResumenPage,{id_ticket:this.folio});
+    modal.present();
+  }  
 }

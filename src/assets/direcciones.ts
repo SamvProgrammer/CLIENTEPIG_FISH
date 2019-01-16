@@ -5,6 +5,6 @@ export const direcciones:any = {
     carritos:ip+"/catalogos/carritos",
     categorias:ip+"/catalogos/categorias",
     productos:ip+"/catalogos/productos",
-    tickets:ip+"/catalogos/tickets/",
+    tickets:ip+"/catalogos/tickets",
     combos:ip+"/catalogos/combos"
 };

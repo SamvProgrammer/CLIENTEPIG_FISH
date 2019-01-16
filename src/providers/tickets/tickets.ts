@@ -52,4 +52,40 @@ export class TicketsProvider {
     this.data = this.http.post(filtrarDireccion,{},httpOptions);
     return this.data;
    }
+
+
+   public insertDetalle(obj):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let ruta = this.direccion+"/detalle";
+    let json = JSON.stringify(obj);
+    return this.http.post(ruta,json,httpOptions);
+   }
+
+   public getTicketsDetalle(id_ticket):Observable<any>{   
+    let filtrarDireccion = this.direccion +"/detalle/"+id_ticket;
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+   }
+   public getTicketsDetalleAgrupado(id_ticket):Observable<any>{   
+    let filtrarDireccion = this.direccion +"/detalle/agrupado/"+id_ticket;
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+   }
+
+   public cobrarTicket(obj):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let ruta = this.direccion+"/cobrado";
+    let json = JSON.stringify(obj);
+    return this.http.put(ruta,json,httpOptions);
+   }
 }

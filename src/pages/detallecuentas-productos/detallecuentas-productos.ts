@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ViewController,ToastController } from 'ionic-angular';
 import { ProductosProvider } from '../../providers/productos/productos';
+import { TicketsProvider } from '../../providers/tickets/tickets';
 
 /**
  * Generated class for the DetallecuentasProductosPage page.
@@ -18,10 +19,14 @@ export class DetallecuentasProductosPage {
 
   public arreglo:any = [];
 
+  public identificador;
   constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
-              private productosPrd:ProductosProvider) {
-    let identificador = navParams.get("id");
-    productosPrd.getProductosCategoria(identificador).subscribe(datos => {
+              private productosPrd:ProductosProvider,private toasCtrl:ToastController,
+              private TikectPdr:TicketsProvider) {
+    let id = navParams.get("id");
+    
+    this.identificador = navParams.get("folio");
+    productosPrd.getProductosCategoria(id).subscribe(datos => {
         for(let item of datos){
           item.cantidad = 1;
         }
@@ -57,6 +62,20 @@ export class DetallecuentasProductosPage {
     cantidad = cantidad + 1;
     this.arreglo[indice].cantidad = cantidad;
 
+  }
+
+  public agregarCarrito(obj):any{
+    var enviar = {
+      id_ticket:this.identificador,
+      id_producto:obj.id_producto,
+      cantidad:obj.cantidad
+    }
+
+    this.TikectPdr.insertDetalle(enviar).subscribe(datos =>{
+      let toas = this.toasCtrl.create({message:datos.respuesta,duration:1000});
+      toas.present();
+    });
+    
   }
 
 }
