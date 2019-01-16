@@ -29,6 +29,8 @@ import { ProductoscombosypromocionesPage } from '../pages/productoscombosypromoc
 import { ProductoscombosPage } from '../pages/productoscombos/productoscombos';
 import { ProductospromocionesPage } from '../pages/productospromociones/productospromociones';
 import { DetallecuentasProductosPage } from '../pages/detallecuentas-productos/detallecuentas-productos';
+import { ProductoscombosAddPage } from '../pages/productoscombos-add/productoscombos-add';
+import { ProductoscombosAddmodalproductoPage } from '../pages/productoscombos-addmodalproducto/productoscombos-addmodalproducto';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +41,7 @@ import { CarritoProvider } from '../providers/carrito/carrito';
 import { ProductoscategoriasProvider } from '../providers/productoscategorias/productoscategorias';
 import { ProductosProvider } from '../providers/productos/productos';
 import { TicketsProvider } from '../providers/tickets/tickets';
+import { CombosProvider } from '../providers/combos/combos';
 
 
 @NgModule({
@@ -68,7 +71,9 @@ import { TicketsProvider } from '../providers/tickets/tickets';
     ProductoscombosypromocionesPage,
     ProductoscombosPage,
     ProductospromocionesPage,
-    DetallecuentasProductosPage
+    DetallecuentasProductosPage,
+    ProductoscombosAddPage,
+    ProductoscombosAddmodalproductoPage
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,9 @@ import { TicketsProvider } from '../providers/tickets/tickets';
     ProductoscombosypromocionesPage,
     ProductoscombosPage,
     ProductospromocionesPage,
-    DetallecuentasProductosPage
+    DetallecuentasProductosPage,
+    ProductoscombosAddPage,
+    ProductoscombosAddmodalproductoPage
   ],
   providers: [
     StatusBar,
@@ -114,7 +121,8 @@ import { TicketsProvider } from '../providers/tickets/tickets';
     CarritoProvider,
     ProductoscategoriasProvider,
     ProductosProvider,
-    TicketsProvider
+    TicketsProvider,
+    CombosProvider
   ]
 })
 export class AppModule {}

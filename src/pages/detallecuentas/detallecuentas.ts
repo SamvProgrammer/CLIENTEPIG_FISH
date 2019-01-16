@@ -191,8 +191,12 @@ export class DetallecuentasPage {
   }
 
   public agregar(obj):any{
-      let modal = this.modalCtrl.create(DetallecuentasProductosPage);
+      let modal = this.modalCtrl.create(DetallecuentasProductosPage,{id:obj.id});
       modal.present();
+
+      modal.onDidDismiss(() => {
+        //Evento cuando se cierra la ventana 
+      });
       
   }
 }

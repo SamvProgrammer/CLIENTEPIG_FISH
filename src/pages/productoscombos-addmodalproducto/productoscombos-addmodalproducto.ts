@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angula
 import { ProductosProvider } from '../../providers/productos/productos';
 
 /**
- * Generated class for the DetallecuentasProductosPage page.
+ * Generated class for the ProductoscombosAddmodalproductoPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,30 +11,30 @@ import { ProductosProvider } from '../../providers/productos/productos';
 
 
 @Component({
-  selector: 'page-detallecuentas-productos',
-  templateUrl: 'detallecuentas-productos.html',
+  selector: 'page-productoscombos-addmodalproducto',
+  templateUrl: 'productoscombos-addmodalproducto.html',
 })
-export class DetallecuentasProductosPage {
+export class ProductoscombosAddmodalproductoPage {
 
-  public arreglo:any = [];
+ public arreglo:any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
               private productosPrd:ProductosProvider) {
-    let identificador = navParams.get("id");
-    productosPrd.getProductosCategoria(identificador).subscribe(datos => {
-        for(let item of datos){
-          item.cantidad = 1;
-        }
+          productosPrd.getProductos().subscribe(datos =>{
+              for(let i of datos){
+                  i.cantidad = 1;
+                  i.elegido = false;
+              }
+              this.arreglo = datos;
 
-        this.arreglo = datos;
-    });
+          });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetallecuentasProductosPage');
+    console.log('ionViewDidLoad ProductoscombosAddmodalproductoPage');
   }
 
-  public salir() {
+  public salir():any{
     this.viewCtrl.dismiss();
   }
 
@@ -59,4 +59,14 @@ export class DetallecuentasProductosPage {
 
   }
 
+
+  public hecho():any{
+      let enviar = [];
+      for(let item of this.arreglo){
+        if(item.elegido){
+            enviar.push(item);
+        }
+      }
+      this.viewCtrl.dismiss({datos:enviar});
+  }
 }
