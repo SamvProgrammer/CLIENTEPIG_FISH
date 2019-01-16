@@ -25,7 +25,7 @@
           <ion-label>{{i.nombre_categoria}} <p>{{i.nombre}}</p></ion-label>
           
           <ion-checkbox [(ngModel)]="i.elegido" ></ion-checkbox>
-          <div item-end class="estilobotones">
+          <div item-end class="estilobotones"  *ngIf="i.elegido">
               <button ion-button color="rojo" (click)="restar(indice);" icon-only>
                 <ion-icon name="remove"></ion-icon>
               </button>

@@ -17,13 +17,30 @@ import { ProductosProvider } from '../../providers/productos/productos';
 export class ProductoscombosAddmodalproductoPage {
 
  public arreglo:any = [];
+ public productosElegidos = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
               private productosPrd:ProductosProvider) {
+      this.productosElegidos = navParams.get("productos");
+      console.log(this.productosElegidos);
+      let encontrado = false;
           productosPrd.getProductos().subscribe(datos =>{
               for(let i of datos){
+                  for(let x of this.productosElegidos){
+                     if(x.id_producto == i.id_producto){
+                         i.cantidad = x.cantidad;
+                         i.elegido = true;
+                         encontrado = true;
+                         break;
+                     }
+                  }                 
+                 if(!encontrado){
                   i.cantidad = 1;
                   i.elegido = false;
+                  encontrado = false;
+
+                 }
+                 encontrado = false;
               }
               this.arreglo = datos;
 
@@ -35,7 +52,7 @@ export class ProductoscombosAddmodalproductoPage {
   }
 
   public salir():any{
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({datos:null});
   }
 
   public getcantidad(indice): any {

@@ -25,6 +25,12 @@ export class CombosProvider {
     return this.data;
    }
 
+   public getCombosDetalle(id):Observable<any>{   
+    let ruta = this.direccion+"/detalle/"+id;
+    this.data = this.http.get(ruta);
+    return this.data;
+   }
+
    public eliminarCombos(id):Observable<any>{
     this.data = this.http.delete(this.direccion+"/"+id);
     return this.data;

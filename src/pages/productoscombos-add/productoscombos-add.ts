@@ -20,8 +20,6 @@ export class ProductoscombosAddPage {
   myForm: FormGroup;
   public boton: string = "";
   private id;
-  public arregloRoles: any = [];
-  public arregloCarrito: any = [];
   private variable;
   public productos:any = [];
 
@@ -44,6 +42,9 @@ export class ProductoscombosAddPage {
 
       this.id = this.variable.id_combo;
       this.myForm = this.createMyForm(this.variable);
+      this.combosPrd.getCombosDetalle(this.id).subscribe(datos => {
+        this.productos = datos;
+      });
     }
   }
 
@@ -92,10 +93,12 @@ export class ProductoscombosAddPage {
 
 
   public agregarproductos():any{
-     let modal = this.modalCtrl.create(ProductoscombosAddmodalproductoPage);
+     let modal = this.modalCtrl.create(ProductoscombosAddmodalproductoPage,{productos:this.productos});
      modal.present();
      modal.onDidDismiss(datos => {
-       this.productos = datos.datos;
+       if(datos.datos){
+        this.productos = datos.datos;
+       }
      });
   }
 
