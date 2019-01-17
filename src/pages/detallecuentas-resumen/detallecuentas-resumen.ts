@@ -56,16 +56,17 @@ export class DetallecuentasResumenPage {
             this.ticketsPrd.cobrarTicket(objEnviar).subscribe(datos => {
               let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
               toas.present();
-              this.viewCtrl.dismiss({ id_ticket: objEnviar.id_ticket });
+              this.viewCtrl.dismiss({ id_ticket: objEnviar.id_ticket,billete:cantidad });
             });
 
           }else{
-              let alerta = this.alertCtrl.create({title:"Monto incorrecto",subTitle:""});
+              let alerta = this.alertCtrl.create({title:"Monto incorrecto",subTitle:"El monto ingresado debe ser mayor o igual al monto gastado",
+            buttons:[{text:"Aceptar",handler:()=>{}}]});
+              alerta.present();
           }
         }
       }]
     });
-
     alerta.present();
   }
 

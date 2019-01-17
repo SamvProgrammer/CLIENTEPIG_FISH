@@ -91,8 +91,7 @@ export class cuentasPage {
     mdl.present();
     mdl.onDidDismiss(datos => {
         if(datos){
-           console.log("Se ejecuta la modal");
-           console.log("Esa es del detalle "+datos.id_ticket);
+           //Se realiza el ticket 
            this.traerCuentas();
         }
     });
@@ -104,8 +103,7 @@ export class cuentasPage {
 
      modal.onDidDismiss(datos => {
       if(datos){
-         console.log("Se ejecuta la modal");
-         console.log("Esta es la final COBRAR "+datos.id_ticket);
+        //Se realiza el ticket...
          this.traerCuentas();
       }
   });

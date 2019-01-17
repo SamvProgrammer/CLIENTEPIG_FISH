@@ -225,9 +225,7 @@ export class DetallecuentasPage {
 
     modal.onDidDismiss(datos => {
         if(datos){
-            console.log("Se ejecuta la modal");
-            console.log(datos.id_ticket);
-            this.viewCtrl.dismiss({id_ticket:datos.id_ticket});
+            this.viewCtrl.dismiss({id_ticket:datos.id_ticket,billete:datos.billete});
         }
     });
   }  
