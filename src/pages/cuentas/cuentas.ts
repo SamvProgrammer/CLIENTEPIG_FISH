@@ -3,6 +3,7 @@ import { NavController, AlertController, FabContainer, ModalController,ToastCont
 import { LoginProvider } from '../../providers/login/login';
 import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 import { TicketsProvider } from '../../providers/tickets/tickets';
+import { DetallecuentasResumenPage } from '../detallecuentas-resumen/detallecuentas-resumen';
 
 @Component({
   selector: 'page-cuentas',
@@ -86,8 +87,27 @@ export class cuentasPage {
   }
 
   public entrarDetalle(obj): any {
-    console.log(obj);
-    const mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id_ticket});
+    let mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id_ticket});
     mdl.present();
+    mdl.onDidDismiss(datos => {
+        if(datos){
+           console.log("Se ejecuta la modal");
+           console.log("Esa es del detalle "+datos.id_ticket);
+           this.traerCuentas();
+        }
+    });
+  }
+
+  public cobrar(id):any{
+     let modal = this.modal.create(DetallecuentasResumenPage,{id_ticket:id});
+     modal.present();
+
+     modal.onDidDismiss(datos => {
+      if(datos){
+         console.log("Se ejecuta la modal");
+         console.log("Esta es la final COBRAR "+datos.id_ticket);
+         this.traerCuentas();
+      }
+  });
   }
 }

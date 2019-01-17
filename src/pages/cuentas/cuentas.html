@@ -25,7 +25,7 @@
             <strong item-end>Total: {{i.total | currency}}</strong>
           </ion-item>  
           <ion-item-options side="right">
-            <button color="success" ion-button><ion-icon name="checkmark-circle"></ion-icon>Cobrar</button>
+            <button color="success" (click)  = "cobrar(i.id_ticket);" ion-button><ion-icon name="checkmark-circle"></ion-icon>Cobrar</button>
             <button color="danger" (click) = "cancelar(i.id_ticket)" ion-button><ion-icon name="trash" ></ion-icon>Cancelar
             </button>
           </ion-item-options>

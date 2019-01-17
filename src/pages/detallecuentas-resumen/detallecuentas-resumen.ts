@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, ToastController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 
 /**
@@ -20,7 +20,7 @@ export class DetallecuentasResumenPage {
   public total = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
-    private ticketsPrd: TicketsProvider, private alertCtrl: AlertController,private toasCtrl:ToastController) {
+    private ticketsPrd: TicketsProvider, private alertCtrl: AlertController, private toasCtrl: ToastController) {
 
     this.id_ticket = this.navParams.get("id_ticket");
     this.ticketsPrd.getTicketsDetalleAgrupado(this.id_ticket).subscribe(datos => {
@@ -43,19 +43,25 @@ export class DetallecuentasResumenPage {
 
   public cobrar(): any {
     let alerta = this.alertCtrl.create({
-      title: "Efectivo", inputs: [{ placeholder: "Efectivo", type: "number", name: "datos" }],
+      title: "Efectivo", inputs: [{ placeholder: "Efectivo", type: "number", name: "cantidad" }],
       buttons: [{
         text: "Cobrar", handler: datos => {
-          let cantidad = datos.datos;
-          let objEnviar = {
-              id_ticket:this.id_ticket,
-              total:this.total
-          };
-
-          this.ticketsPrd.cobrarTicket(objEnviar).subscribe(datos => {
-              let toas = this.toasCtrl.create({message:datos.respuesta,duration:1000});
+          let cantidad = datos.cantidad;
+          if(Number(cantidad) >= Number(this.total)){
+            let objEnviar = {
+              id_ticket: this.id_ticket,
+              total: this.total
+            };
+  
+            this.ticketsPrd.cobrarTicket(objEnviar).subscribe(datos => {
+              let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
               toas.present();
-          });
+              this.viewCtrl.dismiss({ id_ticket: objEnviar.id_ticket });
+            });
+
+          }else{
+              let alerta = this.alertCtrl.create({title:"Monto incorrecto",subTitle:""});
+          }
         }
       }]
     });
