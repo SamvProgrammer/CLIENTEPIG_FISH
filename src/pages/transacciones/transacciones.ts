@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, FabContainer } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { TicketsProvider } from '../../providers/tickets/tickets';
+import { TicketPage } from '../ticket/ticket';
 
 @Component({
   selector: 'page-transacciones',
@@ -33,5 +34,10 @@ export class TransaccionesPage {
   public ingresarSistema(fab: FabContainer): any {
     fab.close();
     this.login.entrarSistema();
+  }
+
+  public reimprimir(obj):any{
+
+    this.navCtrl.push(TicketPage,{id_ticket:obj.id_ticket});
   }
 }

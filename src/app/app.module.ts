@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Vibration } from '@ionic-native/vibration';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -32,6 +33,7 @@ import { DetallecuentasProductosPage } from '../pages/detallecuentas-productos/d
 import { ProductoscombosAddPage } from '../pages/productoscombos-add/productoscombos-add';
 import { ProductoscombosAddmodalproductoPage } from '../pages/productoscombos-addmodalproducto/productoscombos-addmodalproducto';
 import { DetallecuentasResumenPage } from '../pages/detallecuentas-resumen/detallecuentas-resumen';
+import { TicketPage } from '../pages/ticket/ticket';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -75,7 +77,8 @@ import { CombosProvider } from '../providers/combos/combos';
     DetallecuentasProductosPage,
     ProductoscombosAddPage,
     ProductoscombosAddmodalproductoPage,
-    DetallecuentasResumenPage
+    DetallecuentasResumenPage,
+    TicketPage
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ import { CombosProvider } from '../providers/combos/combos';
     DetallecuentasProductosPage,
     ProductoscombosAddPage,
     ProductoscombosAddmodalproductoPage,
-    DetallecuentasResumenPage
+    DetallecuentasResumenPage,
+    TicketPage
   ],
   providers: [
     StatusBar,
@@ -125,7 +129,8 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductoscategoriasProvider,
     ProductosProvider,
     TicketsProvider,
-    CombosProvider
+    CombosProvider,
+    Vibration
   ]
 })
 export class AppModule {}

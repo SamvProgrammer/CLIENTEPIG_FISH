@@ -4,6 +4,7 @@ import { LoginProvider } from '../../providers/login/login';
 import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { DetallecuentasResumenPage } from '../detallecuentas-resumen/detallecuentas-resumen';
+import { TicketPage } from '../ticket/ticket';
 
 @Component({
   selector: 'page-cuentas',
@@ -90,9 +91,9 @@ export class cuentasPage {
     let mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id_ticket});
     mdl.present();
     mdl.onDidDismiss(datos => {
-        if(datos){
-           //Se realiza el ticket 
+        if(datos){          
            this.traerCuentas();
+            this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
         }
     });
   }
@@ -103,9 +104,12 @@ export class cuentasPage {
 
      modal.onDidDismiss(datos => {
       if(datos){
-        //Se realiza el ticket...
          this.traerCuentas();
+         this.traerCuentas();
+            this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
       }
   });
   }
+
+ 
 }

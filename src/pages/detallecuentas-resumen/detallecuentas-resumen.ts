@@ -26,7 +26,7 @@ export class DetallecuentasResumenPage {
     this.ticketsPrd.getTicketsDetalleAgrupado(this.id_ticket).subscribe(datos => {
       this.arreglo = datos;
       for (let i of datos) {
-        console.log(i.precio_total);
+        
         this.total = this.total + i.precio_total;
       }
     });

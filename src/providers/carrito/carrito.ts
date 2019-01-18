@@ -24,6 +24,10 @@ export class CarritoProvider {
     this.data = this.http.get(this.direccion);
     return this.data;
    }
+   public getCarritosEspecifico(id):Observable<any>{   
+    this.data = this.http.get(this.direccion+"/"+id);
+    return this.data;
+   }
 
    public eliminarUsuario(id):Observable<any>{
     this.data = this.http.delete(this.direccion+"/"+id);
