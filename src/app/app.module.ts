@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Vibration } from '@ionic-native/vibration';
 import { SMS } from '@ionic-native/sms';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { CurrencyPipe } from '@angular/common';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -134,7 +135,8 @@ import { CombosProvider } from '../providers/combos/combos';
     TicketsProvider,
     CombosProvider,
     Vibration,
-    SMS
+    SMS,
+    CurrencyPipe
   ]
 })
 export class AppModule {}

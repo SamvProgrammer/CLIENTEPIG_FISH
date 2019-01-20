@@ -5,7 +5,7 @@ import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
 import { Vibration } from '@ionic-native/vibration';
 import { SMS } from '@ionic-native/sms';
-
+import { CurrencyPipe } from '@angular/common';
 /**
  * Generated class for the TicketPage page.
  *
@@ -33,7 +33,8 @@ export class TicketPage {
               private Vibrador:Vibration,
               private alerta:AlertController,
               private toasCtrl:ToastController,
-              private sms: SMS) {
+              private sms: SMS,
+              private currency : CurrencyPipe) {
     this.billete = navParams.get("billete");
     let id_ticket = navParams.get("id_ticket");
     ticketsPrd.getTicketsDetalleAgrupado(id_ticket).subscribe(datos=>{
@@ -88,7 +89,29 @@ export class TicketPage {
               inputs:[{type:"number",placeholder:"Número de celular",name:"celular"}],
               buttons:[{text:"Enviar",handler:datos=>{
                  if(datos.celular.length == 10){
-                  this.sms.send(datos.celular, 'Ticket PIG&FISH\nse puede \nsepuede\sepuede');
+
+                  let mensaje = "";
+
+                  let sucursal = "Sucursal: "+this.nombre_sucursal+"\n";
+                  let cuenta = "N° Folio: "+this.folio+"\n";
+                  let lineas = "-----------------------\n";
+                  let lineas2 = "Productos consumidos\n";
+                  let productos = "";
+                  let total ="Total: "+ this.currency.transform(this.total);
+                  for(let item of this.arreglo){
+                      let cantidad = item.cantidad;
+                      let nombre = item.nombre;
+                      let unitario = this.currency.transform(item.unitario);
+                      let precioTotalCantidad = this.currency.transform(item.precio_total);
+
+
+                      productos = productos + cantidad+" "+nombre+" "+precioTotalCantidad+"\n";
+                  }
+                  
+                  mensaje = sucursal+cuenta+lineas+lineas2+productos+lineas+total;
+                  
+
+                  this.sms.send(datos.celular, mensaje);
                   let toas = this.toasCtrl.create({message:"Mensaje enviado correctamente",duration:1500});
                   this.navCtrl.pop();
                   toas.present();

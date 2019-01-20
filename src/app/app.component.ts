@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, MenuController, AlertController,ToastController } from 'ionic-angular';
+import { Platform, MenuController, AlertController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
@@ -28,32 +28,32 @@ export class MyApp {
   usuarios: any = UsuariosPage;
   inicio: any = TabsPage;
   sucursales: any = SucursalesPage;
-  historial:any = HistorialPage;
-  inventario:any = InventarioPage;
+  historial: any = HistorialPage;
+  inventario: any = InventarioPage;
   pedidos: any = PedidosPage;
-  configuracion:any = ConfiguracionPage;
-  productos:any = ProductosPage;
+  configuracion: any = ConfiguracionPage;
+  productos: any = ProductosPage;
 
-  constructor(platform: Platform,public androidPermissions:AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor(platform: Platform, public androidPermissions: AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
-    private toasCtrl:ToastController) {
+    private toasCtrl: ToastController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-   
-      this .androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS)
-      .then( success => {
-          
-      }, 
-      err => {
-          
-      }); 
 
-    
+      if (platform.is('cordova')) {
+        this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS)
+          .then(success => {
 
-    this .androidPermissions.requestPermissions ([ this .androidPermissions.PERMISSION.READ_SMS]);
+          },
+            err => {
+
+            });
+
+        this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.READ_SMS]);
+      }
     });
 
   }
@@ -90,9 +90,9 @@ export class MyApp {
             this.prdVerificaEntrar.setActivaMenu(false);
           }, 100);
         }
-      },{
-        text:"Cancelar",
-        handler:()=>{}
+      }, {
+        text: "Cancelar",
+        handler: () => { }
       }]
 
     });
