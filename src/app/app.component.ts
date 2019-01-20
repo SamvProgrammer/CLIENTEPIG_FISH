@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform, MenuController, AlertController,ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { PaginaentrarPage } from '../pages/paginaentrar/paginaentrar';
@@ -14,6 +15,7 @@ import { InventarioPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { ProductosPage } from '../pages/productos/productos';
+
 
 
 
@@ -32,7 +34,7 @@ export class MyApp {
   configuracion:any = ConfiguracionPage;
   productos:any = ProductosPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor(platform: Platform,public androidPermissions:AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
     private toasCtrl:ToastController) {
     platform.ready().then(() => {
@@ -40,6 +42,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+   
+      this .androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS)
+      .then( success => {
+          
+      }, 
+      err => {
+          
+      }); 
+
+    
+
+    this .androidPermissions.requestPermissions ([ this .androidPermissions.PERMISSION.READ_SMS]);
     });
 
   }

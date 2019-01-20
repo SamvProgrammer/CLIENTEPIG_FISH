@@ -4,6 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Vibration } from '@ionic-native/vibration';
+import { SMS } from '@ionic-native/sms';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -122,6 +124,7 @@ import { CombosProvider } from '../providers/combos/combos';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AndroidPermissions,
     LoginProvider,
     UsuariosProvider,
     RolesProvider,
@@ -130,7 +133,8 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductosProvider,
     TicketsProvider,
     CombosProvider,
-    Vibration
+    Vibration,
+    SMS
   ]
 })
 export class AppModule {}
