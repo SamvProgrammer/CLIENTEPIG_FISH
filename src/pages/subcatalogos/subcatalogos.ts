@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,FabContainer ,ModalController} from 'ionic-angular';
+import { NavController, NavParams,FabContainer ,ModalController,Platform} from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { ProductosProvider } from '../../providers/productos/productos';
 import { SubcatalogosOrdenPage } from './../subcatalogos-orden/subcatalogos-orden';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @Component({
   selector: 'page-subcatalogos',
@@ -14,7 +15,7 @@ public identificador:any = 0;
 public arreglo:any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private login: LoginProvider,
-              private productosPrd:ProductosProvider,private modalCtrl:ModalController) {
+              private productosPrd:ProductosProvider,private modalCtrl:ModalController,private reproductoryoutube:YoutubeVideoPlayer,private plataforma:Platform) {
      this.identificador =  this.navParams.get("obj");
      this.productosPrd.getProductosCategoria(this.identificador).subscribe(datos => {
         this.arreglo = datos;
@@ -30,5 +31,12 @@ public arreglo:any = [];
     let modal = this.modalCtrl.create(SubcatalogosOrdenPage,{parametro:obj});    
     modal.present();
   }
-    
+  
+  public vervideo(id){
+    if(this.plataforma.is('cordova')){
+      this.reproductoryoutube.openVideo(id);
+    }else{
+      window.open('https://www.youtube.com/watch?v=' + id);
+    }
+  }
 }

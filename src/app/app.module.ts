@@ -7,6 +7,7 @@ import { Vibration } from '@ionic-native/vibration';
 import { SMS } from '@ionic-native/sms';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { CurrencyPipe } from '@angular/common';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -37,6 +38,7 @@ import { ProductoscombosAddPage } from '../pages/productoscombos-add/productosco
 import { ProductoscombosAddmodalproductoPage } from '../pages/productoscombos-addmodalproducto/productoscombos-addmodalproducto';
 import { DetallecuentasResumenPage } from '../pages/detallecuentas-resumen/detallecuentas-resumen';
 import { TicketPage } from '../pages/ticket/ticket';
+import { ProductosproductoslistyoutubePage } from '../pages/productosproductoslistyoutube/productosproductoslistyoutube';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -48,6 +50,7 @@ import { ProductoscategoriasProvider } from '../providers/productoscategorias/pr
 import { ProductosProvider } from '../providers/productos/productos';
 import { TicketsProvider } from '../providers/tickets/tickets';
 import { CombosProvider } from '../providers/combos/combos';
+import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
 
 
 @NgModule({
@@ -81,7 +84,9 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductoscombosAddPage,
     ProductoscombosAddmodalproductoPage,
     DetallecuentasResumenPage,
-    TicketPage
+    TicketPage,
+    ProductosproductoslistyoutubePage
+    
   ],
   imports: [
     BrowserModule,
@@ -119,7 +124,8 @@ import { CombosProvider } from '../providers/combos/combos';
     ProductoscombosAddPage,
     ProductoscombosAddmodalproductoPage,
     DetallecuentasResumenPage,
-    TicketPage
+    TicketPage,
+    ProductosproductoslistyoutubePage
   ],
   providers: [
     StatusBar,
@@ -136,7 +142,9 @@ import { CombosProvider } from '../providers/combos/combos';
     CombosProvider,
     Vibration,
     SMS,
-    CurrencyPipe
+    CurrencyPipe,
+    ApiyoutubeProvider,
+    YoutubeVideoPlayer
   ]
 })
 export class AppModule {}

@@ -121,7 +121,6 @@ export class TicketPage {
                  }
               }}]
             });
-
             ventanaCelular.present();
           }
       }}]

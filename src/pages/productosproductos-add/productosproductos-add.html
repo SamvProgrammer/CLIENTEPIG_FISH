@@ -35,6 +35,17 @@
           <ion-option *ngFor="let i of categoria" value="{{i.id}}">{{i.nombre}}</ion-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-icon name="logo-youtube" item-start></ion-icon>
+        <ion-label stacked>Video youtube:</ion-label>
+        <ion-input formControlName="video"  type="text" placeholder="Vídeo youtube" [(ngModel)]="video"></ion-input>
+      </ion-item>
+      <ion-item >
+        <button (click)="agregarvideo()" item-end style="width:10%" ion-button icon-only color="light" type="button">
+          
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-item>
     </ion-list>
     <div padding>
       <button ion-button block type="submit" [disabled]="!myForm.valid">{{boton}}</button>

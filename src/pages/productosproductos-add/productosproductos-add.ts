@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController,ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController,ToastController,ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductosProvider } from '../../providers/productos/productos';
 import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
+import { ProductosproductoslistyoutubePage } from '../productosproductoslistyoutube/productosproductoslistyoutube';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class ProductosproductosAddPage {
   private id;
   public categoria:any = [];
   private variable;
+  public video:any = "";
+  public id_video;
 
   constructor(
     public navCtrl: NavController,
@@ -24,7 +27,7 @@ export class ProductosproductosAddPage {
     private parametros: NavParams,
     private toasCtrl:ToastController,
     private productoscategoriasPrd:ProductosProvider,
-    private catePrd:ProductoscategoriasProvider
+    private catePrd:ProductoscategoriasProvider,private modal:ModalController
   ) {
     this.variable = this.parametros.get("parametro");
 
@@ -35,6 +38,7 @@ export class ProductosproductosAddPage {
     } else {
 
       this.id = this.variable.id;
+      this.video =this.variable.nombre_video;
       this.myForm = this.createMyForm(this.variable);
     }
 
@@ -48,7 +52,8 @@ export class ProductosproductosAddPage {
       nombre: [obj.nombre, Validators.required],
       descripcion: [obj.descripcion, Validators.required],
       precio: [obj.precio, Validators.required],
-      categoria:[obj.id_categoria,Validators.required]
+      categoria:[obj.id_categoria,Validators.required],
+      video:[obj.nombre_video]
     });
   }
   saveData() {
@@ -57,13 +62,17 @@ export class ProductosproductosAddPage {
     let descripcion = obj.descripcion;
     let precio = obj.precio;
     let id_categoria = obj.categoria;
-
+    let nombre_video = obj.video;
+    
     obj = {
       nombre: nombre,
       descripcion: descripcion,
       precio:precio,
-      id_categoria:id_categoria
+      id_categoria:id_categoria,
+      id_video:this.id_video,
+      nombre_video:nombre_video
     }
+   
     
     if (this.boton == "Actualizar") {
       obj.id_producto = this.variable.id_producto;     
@@ -82,5 +91,18 @@ export class ProductosproductosAddPage {
 
     this.navCtrl.pop();
   }
+
+  public agregarvideo():any{
+    let mo = this.modal.create(ProductosproductoslistyoutubePage);
+    mo.present();
+    mo.onDidDismiss(datos => {
+      this.video = datos.nombre;
+      this.id_video = datos.id;
+    });    
+
+  }
+
+
+
 
 }
