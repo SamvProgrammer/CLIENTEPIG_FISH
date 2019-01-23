@@ -8,6 +8,7 @@ import { SMS } from '@ionic-native/sms';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { CurrencyPipe } from '@angular/common';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -144,7 +145,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     SMS,
     CurrencyPipe,
     ApiyoutubeProvider,
-    YoutubeVideoPlayer
+    YoutubeVideoPlayer,
+    GooglePlus
   ]
 })
 export class AppModule {}
