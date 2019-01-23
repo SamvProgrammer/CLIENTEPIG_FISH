@@ -16,7 +16,7 @@ export class TransaccionesPage {
               private ticketsPrd:TicketsProvider) {
 
       this.id_carrito = this.login.getCarrito();
-      this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito).subscribe(datos => {
+      this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {
         this.arreglo = datos;
       });
   }
@@ -25,7 +25,7 @@ export class TransaccionesPage {
 
   public actualizandoTransacciones(refresher): any {
 
-    this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito).subscribe(datos => {
+    this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {
       this.arreglo = datos;
       refresher.complete();
     });

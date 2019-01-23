@@ -24,8 +24,36 @@ export class TicketsProvider {
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }
-   public getTicketsCanceladosCobrados(id_carrito):Observable<any>{   
-    let filtrarDireccion = this.direccion +"/canceladoscobrados/"+id_carrito;
+   public getTicketsCanceladosCobrados(id_carrito,fecha):Observable<any>{   
+     let auxFecha = "";
+
+    if(fecha == undefined){
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1; //January is 0!
+      let yyyy = today.getFullYear();
+      let dia:string = "";
+      let mes:string = "";
+ 
+      if (dd < 10) {
+        dia = "0" + dd;
+      }else{
+        dia = ""+dd;
+      }
+      
+      if (mm < 10) {
+        mes = '0' + mm;
+      }else{
+        mes = ""+mm;
+      }
+      
+      auxFecha = yyyy + '-' + mes + '-' + dia;
+    }else{
+      auxFecha = fecha;
+    }
+
+  
+    let filtrarDireccion = this.direccion +"/canceladoscobrados/"+id_carrito+"/"+auxFecha;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }
