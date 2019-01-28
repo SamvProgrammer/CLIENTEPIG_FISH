@@ -53,14 +53,14 @@ export class cuentasPage {
              nombre:identificadorCuenta,
              id_carrito:this.login.getCarrito()
           };
-          this.ticketsPrd.getTickets(this.id_carrito).subscribe(d1 => {
-            console.log(d1);
-            this.arreglo = d1;
-           });
+         
           this.ticketsPrd.insert(objTicket).subscribe(datos => {
             let t1 = this.toasCtrl.create({message:datos.respuesta,duration:1000});
             t1.present();
             const mdl = this.modal.create(this.detalle,{orden:datos.nombre,folio:datos.id_folio});
+            mdl.onDidDismiss(datos => {
+                this.traerCuentas();
+            });
             mdl.present();
          });
          
