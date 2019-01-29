@@ -27,6 +27,7 @@ export class DetallecuentasPage {
 
     this.orden = navParams.get("orden");
     this.folio = navParams.get("folio");
+
     this.categoriasPrd.getCategorias().subscribe(datos => {
       this.arreglo = datos;
     });

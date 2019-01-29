@@ -40,6 +40,7 @@ import { ProductoscombosAddmodalproductoPage } from '../pages/productoscombos-ad
 import { DetallecuentasResumenPage } from '../pages/detallecuentas-resumen/detallecuentas-resumen';
 import { TicketPage } from '../pages/ticket/ticket';
 import { ProductosproductoslistyoutubePage } from '../pages/productosproductoslistyoutube/productosproductoslistyoutube';
+import { DetallecocineroPage } from '../pages/detallecocinero/detallecocinero';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -86,7 +87,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductoscombosAddmodalproductoPage,
     DetallecuentasResumenPage,
     TicketPage,
-    ProductosproductoslistyoutubePage
+    ProductosproductoslistyoutubePage,
+    DetallecocineroPage
     
   ],
   imports: [
@@ -126,7 +128,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductoscombosAddmodalproductoPage,
     DetallecuentasResumenPage,
     TicketPage,
-    ProductosproductoslistyoutubePage
+    ProductosproductoslistyoutubePage,
+    DetallecocineroPage
   ],
   providers: [
     StatusBar,

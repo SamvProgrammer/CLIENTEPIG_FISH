@@ -116,4 +116,11 @@ export class TicketsProvider {
     let json = JSON.stringify(obj);
     return this.http.put(ruta,json,httpOptions);
    }
+
+
+   public detallecocinero(id_carrito):Observable<any>{
+    let filtrarDireccion = this.direccion +"/detallecocinero/"+id_carrito;
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+   }
 }

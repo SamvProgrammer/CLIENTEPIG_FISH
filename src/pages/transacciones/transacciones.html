@@ -24,7 +24,7 @@
         <p>Número de folio: {{i.id_folio}}</p>
         <strong item-end>Total: {{i.total | currency}}</strong>
       </ion-item>  
-      <ion-item-options side="right">
+      <ion-item-options side="right" *ngIf="!i.cancelado">
         <button color="light" (click) = "reimprimir(i);" ion-button><ion-icon name="print"></ion-icon>Reimprimir
         </button>
       </ion-item-options>

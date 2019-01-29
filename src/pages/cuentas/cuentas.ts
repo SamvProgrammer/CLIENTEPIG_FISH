@@ -57,9 +57,13 @@ export class cuentasPage {
           this.ticketsPrd.insert(objTicket).subscribe(datos => {
             let t1 = this.toasCtrl.create({message:datos.respuesta,duration:1000});
             t1.present();
-            const mdl = this.modal.create(this.detalle,{orden:datos.nombre,folio:datos.id_folio});
+            const mdl = this.modal.create(this.detalle,{orden:datos.nombre,folio:datos.id_ticket});
             mdl.onDidDismiss(datos => {
                 this.traerCuentas();
+                if(datos){          
+                  this.traerCuentas();
+                   this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
+               }
             });
             mdl.present();
          });
