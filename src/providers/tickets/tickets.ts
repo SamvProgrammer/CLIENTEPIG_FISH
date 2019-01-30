@@ -123,4 +123,17 @@ export class TicketsProvider {
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }
+
+   public detallecocineroactualizar(obj):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let ruta = this.direccion+"/detallecocinero";
+    let json = JSON.stringify(obj);
+    console.log(json);
+    this.data = this.http.put(ruta,json,httpOptions);
+    return this.data;
+   }
 }

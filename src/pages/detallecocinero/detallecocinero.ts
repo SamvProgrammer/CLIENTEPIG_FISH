@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,ToastController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 
@@ -21,18 +21,54 @@ export class DetallecocineroPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private ticketPrd:TicketsProvider,
-              private loginPrd:LoginProvider) {
+              private loginPrd:LoginProvider,private alerta:AlertController,private toasCtrl:ToastController) {
     
     this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
       this.arreglo = datos;
     });
   }
  
+
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
+        this.arreglo = datos;
+        console.log("puede entrar");
+        this.ionViewDidEnter();
+      });
+    }, 1500);
+}
+
   public actualizando(refresher): any {
     this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
       this.arreglo = datos;
       refresher.complete();
     });
+  }
+
+
+  public servido(obj):any{
+    let enviarObj = {
+      id_ticket:obj.id_ticket,
+      id_producto:obj.id_producto,
+      cantidad:obj.cantidad,
+      servido:true
+    };
+
+    let alerta = this.alerta.create({title:"Aviso",message:"¿El producto ya fue servido?",buttons:[
+      {text:"Sí",handler:()=>{
+        this.ticketPrd.detallecocineroactualizar(enviarObj).subscribe(datos => {
+            let toas = this.toasCtrl.create({message:datos.respuesta,duration:1500});
+            toas.present();
+            this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
+              this.arreglo = datos;
+            });
+        });
+      }},{
+        text:"No"
+      }
+    ]});
+    alerta.present();
   }
 
 }
