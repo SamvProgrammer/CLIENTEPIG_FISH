@@ -44,9 +44,14 @@
             <ion-col col-5>
               {{i.nombre}}
             </ion-col>
-            <ion-col col-2>
+            <ion-col col-2 *ngIf="!i.servido">
               <button (click)="modificaCuenta(i)" style="top: -10px;" ion-button icon-only color="amarillo">
                 <ion-icon name="brush"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col col-2 *ngIf="i.servido">
+              <button style="top: -10px;" ion-button icon-only color="success">
+                <ion-icon name="checkmark"></ion-icon>
               </button>
             </ion-col>
             <ion-col col-2>
