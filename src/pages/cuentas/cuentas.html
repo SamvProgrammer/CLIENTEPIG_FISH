@@ -22,7 +22,6 @@
             </ion-avatar>
             <h2>Cuenta: {{i.nombre}}</h2>
             <p>Número de folio: {{i.id_folio}}</p>
-            <strong item-end>Total: {{i.total | currency}}</strong>
           </ion-item>  
           <ion-item-options side="right">
             <button color="success" (click)  = "cobrar(i.id_ticket);" ion-button><ion-icon name="checkmark-circle"></ion-icon>Cobrar</button>
@@ -36,8 +35,7 @@
     <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
     <ion-fab-list side="top">
         <button ion-fab (click)="ingresarSistema(fab);"><ion-icon name="person"></ion-icon></button>
-        <button ion-fab (click)="agregarCuenta(fab);"><ion-icon name="cart"></ion-icon></button>
-        
+        <button ion-fab (click)="agregarCuenta(fab);"><ion-icon name="cart"></ion-icon></button>        
     </ion-fab-list>
   </ion-fab>
 </ion-content>

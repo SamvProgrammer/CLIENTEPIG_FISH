@@ -52,7 +52,8 @@ export class DetallecocineroPage {
       id_ticket:obj.id_ticket,
       id_producto:obj.id_producto,
       cantidad:obj.cantidad,
-      servido:true
+      servido:true,
+      id : obj.id
     };
 
     let alerta = this.alerta.create({title:"Aviso",message:"¿El producto ya fue servido?",buttons:[
