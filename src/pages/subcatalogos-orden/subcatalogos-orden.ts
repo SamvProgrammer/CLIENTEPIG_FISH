@@ -55,11 +55,33 @@ export class SubcatalogosOrdenPage {
       buttons: [{
         text: "Ingresar",
         handler: datos => {
+          //Para sacar el día de hoy en la comanda....
+          let today = new Date();
+          let dd = today.getDate();
+          let mm = today.getMonth() + 1; //January is 0!
+          let yyyy = today.getFullYear();
+          let dia: string = "";
+          let mes: string = "";
+
+          if (dd < 10) {
+            dia = "0" + dd;
+          } else {
+            dia = "" + dd;
+          }
+
+          if (mm < 10) {
+            mes = '0' + mm;
+          } else {
+            mes = "" + mm;
+          }
+
+          var auxFecha = yyyy + '-' + mes + '-' + dia;
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
             id_user: 12,
             nombre: identificadorCuenta,
-            id_carrito: this.loginPrd.getCarrito()
+            id_carrito: this.loginPrd.getCarrito(),
+            fecha: auxFecha
           };
           this.tickPrd.getTickets(this.id_carrito).subscribe(d1 => {
             console.log(d1);
@@ -88,13 +110,13 @@ export class SubcatalogosOrdenPage {
         text: "Agregar", handler: datos => {
 
           let enviar = {
-            id_ticket:obj.id_ticket,
-            id_producto:this.producto.id_producto,
-            cantidad:datos.cant
+            id_ticket: obj.id_ticket,
+            id_producto: this.producto.id_producto,
+            cantidad: datos.cant
           }
 
           this.tickPrd.insertDetalle(enviar).subscribe(enviar => {
-            let toas = this.toasCtrl.create({message:enviar.respuesta,duration:1500});
+            let toas = this.toasCtrl.create({ message: enviar.respuesta, duration: 1500 });
             toas.present();
             this.viewCtrl.dismiss();
           });

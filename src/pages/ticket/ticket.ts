@@ -158,10 +158,6 @@ export class TicketPage {
               buttons: [{
                 text: "Enviar", handler: datos => {
                   if (datos.celular.length == 10) {
-
-
-
-
                     this.sms.send(datos.celular, mensaje);
                     let toas = this.toasCtrl.create({ message: "Mensaje enviado correctamente", duration: 1500 });
                     this.navCtrl.pop();

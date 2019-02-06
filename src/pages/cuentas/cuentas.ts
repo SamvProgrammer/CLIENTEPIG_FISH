@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, FabContainer, ModalController,ToastController } from 'ionic-angular';
+import { NavController, AlertController, FabContainer, ModalController, ToastController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 import { TicketsProvider } from '../../providers/tickets/tickets';
@@ -14,18 +14,18 @@ export class cuentasPage {
 
   private detalle: any = DetallecuentasPage;
   public folio = 0;//Esta variable es temporal... favor de eliminar...
-  public arreglo:any = [];
+  public arreglo: any = [];
   private id_carrito;
   constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController,
-  private ticketsPrd:TicketsProvider,private toasCtrl:ToastController) {
+    private ticketsPrd: TicketsProvider, private toasCtrl: ToastController) {
     this.id_carrito = login.getCarrito();
     this.traerCuentas();
   }
 
-  public traerCuentas():any{
+  public traerCuentas(): any {
     this.ticketsPrd.getTickets(this.id_carrito).subscribe(datos => {
       this.arreglo = datos;
-     });
+    });
   }
 
   public actualizandoTransacciones(refresher): any {
@@ -33,7 +33,7 @@ export class cuentasPage {
     this.ticketsPrd.getTickets(this.id_carrito).subscribe(datos => {
       this.arreglo = datos;
       refresher.complete();
-     });
+    });
   }
   public agregarCuenta(fab: FabContainer) {
     fab.close();
@@ -47,27 +47,49 @@ export class cuentasPage {
       buttons: [{
         text: "Ingresar",
         handler: datos => {
+          //Para sacar el día de hoy en la comanda....
+          let today = new Date();
+          let dd = today.getDate();
+          let mm = today.getMonth() + 1; //January is 0!
+          let yyyy = today.getFullYear();
+          let dia: string = "";
+          let mes: string = "";
+
+          if (dd < 10) {
+            dia = "0" + dd;
+          } else {
+            dia = "" + dd;
+          }
+
+          if (mm < 10) {
+            mes = '0' + mm;
+          } else {
+            mes = "" + mm;
+          }
+
+          var auxFecha = yyyy + '-' + mes + '-' + dia;
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
-             id_user:12,
-             nombre:identificadorCuenta,
-             id_carrito:this.login.getCarrito()
+            id_user: 12,
+            nombre: identificadorCuenta,
+            id_carrito: this.login.getCarrito(),
+            fecha : auxFecha
           };
-         
+
           this.ticketsPrd.insert(objTicket).subscribe(datos => {
-            let t1 = this.toasCtrl.create({message:datos.respuesta,duration:1000});
+            let t1 = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
             t1.present();
-            const mdl = this.modal.create(this.detalle,{orden:datos.nombre,folio:datos.id_ticket});
+            const mdl = this.modal.create(this.detalle, { orden: datos.nombre, folio: datos.id_ticket });
             mdl.onDidDismiss(datos => {
+              this.traerCuentas();
+              if (datos) {
                 this.traerCuentas();
-                if(datos){          
-                  this.traerCuentas();
-                   this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
-               }
+                this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
+              }
             });
             mdl.present();
-         });
-         
+          });
+
         }
       }]
 
@@ -76,13 +98,17 @@ export class cuentasPage {
   }
 
   public cancelar(indice): any {
-    let mensaje = this.alerta.create({title:"¿Desea cancelar la cuenta?",buttons:[{text:"Si",handler:()=>{
-        this.ticketsPrd.cancelar(indice).subscribe(datos => {
-          let toast = this.toasCtrl.create({message:"Cuenta cancelada correctamente",duration:1500});
-          toast.present();
-          this.traerCuentas();
-        });
-    }},{text:"No"}]});
+    let mensaje = this.alerta.create({
+      title: "¿Desea cancelar la cuenta?", buttons: [{
+        text: "Si", handler: () => {
+          this.ticketsPrd.cancelar(indice).subscribe(datos => {
+            let toast = this.toasCtrl.create({ message: "Cuenta cancelada correctamente", duration: 1500 });
+            toast.present();
+            this.traerCuentas();
+          });
+        }
+      }, { text: "No" }]
+    });
     mensaje.present();
   }
 
@@ -92,28 +118,28 @@ export class cuentasPage {
   }
 
   public entrarDetalle(obj): any {
-    let mdl = this.modal.create(this.detalle,{orden:obj.nombre,folio:obj.id_ticket});
+    let mdl = this.modal.create(this.detalle, { orden: obj.nombre, folio: obj.id_ticket });
     mdl.present();
     mdl.onDidDismiss(datos => {
-        if(datos){          
-           this.traerCuentas();
-            this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
-        }
+      if (datos) {
+        this.traerCuentas();
+        this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
+      }
     });
   }
 
-  public cobrar(id):any{
-     let modal = this.modal.create(DetallecuentasResumenPage,{id_ticket:id});
-     modal.present();
+  public cobrar(id): any {
+    let modal = this.modal.create(DetallecuentasResumenPage, { id_ticket: id });
+    modal.present();
 
-     modal.onDidDismiss(datos => {
-      if(datos){
-         this.traerCuentas();
-         this.traerCuentas();
-            this.navCtrl.push(TicketPage,{id_ticket:datos.id_ticket,billete:datos.billete});
+    modal.onDidDismiss(datos => {
+      if (datos) {
+        this.traerCuentas();
+        this.traerCuentas();
+        this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
       }
-  });
+    });
   }
 
- 
+
 }
