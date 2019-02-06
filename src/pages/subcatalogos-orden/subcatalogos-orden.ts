@@ -21,6 +21,7 @@ export class SubcatalogosOrdenPage {
   public arreglo: any = [];
   private id_carrito;
   private producto;
+  private tipo;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
     private alerta: AlertController, private toasCtrl: ToastController,
     private tickPrd: TicketsProvider, private loginPrd: LoginProvider, private modal: ModalController) {
@@ -32,7 +33,7 @@ export class SubcatalogosOrdenPage {
     });
 
     this.producto = navParams.get("parametro");
-
+    this.tipo = navParams.get("tipo");
 
   }
 
@@ -57,31 +58,13 @@ export class SubcatalogosOrdenPage {
         handler: datos => {
           //Para sacar el día de hoy en la comanda....
           let today = new Date();
-          let dd = today.getDate();
-          let mm = today.getMonth() + 1; //January is 0!
-          let yyyy = today.getFullYear();
-          let dia: string = "";
-          let mes: string = "";
-
-          if (dd < 10) {
-            dia = "0" + dd;
-          } else {
-            dia = "" + dd;
-          }
-
-          if (mm < 10) {
-            mes = '0' + mm;
-          } else {
-            mes = "" + mm;
-          }
-
-          var auxFecha = yyyy + '-' + mes + '-' + dia;
+  
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
             id_user: 12,
             nombre: identificadorCuenta,
             id_carrito: this.loginPrd.getCarrito(),
-            fecha: auxFecha
+            fecha: today
           };
           this.tickPrd.getTickets(this.id_carrito).subscribe(d1 => {
             console.log(d1);
@@ -105,16 +88,20 @@ export class SubcatalogosOrdenPage {
   public agregarCarrito(obj): any {
 
     let a1 = this.alerta.create({
-      title: "Cantidad:", inputs: [{ placeholder: "Cantidad", type: "number", name: "cant" }]
+      title: "Aviso:",message:"Cantidad y observaciones", inputs: [{ placeholder: "Cantidad", type: "number", name: "cant" },
+      { placeholder: "Observaciones", type: "text", name: "observaciones" }]
       , buttons: [{
         text: "Agregar", handler: datos => {
 
           let enviar = {
             id_ticket: obj.id_ticket,
             id_producto: this.producto.id_producto,
-            cantidad: datos.cant
+            cantidad: datos.cant,
+            observaciones:datos.observaciones,
+            tipo_producto:this.tipo
           }
 
+          console.log(enviar);
           this.tickPrd.insertDetalle(enviar).subscribe(enviar => {
             let toas = this.toasCtrl.create({ message: enviar.respuesta, duration: 1500 });
             toas.present();

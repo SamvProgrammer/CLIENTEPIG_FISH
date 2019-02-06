@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,ToastController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
+import { CombosProvider } from '../../providers/combos/combos';
 
 /**
  * Generated class for the DetallecocineroPage page.
@@ -21,9 +22,17 @@ export class DetallecocineroPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private ticketPrd:TicketsProvider,
-              private loginPrd:LoginProvider,private alerta:AlertController,private toasCtrl:ToastController) {
+              private loginPrd:LoginProvider,private alerta:AlertController,private toasCtrl:ToastController,
+              private combosPrd:CombosProvider) {
     
     this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
+      for(let item of datos){
+         if(item.categoria == "COMBO"){
+            combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
+              item.lista = respu;
+            });
+         }
+      }
       this.arreglo = datos;
     });
   }
@@ -32,16 +41,29 @@ export class DetallecocineroPage {
   ionViewDidEnter() {
     setTimeout(() => {
       this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-        this.arreglo = datos;
-        console.log("puede entrar");
+        for(let item of datos){
+          if(item.categoria == "COMBO"){
+             this.combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
+               item.lista = respu;
+             });
+          }
+       }
+       this.arreglo = datos;
         this.ionViewDidEnter();
       });
-    }, 1500);
+    }, 3000);
 }
 
   public actualizando(refresher): any {
     this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-      this.arreglo = datos;
+      for(let item of datos){
+        if(item.categoria == "COMBO"){
+           this.combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
+             item.lista = respu;
+           });
+        }
+     }
+     this.arreglo = datos;
       refresher.complete();
     });
   }

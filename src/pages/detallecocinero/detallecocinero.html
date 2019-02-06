@@ -30,8 +30,14 @@
           <img src="../../assets/imgs/pedido.jpg">
         </ion-avatar>
       <h2><strong>Producto: </strong>{{i.producto}} {{i.categoria}} </h2>
+      <p><strong>CANTIDAD:</strong> {{i.cantidad}}</p>
       <p><strong>CUENTA:</strong> {{i.cuenta}}</p>
-      <p><strong>Observaciones: </strong>{{i.observacion}}  </p>
+      <p *ngIf="i.lista"><strong>Productos:</strong> </p>
+      <p *ngFor="let x of i.lista;let indice=index">
+        <strong>{{indice+1}}.-{{x.nombre_categoria}} {{x.nombre_producto}}</strong>
+      </p>
+      <p ><strong>Observaciones: </strong></p>
+      <p style="color: brown">{{i.observaciones}} </p>
       </ion-item>
     </ion-item-sliding>
   </ion-list>

@@ -49,32 +49,17 @@ export class cuentasPage {
         handler: datos => {
           //Para sacar el día de hoy en la comanda....
           let today = new Date();
-          let dd = today.getDate();
-          let mm = today.getMonth() + 1; //January is 0!
-          let yyyy = today.getFullYear();
-          let dia: string = "";
-          let mes: string = "";
-
-          if (dd < 10) {
-            dia = "0" + dd;
-          } else {
-            dia = "" + dd;
-          }
-
-          if (mm < 10) {
-            mes = '0' + mm;
-          } else {
-            mes = "" + mm;
-          }
-
-          var auxFecha = yyyy + '-' + mes + '-' + dia;
+          
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
             id_user: 12,
             nombre: identificadorCuenta,
             id_carrito: this.login.getCarrito(),
-            fecha : auxFecha
+            fecha : today
           };
+
+
+          console.log(objTicket);
 
           this.ticketsPrd.insert(objTicket).subscribe(datos => {
             let t1 = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });

@@ -4,6 +4,7 @@ import { ProductoscategoriasProvider } from '../../providers/productoscategorias
 import { DetallecuentasProductosPage } from '../detallecuentas-productos/detallecuentas-productos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { DetallecuentasResumenPage } from '../../pages/detallecuentas-resumen/detallecuentas-resumen';
+import { DetallescuentasCombosPage } from '../detallescuentas-combos/detallescuentas-combos';
 
 @Component({
   selector: 'page-detallecuentas',
@@ -19,6 +20,7 @@ export class DetallecuentasPage {
   public folio: any;
   public detalle:any = [];
   public total = 0;
+  public servidosTodos = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
@@ -37,6 +39,11 @@ export class DetallecuentasPage {
       this.total  = 0;
       for(let item of datos){
         this.total = this.total + (item.cantidad * item.precio);
+        if(this.servidosTodos == true){
+              if(item.servido == false){
+                  this.servidosTodos = false;
+              }
+        }
       }
     });
   }
@@ -203,8 +210,7 @@ export class DetallecuentasPage {
 
   }
 
-  public agregar(obj):any{
-    console.log(this.folio);
+  public agregar(obj,tipo):any{
       let modal = this.modalCtrl.create(DetallecuentasProductosPage,{id:obj.id,folio:this.folio});
       modal.present();
 
@@ -221,6 +227,13 @@ export class DetallecuentasPage {
   }
 
   public cobrar():any{
+
+    if(this.servidosTodos == false){
+        let mensaje = this.toastCtrl.create({message:"Faltan productos por servir",duration:1500});
+        mensaje.present();
+        return;
+    }
+
     let modal =  this.modalCtrl.create(DetallecuentasResumenPage,{id_ticket:this.folio});
     modal.present();
 
@@ -230,4 +243,21 @@ export class DetallecuentasPage {
         }
     });
   }  
+
+  public agregarCombo():any{
+    let modal = this.modalCtrl.create(DetallescuentasCombosPage,{folio:this.folio});
+    modal.present();
+
+    modal.onDidDismiss(() => {
+      this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+        this.detalle = datos;
+        this.total = 0;
+        for(let item of datos){
+          this.total = this.total + (item.cantidad * item.precio);
+        }
+      });
+    });
+    
+  }
+
 }

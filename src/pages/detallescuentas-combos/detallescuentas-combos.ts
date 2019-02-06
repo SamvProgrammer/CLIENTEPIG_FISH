@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController, AlertController } from 'ionic-angular';
-import { ProductosProvider } from '../../providers/productos/productos';
+import { CombosProvider } from '../../providers/combos/combos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 
 /**
- * Generated class for the DetallecuentasProductosPage page.
+ * Generated class for the DetallescuentasCombosPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,25 +12,30 @@ import { TicketsProvider } from '../../providers/tickets/tickets';
 
 
 @Component({
-  selector: 'page-detallecuentas-productos',
-  templateUrl: 'detallecuentas-productos.html',
+  selector: 'page-detallescuentas-combos',
+  templateUrl: 'detallescuentas-combos.html',
 })
-export class DetallecuentasProductosPage {
+export class DetallescuentasCombosPage {
 
   public arreglo: any = [];
 
   public identificador;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
-    private productosPrd: ProductosProvider, private toasCtrl: ToastController,
+    private combosPrd: CombosProvider, private toasCtrl: ToastController,
     private TikectPdr: TicketsProvider, private alertCtrl: AlertController) {
     let id = navParams.get("id");
 
     this.identificador = navParams.get("folio");
-    productosPrd.getProductosCategoria(id).subscribe(datos => {
+    combosPrd.getCombos().subscribe(datos => {
       for (let item of datos) {
         item.cantidad = 1;
         item.observaciones = "";
+        this.combosPrd.getCombosDetalle(item.id_combo).subscribe(respu => {
+          item.lista = respu;
+        });
       }
+
+      
 
       this.arreglo = datos;
     });
@@ -68,7 +73,7 @@ export class DetallecuentasProductosPage {
   public agregarCarrito(obj,indice): any {
     var enviar = {
       id_ticket: this.identificador,
-      id_producto: obj.id_producto,
+      id_producto: obj.id_combo,
       cantidad: obj.cantidad,
       observaciones:this.arreglo[indice].observaciones
     }
@@ -104,5 +109,4 @@ export class DetallecuentasProductosPage {
 
     mensajeObservaciones.present();
   }
-
 }

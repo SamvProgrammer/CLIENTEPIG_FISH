@@ -3,6 +3,7 @@ import { NavController,FabContainer } from 'ionic-angular';
 import { SubcatalogosPage } from '../subcatalogos/subcatalogos';
 import { LoginProvider } from '../../providers/login/login';
 import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
+import { CatalogoscombosypromocionesPage } from '../catalogoscombosypromociones/catalogoscombosypromociones';
 
 @Component({
   selector: 'page-catalogos',
@@ -20,8 +21,17 @@ export class catalogosTab {
 
 
   public clickimagen(numero):any{
-
-    this.navCtrl.push(SubcatalogosPage,{'obj':numero});
+    switch(numero){
+       case "combos":
+       this.navCtrl.push(CatalogoscombosypromocionesPage,{'tipo':'combos'});
+       break;
+       case "promociones":
+       this.navCtrl.push(CatalogoscombosypromocionesPage,{'tipo':'promociones'});
+       break;
+       default:
+       this.navCtrl.push(SubcatalogosPage,{'obj':numero});
+       break;
+    }
   }
 
   public ingresarSistema(fab:FabContainer):any{

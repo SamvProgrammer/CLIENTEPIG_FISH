@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      {{nombre}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('../../assets/fondo.jpg')">
+  <ion-card *ngFor = "let i of arreglo">
+    <img src="../../assets/imgs/cards.jpg"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{i.nombre}}
+        </ion-card-title>
+      <p>
+        <strong>Descripcion:</strong>
+        {{i.descripcion}}
+      </p>
+      <p>
+       <strong>Precio:</strong> {{i.precio | currency}} Pesos
+      </p>
+      <p>
+        <strong>Productos:</strong> 
+       </p>
+      <p *ngFor="let x of i.lista;let indice=index">
+        <strong>{{indice+1}}.-{{x.nombre_categoria}} {{x.nombre_producto}}</strong>
+      </p>
+    </ion-card-content>
+    <ion-row>
+       <!-- <ion-col>
+          <button  ion-button icon-start clear small>
+            <ion-icon name="eye"></ion-icon>
+            <div>Ver productos</div>
+          </button>
+        </ion-col> -->
+        <ion-col>
+          <button ion-button icon-start clear small (click) = "agregarOrden(i);">
+            <ion-icon name="add"></ion-icon>
+            <div>Añadir a Orden</div>
+          </button>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+ <ion-fab right bottom #fab>
+    <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button (click)="ingresarSistema(fab);" ion-fab><ion-icon name="person"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+
+
