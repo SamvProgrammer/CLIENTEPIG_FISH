@@ -51,4 +51,8 @@ export class ProductosproductoslistyoutubePage {
   public enviar(obj):any{
     this.view.dismiss({id:obj.id.videoId,nombre:obj.snippet.title})
   }
+
+  public salir():any{
+    this.view.dismiss();
+  }
 }

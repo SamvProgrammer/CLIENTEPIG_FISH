@@ -20,29 +20,43 @@
 <ion-content>
 
 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
 
-  <ion-list>
-  </ion-list>
-  <div class="wrapper">
-    <div class="box red" (click)="abrirVentana('producto')">
-      <h2>PRODUCTOS</h2>
-      <p>
-        <strong>Gestión de los productos del sistema</strong>
-      </p>
-    </div>
+        <h2>
+          <strong>Elegir opcion</strong>
+        </h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 style="text-align: center" (click)="abrirVentana('productos')">
+        <img src="../../assets/imgs/productos.gif" alt="">
+        <p>
+          <strong>Productos</strong>
+        </p>
+      </ion-col>
 
-    <div class="box green" (click)="abrirVentana('combos')">
-      <h2>COMBOS Y PROMOCIONES</h2>
-      <p>
-        <strong>Gestión de los combos y promociones del sistema.</strong>
-      </p>
-    </div>
-
-    <div class="box blue" (click)="abrirVentana('categorias')">
-      <h2>CATEGORIAS</h2>
-      <p>
-        <strong>Gestión de las categorías existentes en el sistema.</strong>
-      </p>
-    </div>
-  </div>
+      <ion-col col-6 style="text-align: center" (click)="abrirVentana('combos')">
+        <img src="../../assets/imgs/combos.gif" alt="">
+        <p>
+          <strong>Combos</strong>
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 style="text-align: center" (click)="abrirVentana('categorias')">
+        <img src="../../assets/imgs/categorias.gif" alt="">
+        <p>
+          <strong>Categorías</strong>
+        </p>
+      </ion-col>
+      <ion-col col-6 style="text-align: center" (click)="abrirVentana('promociones')">
+          <img src="../../assets/imgs/promocion.gif" alt="">
+          <p>
+            <strong>Promociones</strong>
+          </p>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

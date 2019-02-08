@@ -22,7 +22,7 @@ page-productos {
  
     // The auto-fill value allows as many grid tracks to be fitted into the
     // width of the grid container as possible
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
  
     // Specify the height of the row - minimum value of 50 pixels and a maximum
     // value set to auto
@@ -49,7 +49,7 @@ page-productos {
  // Define the style rules for each panel within the grid
  // container
  .box {
-    border-radius: 5px;
+    border-radius: 35px;
     padding: 3em;
     margin-left: 5px;
     margin-right: 5px;

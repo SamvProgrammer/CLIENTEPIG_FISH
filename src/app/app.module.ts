@@ -31,7 +31,6 @@ import { ProductoscategoriasAddPage } from '../pages/productoscategorias-add/pro
 import { ProductosproductosPage } from '../pages/productosproductos/productosproductos';
 import { ProductosproductosAddPage } from '../pages/productosproductos-add/productosproductos-add';
 import { SubcatalogosOrdenPage } from '../pages/subcatalogos-orden/subcatalogos-orden';
-import { ProductoscombosypromocionesPage } from '../pages/productoscombosypromociones/productoscombosypromociones';
 import { ProductoscombosPage } from '../pages/productoscombos/productoscombos';
 import { ProductospromocionesPage } from '../pages/productospromociones/productospromociones';
 import { DetallecuentasProductosPage } from '../pages/detallecuentas-productos/detallecuentas-productos';
@@ -81,7 +80,6 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductosproductosPage,
     ProductosproductosAddPage,
     SubcatalogosOrdenPage,
-    ProductoscombosypromocionesPage,
     ProductoscombosPage,
     ProductospromocionesPage,
     DetallecuentasProductosPage,
@@ -123,7 +121,6 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductosproductosPage,
     ProductosproductosAddPage,
     SubcatalogosOrdenPage,
-    ProductoscombosypromocionesPage,
     ProductoscombosPage,
     ProductospromocionesPage,
     DetallecuentasProductosPage,
