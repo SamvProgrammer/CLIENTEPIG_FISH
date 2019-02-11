@@ -4,6 +4,7 @@ import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
 import { TicketPage } from '../ticket/ticket';
+import { ReportetransaccionesPage } from '../reportetransacciones/reportetransacciones';
 
 /**
  * Generated class for the HistorialPage page.
@@ -65,11 +66,16 @@ export class HistorialPage {
   public buscar() {
     this.ticktPrd.getTicketsCanceladosCobrados(this.gender, this.fecha).subscribe(datos => {
       this.arreglo = datos;
+      console.log(this.arreglo);
     });
   }
 
   public entrarDetalle(obj){
     this.navCtrl.push(TicketPage,{id_ticket:obj.id_ticket});
+  }
+
+  public reporte():any{
+      this.navCtrl.push(ReportetransaccionesPage,{arreglo:this.arreglo,fecha:this.fecha});
   }
 
 }

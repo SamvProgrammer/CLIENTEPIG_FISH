@@ -21,6 +21,7 @@ export class DetallecocineroPage {
   public arreglo: any = [];
   private ultimamodificacion;
   private minutos;
+  private notificar = -1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ticketPrd: TicketsProvider,
     private loginPrd: LoginProvider, private alerta: AlertController, private toasCtrl: ToastController,
@@ -43,7 +44,7 @@ export class DetallecocineroPage {
   ionViewDidEnter() {
     setTimeout(() => {
       this.ticketPrd.getNotificacion().subscribe(datos => {
-        if (datos.notificar == true) {
+        if (datos.notificar != this.notificar) {
           this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
             for (let item of datos) {
               if (item.categoria == "COMBO") {
@@ -54,6 +55,7 @@ export class DetallecocineroPage {
             }
             this.arreglo = datos;
             this.ultimamodificacion = new Date();
+            this.notificar = datos.notificar;
           });
         } else {
           let ahora: any = new Date();

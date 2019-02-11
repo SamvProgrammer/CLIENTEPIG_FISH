@@ -18,7 +18,7 @@
       <ion-col>
         <ion-item>
           <ion-label>Elegir fecha a buscar</ion-label>
-          <ion-datetime display-format="MMM DD, YYYY" [(ngModel)] = "fecha"></ion-datetime>
+          <ion-datetime display-format="MMM DD, YYYY" monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' doneText="Hecho" cancelText="Cancelar" [(ngModel)] = "fecha"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -56,3 +56,10 @@
 
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="gris" style="text-align: center">
+    <button (click) = "reporte();" ion-button icon-only color="primary" style="width: 80%;">            
+      Ver Reporte
+    </button>
+  </ion-toolbar>
+</ion-footer>

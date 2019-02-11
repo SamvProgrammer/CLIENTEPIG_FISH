@@ -42,6 +42,7 @@ import { ProductosproductoslistyoutubePage } from '../pages/productosproductosli
 import { DetallecocineroPage } from '../pages/detallecocinero/detallecocinero';
 import { CatalogoscombosypromocionesPage } from '../pages/catalogoscombosypromociones/catalogoscombosypromociones';
 import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detallescuentas-combos';
+import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -90,7 +91,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductosproductoslistyoutubePage,
     DetallecocineroPage,
     CatalogoscombosypromocionesPage,
-    DetallescuentasCombosPage
+    DetallescuentasCombosPage,
+    ReportetransaccionesPage
   ],
   imports: [
     BrowserModule,
@@ -131,7 +133,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     ProductosproductoslistyoutubePage,
     DetallecocineroPage,
     CatalogoscombosypromocionesPage,
-    DetallescuentasCombosPage
+    DetallescuentasCombosPage,
+    ReportetransaccionesPage
   ],
   providers: [
     StatusBar,
