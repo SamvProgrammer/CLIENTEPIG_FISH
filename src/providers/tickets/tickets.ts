@@ -136,4 +136,10 @@ export class TicketsProvider {
     this.data = this.http.put(ruta,json,httpOptions);
     return this.data;
    }
+
+   public getNotificacion():Observable<any>{   
+    let filtrarDireccion = this.direccion +"/notificacion";
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+   }
 }
