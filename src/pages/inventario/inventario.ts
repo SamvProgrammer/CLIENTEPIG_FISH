@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'inventario.html',
 })
 export class InventarioPage {
-
+  private nombre:string = " desde mi perspectiva";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

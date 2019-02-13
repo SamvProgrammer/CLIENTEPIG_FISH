@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ViewController, Slides, ToastController, AlertController, ActionSheetController , ModalController} from 'ionic-angular';
+import { NavController, NavParams, ViewController, Slides, ToastController, AlertController, ActionSheetController, ModalController } from 'ionic-angular';
 import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
 import { DetallecuentasProductosPage } from '../detallecuentas-productos/detallecuentas-productos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
@@ -18,14 +18,14 @@ export class DetallecuentasPage {
   public arreglo = [];
   public orden: any;
   public folio: any;
-  public detalle:any = [];
+  public detalle: any = [];
   public total = 0;
   public servidosTodos = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
-    private categoriasPrd:ProductoscategoriasProvider,private modalCtrl:ModalController,
-    private ticketsPrd:TicketsProvider) {
+    private categoriasPrd: ProductoscategoriasProvider, private modalCtrl: ModalController,
+    private ticketsPrd: TicketsProvider) {
 
     this.orden = navParams.get("orden");
     this.folio = navParams.get("folio");
@@ -36,13 +36,16 @@ export class DetallecuentasPage {
 
     this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
       this.detalle = datos;
-      this.total  = 0;
-      for(let item of datos){
+      this.total = 0;
+      for (let item of datos) {
+        if (item.cancelado == true) {
+          item.cantidad = 0;
+        }
         this.total = this.total + (item.cantidad * item.precio);
-        if(this.servidosTodos == true){
-              if(item.servido == false){
-                  this.servidosTodos = false;
-              }
+        if (this.servidosTodos == true) {
+          if (item.servido == false) {
+            this.servidosTodos = false;
+          }
         }
       }
     });
@@ -168,9 +171,38 @@ export class DetallecuentasPage {
           text: 'Modificar',
           icon: "brush",
           handler: () => {
-            let alerta = this.alertaCtrl.create({ buttons: [{ text: "Actualizar",handler:data=>{
-              obj.cantidad = data.texto;
-            } }, { text: "Cancelar" }], inputs: [{  type: "number",value:obj.cantidad,name:"texto" }] ,title:"Cantidad en orden"});
+            let alerta = this.alertaCtrl.create({
+              buttons: [{ text: "Cancelar" }, {
+                text: "Actualizar", handler: data => {
+                  obj.cantidad = data.texto;
+                  let objenviar = {
+                    id: obj.id,
+                    cantidad: obj.cantidad,
+                    cancelado: false
+                  }
+
+                  this.ticketsPrd.actualizarDetalleTicket(obj).subscribe(respues1 => {
+                    let toas = this.toastCtrl.create({ message: respues1.respuesta, duration: 1500 });
+                    toas.present();
+                    this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+                      this.detalle = datos;
+                      this.total = 0;
+                      for (let item of datos) {
+                        if (item.cancelado == true) {
+                          item.cantidad = 0;
+                        }
+                        this.total = this.total + (item.cantidad * item.precio);
+                        if (this.servidosTodos == true) {
+                          if (item.servido == false) {
+                            this.servidosTodos = false;
+                          }
+                        }
+                      }
+                    });
+                  });
+                }
+              }], inputs: [{ type: "number", value: obj.cantidad, name: "texto" }], title: "Cantidad en orden"
+            });
             alerta.present();
           }
         },
@@ -184,10 +216,26 @@ export class DetallecuentasPage {
               buttons: [{
                 text: "Aceptar",
                 handler: () => {
-                 // this.order.splice(obj,1);
-                  let toast = this.toastCtrl.create({ message: "Productos eliminados", duration: 1500 });
-                  toast.present();
-                  //console.log(this.order);
+                  this.ticketsPrd.eliminarDetalleTicket(obj.id).subscribe(respu => {
+                    let toast = this.toastCtrl.create({ message: "Productos eliminados", duration: 1500 });
+                    toast.present();
+                    this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+                      this.detalle = datos;
+                      this.total = 0;
+                      for (let item of datos) {
+                        if (item.cancelado == true) {
+                          item.cantidad = 0;
+                        }
+                        this.total = this.total + (item.cantidad * item.precio);
+                        if (this.servidosTodos == true) {
+                          if (item.servido == false) {
+                            this.servidosTodos = false;
+                          }
+                        }
+                      }
+                    });
+                  });
+
                 }
               },
               {
@@ -210,54 +258,96 @@ export class DetallecuentasPage {
 
   }
 
-  public agregar(obj,tipo):any{
-      let modal = this.modalCtrl.create(DetallecuentasProductosPage,{id:obj.id,folio:this.folio});
-      modal.present();
+  public agregar(obj, tipo): any {
+    let modal = this.modalCtrl.create(DetallecuentasProductosPage, { id: obj.id, folio: this.folio });
+    modal.present();
 
-      modal.onDidDismiss(() => {
-        this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
-          this.detalle = datos;
-          this.total = 0;
-          for(let item of datos){
-            this.total = this.total + (item.cantidad * item.precio);
+    modal.onDidDismiss(() => {
+      this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+        this.total = 0;
+        for (let item of datos) {
+          if (item.cancelado == true) {
+            item.cantidad = 0;
           }
-        });
+          this.total = this.total + (item.cantidad * item.precio);
+        }
+        this.detalle = datos;
       });
-      
+    });
+
   }
 
-  public cobrar():any{
+  public cobrar(): any {
 
-    if(this.servidosTodos == false){
-        let mensaje = this.toastCtrl.create({message:"Faltan productos por servir",duration:1500});
-        mensaje.present();
-        return;
+    if (this.servidosTodos == false) {
+      let mensaje = this.toastCtrl.create({ message: "Faltan productos por servir", duration: 1500 });
+      mensaje.present();
+      return;
     }
 
-    let modal =  this.modalCtrl.create(DetallecuentasResumenPage,{id_ticket:this.folio});
+    let modal = this.modalCtrl.create(DetallecuentasResumenPage, { id_ticket: this.folio });
     modal.present();
 
     modal.onDidDismiss(datos => {
-        if(datos){
-            this.viewCtrl.dismiss({id_ticket:datos.id_ticket,billete:datos.billete});
-        }
+      if (datos) {
+        this.viewCtrl.dismiss({ id_ticket: datos.id_ticket, billete: datos.billete });
+      }
     });
-  }  
+  }
 
-  public agregarCombo():any{
-    let modal = this.modalCtrl.create(DetallescuentasCombosPage,{folio:this.folio});
+  public agregarCombo(): any {
+    let modal = this.modalCtrl.create(DetallescuentasCombosPage, { folio: this.folio });
     modal.present();
 
     modal.onDidDismiss(() => {
       this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
         this.detalle = datos;
         this.total = 0;
-        for(let item of datos){
+        for (let item of datos) {
           this.total = this.total + (item.cantidad * item.precio);
         }
       });
     });
-    
+
+  }
+
+
+
+  public cancelardetalle(obj): any {
+    let alerta = this.alertaCtrl.create({
+      title: "Aviso",
+      message: "¿Desea cancelar el producto?",
+      buttons: [{
+        text: "Sí", handler: () => {
+          let objenviar = {
+            id: obj.id,
+            cantidad: obj.cantidad,
+            cancelado: true
+          }
+
+          this.ticketsPrd.cancelarDetalleTicket(objenviar).subscribe(respuesta => {
+            let toas = this.toastCtrl.create({ message: "Producto cancelado", duration: 1500 });
+            toas.present();
+            this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+              this.detalle = datos;
+              this.total = 0;
+              for (let item of datos) {
+                if (item.cancelado == true) {
+                  item.cantidad = 0;
+                }
+                this.total = this.total + (item.cantidad * item.precio);
+                if (this.servidosTodos == true) {
+                  if (item.servido == false) {
+                    this.servidosTodos = false;
+                  }
+                }
+              }
+            });
+          });
+        }
+      }, { text: "No" }]
+    });
+    alerta.present();
   }
 
 }

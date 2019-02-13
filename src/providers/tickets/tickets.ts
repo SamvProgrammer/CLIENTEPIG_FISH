@@ -132,7 +132,7 @@ export class TicketsProvider {
     };
     let ruta = this.direccion+"/detallecocinero";
     let json = JSON.stringify(obj);
-    console.log(json);
+    
     this.data = this.http.put(ruta,json,httpOptions);
     return this.data;
    }
@@ -141,5 +141,38 @@ export class TicketsProvider {
     let filtrarDireccion = this.direccion +"/notificacion";
     this.data = this.http.get(filtrarDireccion);
     return this.data;
+   }
+
+
+   public actualizarDetalleTicket(obj):Observable<any>{   
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let filtrarDireccion = this.direccion +"/detalle";
+    let json = JSON.stringify(obj);
+    this.data = this.http.put(filtrarDireccion,json,httpOptions);
+    return this.data;
+   }
+
+
+   public eliminarDetalleTicket(id):Observable<any>{
+       let filtrarDireccion = this.direccion+"/detalle/"+id;
+       return this.http.delete(filtrarDireccion);
+   }
+
+   public cancelarDetalleTicket(obj):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    let filtrarDireccion = this.direccion +"/detalle";
+    console.log(obj);
+    let json = JSON.stringify(obj);
+
+    return this.http.put(filtrarDireccion,json,httpOptions);
    }
 }

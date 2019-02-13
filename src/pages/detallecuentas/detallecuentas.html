@@ -62,8 +62,11 @@
               </button>
             </ion-col>
             <ion-col col-2 *ngIf="i.servido">
-              <button style="top: -10px;" ion-button icon-only color="success">
+              <button *ngIf="!i.cancelado" (click)="cancelardetalle(i)" style="top: -10px;" ion-button icon-only color="success">
                 <ion-icon name="checkmark"></ion-icon>
+              </button>
+              <button *ngIf="i.cancelado"  style="top: -10px;" ion-button icon-only color="danger">
+                <ion-icon name="close"></ion-icon>
               </button>
             </ion-col>
             <ion-col col-2>

@@ -21,7 +21,6 @@ import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { UsuariosAddPage } from '../pages/usuarios-add/usuarios-add';
 import { SucursalesPage } from '../pages/sucursales/sucursales';
 import { HistorialPage } from '../pages/historial/historial';
-import { InventarioPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { SucursalesAddPage } from '../pages/sucursales-add/sucursales-add';
@@ -43,6 +42,7 @@ import { DetallecocineroPage } from '../pages/detallecocinero/detallecocinero';
 import { CatalogoscombosypromocionesPage } from '../pages/catalogoscombosypromociones/catalogoscombosypromociones';
 import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detallescuentas-combos';
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
+import { InventarioPage } from '../pages/inventario/inventario';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -71,7 +71,6 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     UsuariosAddPage,
     SucursalesPage,
     HistorialPage,
-    InventarioPage,
     PedidosPage,
     ConfiguracionPage,
     SucursalesAddPage,
@@ -92,7 +91,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     DetallecocineroPage,
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
-    ReportetransaccionesPage
+    ReportetransaccionesPage,
+    InventarioPage
   ],
   imports: [
     BrowserModule,
@@ -113,7 +113,6 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     UsuariosAddPage,
     SucursalesPage,
     HistorialPage,
-    InventarioPage,
     PedidosPage,
     ConfiguracionPage,
     SucursalesAddPage,
@@ -134,7 +133,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     DetallecocineroPage,
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
-    ReportetransaccionesPage
+    ReportetransaccionesPage,
+    InventarioPage
   ],
   providers: [
     StatusBar,

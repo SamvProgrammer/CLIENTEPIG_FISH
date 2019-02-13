@@ -76,7 +76,6 @@ export class ProductosproductosAddPage {
     
     if (this.boton == "Actualizar") {
       obj.id_producto = this.variable.id_producto;     
-      console.log(obj); 
         this.productoscategoriasPrd.modificar(obj).subscribe(datos => {
         let toas = this.toasCtrl.create({message:"Registro actualizado correctamente",duration:1500});
         toas.present();

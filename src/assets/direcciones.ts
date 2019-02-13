@@ -6,5 +6,6 @@ export const direcciones:any = {
     categorias:ip+"/catalogos/categorias",
     productos:ip+"/catalogos/productos",
     tickets:ip+"/catalogos/tickets",
-    combos:ip+"/catalogos/combos"
+    combos:ip+"/catalogos/combos",
+    inventarios:ip+"/catalogos/inventarios"
 };
