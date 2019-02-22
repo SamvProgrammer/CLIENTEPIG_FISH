@@ -43,6 +43,7 @@ import { CatalogoscombosypromocionesPage } from '../pages/catalogoscombosypromoc
 import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detallescuentas-combos';
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
 import { InventarioPage } from '../pages/inventario/inventario';
+import { InventarioAddPage } from '../pages/inventario-add/inventario-add';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -55,6 +56,7 @@ import { ProductosProvider } from '../providers/productos/productos';
 import { TicketsProvider } from '../providers/tickets/tickets';
 import { CombosProvider } from '../providers/combos/combos';
 import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
+import { InventarioProvider } from '../providers/inventario/inventario';
 
 
 @NgModule({
@@ -92,7 +94,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage
+    InventarioPage,
+    InventarioAddPage
   ],
   imports: [
     BrowserModule,
@@ -134,7 +137,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage
+    InventarioPage,
+    InventarioAddPage
   ],
   providers: [
     StatusBar,
@@ -154,7 +158,8 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
     CurrencyPipe,
     ApiyoutubeProvider,
     YoutubeVideoPlayer,
-    GooglePlus
+    GooglePlus,
+    InventarioProvider
   ]
 })
 export class AppModule {}

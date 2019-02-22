@@ -43,8 +43,8 @@ export class DetallecocineroPage {
 
   ionViewDidEnter() {
     setTimeout(() => {
-      this.ticketPrd.getNotificacion().subscribe(datos => {
-        if (datos.notificar != this.notificar) {
+      this.ticketPrd.getNotificacion().subscribe(datosnotificar => {
+        if (datosnotificar.notificar != this.notificar) {
           this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
             for (let item of datos) {
               if (item.categoria == "COMBO") {
@@ -55,7 +55,7 @@ export class DetallecocineroPage {
             }
             this.arreglo = datos;
             this.ultimamodificacion = new Date();
-            this.notificar = datos.notificar;
+            this.notificar = datosnotificar.notificar;
           });
         } else {
           let ahora: any = new Date();
@@ -77,7 +77,10 @@ export class DetallecocineroPage {
               
             });
             this.ultimamodificacion = new Date();
+            
           }
+
+          
         }
         this.ionViewDidEnter();
       });
@@ -94,7 +97,6 @@ export class DetallecocineroPage {
         }
       }
       this.arreglo = datos;
-      console.log(this.arreglo);
       refresher.complete();
     });
   }

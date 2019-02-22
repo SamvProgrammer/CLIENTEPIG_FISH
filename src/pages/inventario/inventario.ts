@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, FabContainer ,AlertController,ToastController} from 'ionic-angular';
+import { InventarioProvider } from '../../providers/inventario/inventario';
+import { InventarioAddPage } from '../inventario-add/inventario-add';
+
 
 /**
  * Generated class for the InventarioPage page.
@@ -14,12 +17,55 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'inventario.html',
 })
 export class InventarioPage {
-  private nombre:string = " desde mi perspectiva";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  private arreglo: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private inventarioPrd: InventarioProvider,private alertaCtrl:AlertController,
+  private toasCtrl:ToastController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InventarioPage');
+  ionViewDidEnter() {
+    this.inventarioPrd.gets().subscribe(datos => {
+      this.arreglo = datos;
+      
+    });
   }
+
+  public agregar(fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push(InventarioAddPage, { boton: "Agregar" })
+  }
+
+  public actualizando(refresher): any {
+    this.inventarioPrd.gets().subscribe(res => {
+      this.arreglo = res;
+      refresher.complete();
+    });
+  }
+
+  public actualizar(obj:any){
+    this.navCtrl.push(InventarioAddPage,{parametro:obj,boton:"Actualizar"});
+  }
+
+  public eliminar(obj){
+    let id = obj.id;
+    let alerta = this.alertaCtrl.create({title:"Aviso",subTitle:"¿Deseas eliminar el registro?",buttons:[{text:"Aceptar",handler:()=>{
+     this.inventarioPrd.eliminar(id).subscribe(resp => {
+       this.inventarioPrd.gets().subscribe(res => {
+         this.arreglo = res;
+       });
+       let toas = this.toasCtrl.create({message:"Registro Eliminado",duration:1500});
+       toas.present();
+    });
+
+    }},"Cancelar"]});
+    
+
+    alerta.present();
+
+ }
+
+
 
 }
