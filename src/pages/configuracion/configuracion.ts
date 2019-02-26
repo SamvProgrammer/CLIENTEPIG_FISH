@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EnlaceProductoinventarioPage } from '../enlace-productoinventario/enlace-productoinventario';
 
 /**
  * Generated class for the ConfiguracionPage page.
@@ -22,4 +23,9 @@ export class ConfiguracionPage {
     console.log('ionViewDidLoad ConfiguracionPage');
   }
 
+
+  public abrirpagina():any{
+
+      this.navCtrl.push(EnlaceProductoinventarioPage);
+  }
 }

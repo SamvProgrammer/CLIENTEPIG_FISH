@@ -14,10 +14,17 @@
 <ion-content >
     <ion-item-group>
         <ion-item-divider color="light">Sección inventarios</ion-item-divider>
-        <ion-item>Enlazar a productos</ion-item>
+        <ion-list>
+          <ion-item>
+              <ion-avatar item-start>
+                  <img src="../../assets/imgs/setting.jpg">
+                </ion-avatar>
+            <h2>Enlazar a productos</h2>
+            <button (click)="abrirpagina();" color="blue" ion-button item-end>
+              <ion-icon  name="arrow-forward"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
       </ion-item-group>
-      <ion-item-group>
-          <ion-item-divider color="light">Sección Productos</ion-item-divider>
-          <ion-item>Ver detalle inventario</ion-item>
-        </ion-item-group>
+     
 </ion-content>

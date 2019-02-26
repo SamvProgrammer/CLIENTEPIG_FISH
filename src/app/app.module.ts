@@ -44,6 +44,9 @@ import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detal
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
 import { InventarioPage } from '../pages/inventario/inventario';
 import { InventarioAddPage } from '../pages/inventario-add/inventario-add';
+import { EnlaceProductoinventarioPage } from '../pages/enlace-productoinventario/enlace-productoinventario';
+import { EnlaceProductoinventarioAddPage } from '../pages/enlace-productoinventario-add/enlace-productoinventario-add';
+import { EnlaceProductodetalleinventarioPage } from '../pages/enlace-productodetalleinventario/enlace-productodetalleinventario';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -95,7 +98,10 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
     InventarioPage,
-    InventarioAddPage
+    InventarioAddPage,
+    EnlaceProductoinventarioPage,
+    EnlaceProductoinventarioAddPage,
+    EnlaceProductodetalleinventarioPage
   ],
   imports: [
     BrowserModule,
@@ -138,7 +144,10 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
     InventarioPage,
-    InventarioAddPage
+    InventarioAddPage,
+    EnlaceProductoinventarioPage,
+    EnlaceProductoinventarioAddPage,
+    EnlaceProductodetalleinventarioPage
   ],
   providers: [
     StatusBar,
