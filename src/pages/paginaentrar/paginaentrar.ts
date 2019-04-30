@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,ToastController,LoadingController  } from 'ionic-angular';
+import { NavController, NavParams,ToastController,LoadingController ,ModalController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
+import { PaginaentrarRolesPage } from '../../pages/paginaentrar-roles/paginaentrar-roles';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class PaginaentrarPage {
   public gender:any = "";
   public arreglo:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private loginprovider:LoginProvider,
-  private toasCtrl:ToastController,private loadCtrl:LoadingController,private carritoPrd:CarritoProvider) {
+  private toasCtrl:ToastController,private loadCtrl:LoadingController,private carritoPrd:CarritoProvider,
+    private modalCtrl:ModalController) {
   }
 
   ionViewDidEnter() {
@@ -36,7 +38,8 @@ export class PaginaentrarPage {
           toas.present();
       }else{
         this.loginprovider.setEntrar(true);      
-        
+     //  let modal = this.modalCtrl.create(PaginaentrarRolesPage,{id_carrito:this.gender});
+       //modal.present();
       }
   }
 

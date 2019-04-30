@@ -22,7 +22,12 @@ export class TransaccionesPage {
   }
 
 
+  ionViewDidEnter(){
+    this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {
+      this.arreglo = datos;
+    });
 
+  }
   public actualizandoTransacciones(refresher): any {
 
     this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {

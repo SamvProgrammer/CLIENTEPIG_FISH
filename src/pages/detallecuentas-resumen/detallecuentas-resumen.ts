@@ -42,32 +42,47 @@ export class DetallecuentasResumenPage {
   }
 
   public cobrar(): any {
-    let alerta = this.alertCtrl.create({
-      title: "Efectivo", inputs: [{ placeholder: "Efectivo", type: "number", name: "cantidad" }],
-      buttons: [{
-        text: "Cobrar", handler: datos => {
-          let cantidad = datos.cantidad;
-          if(Number(cantidad) >= Number(this.total)){
-            let objEnviar = {
-              id_ticket: this.id_ticket,
-              total: this.total
-            };
-  
-            this.ticketsPrd.cobrarTicket(objEnviar).subscribe(datos => {
-              let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
-              toas.present();
-              this.viewCtrl.dismiss({ id_ticket: objEnviar.id_ticket,billete:cantidad });
-            });
 
-          }else{
-              let alerta = this.alertCtrl.create({title:"Monto incorrecto",subTitle:"El monto ingresado debe ser mayor o igual al monto gastado",
-            buttons:[{text:"Aceptar",handler:()=>{}}]});
-              alerta.present();
+    let tipoPago = this.alertCtrl.create({
+      title:"Tipo de pago",
+      message:"Seleccionar el tipo de pago",
+      inputs:[
+      {type:"radio",label:"Efectivo",value:"E",checked:true},
+      {type:"radio",label:"Cortesía",value:"C"},
+      {type:"radio",label:"Tarjeta de crédito / débito",value:"T"},
+      {type:"radio",label:"Otros",value:"O"}]
+    ,buttons:[{text:"Cancelar"},{text:"Aceptar",handler: radio =>{
+      let alerta = this.alertCtrl.create({
+        title: "Cantidad", inputs: [{ placeholder: "Cantidad", type: "number", name: "cantidad" }],
+        buttons: [{
+          text: "Cobrar", handler: datos => {
+            let cantidad = datos.cantidad;
+            if(Number(cantidad) >= Number(this.total)){
+              let objEnviar = {
+                id_ticket: this.id_ticket,
+                total: this.total,
+                tipo_pago:radio
+              };
+    
+              this.ticketsPrd.cobrarTicket(objEnviar).subscribe(datos => {
+                let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
+                toas.present();
+                this.viewCtrl.dismiss({ id_ticket: objEnviar.id_ticket,billete:cantidad });
+              });
+  
+            }else{
+                let alerta = this.alertCtrl.create({title:"Monto incorrecto",subTitle:"El monto ingresado debe ser mayor o igual al monto gastado",
+              buttons:[{text:"Aceptar",handler:()=>{}}]});
+                alerta.present();
+            }
           }
-        }
-      }]
-    });
-    alerta.present();
+        }]
+      });
+      alerta.present();
+    }}]});
+    tipoPago.present();
+
+
   }
 
 }

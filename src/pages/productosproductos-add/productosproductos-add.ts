@@ -95,6 +95,7 @@ export class ProductosproductosAddPage {
     let mo = this.modal.create(ProductosproductoslistyoutubePage);
     mo.present();
     mo.onDidDismiss(datos => {
+      if(datos == undefined) return;
       this.video = datos.nombre;
       this.id_video = datos.id;
     });    

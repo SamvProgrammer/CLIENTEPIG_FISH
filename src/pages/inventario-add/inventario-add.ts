@@ -31,7 +31,7 @@ export class InventarioAddPage {
       this.myForm = this.createMyForm(obj);
     } else {
 
-      this.id = this.variable.id;
+      this.id = this.variable.id_inventario;
       this.myForm = this.createMyForm(this.variable);
     }
   }
@@ -58,7 +58,7 @@ export class InventarioAddPage {
     }
     
     if (this.boton == "Actualizar") {
-      obj.id = this.variable.id;      
+      obj.id_inventario = this.variable.id_inventario;      
         this.inventarioPrd.modificar(obj).subscribe(datos => {
         let toas = this.toasCtrl.create({message:"Registro actualizado correctamente",duration:1500});
         toas.present();

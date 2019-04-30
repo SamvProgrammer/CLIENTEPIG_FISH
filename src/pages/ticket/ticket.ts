@@ -106,7 +106,9 @@ export class TicketPage {
 
 
           if (datos == 1) {//Este es para envíar el ticket por correo electrónico de gmail...
-            this.google.login({})
+            this.google.login({
+              scopes:'https://www.googleapis.com/auth/gmail.send https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify'
+            })
               .then(res => {
 
                 let alert = this.alerta.create({
@@ -120,13 +122,15 @@ export class TicketPage {
                         'Authorization': 'Bearer ' + id_token
                       })
                     };
+
+                    
+                    let usuarioEnviar = res.email;
+                    let userId = res.userId;
+                    let direccion = "https://www.googleapis.com/upload/gmail/v1/users/"+userId+"/messages/send?uploadType=multipart";
     
-                    let direccion = "https://www.googleapis.com/upload/gmail/v1/users/santiagoantoniomariscal%40gmail.com/messages/send?uploadType=multipart";
-    
-    
-                    let ms1 = "From: Pig&Fish <santiagoantoniomariscal@gmail.com>\n";
+                    let ms1 = "From: AppMovil <"+usuarioEnviar+">\n";
                     ms1 = ms1 + "to: "+parametro.correo+"\n";
-                    ms1 = ms1 + "Subject: Ticket de compra Pig&Fish\n";
+                    ms1 = ms1 + "Subject: Ticket de compra AppsMovil\n";
                     ms1 = ms1 + "MIME-Version: 1.0\n";
                     ms1 = ms1 + "Content-Type: multipart/mixed;\n";
                     ms1 = ms1 + "        boundary=\"limite1\"\n\n";
@@ -138,6 +142,9 @@ export class TicketPage {
                     this.http.post(direccion, ms1, httpOptions).subscribe(datos => {
                       let toas = this.toasCtrl.create({ message: "Mensaje envíado correctamente", duration: 1500 });
                       toas.present();
+                    },error => {
+                        let toas = this.alerta.create({message:JSON.stringify(error)});
+                        toas.present();
                     });
                   }}]
                 });

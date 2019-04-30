@@ -28,7 +28,7 @@
         <strong>Productos:</strong> 
        </p>
       <p *ngFor="let x of i.lista;let indice=index">
-        <strong>{{indice+1}}.-{{x.nombre_categoria}} {{x.nombre_producto}}</strong>
+        <strong>{{x.cantidad}} {{x.nombre_categoria}} {{x.nombre_producto}}</strong>
       </p>
     </ion-card-content>
     <ion-row>

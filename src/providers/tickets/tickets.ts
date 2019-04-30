@@ -101,6 +101,7 @@ export class TicketsProvider {
    }
    public getTicketsDetalleAgrupado(id_ticket):Observable<any>{   
     let filtrarDireccion = this.direccion +"/detalle/agrupado/"+id_ticket;
+    console.log(filtrarDireccion);
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }

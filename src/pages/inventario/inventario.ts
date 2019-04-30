@@ -49,7 +49,7 @@ export class InventarioPage {
   }
 
   public eliminar(obj){
-    let id = obj.id;
+    let id = obj.id_inventario;
     let alerta = this.alertaCtrl.create({title:"Aviso",subTitle:"¿Deseas eliminar el registro?",buttons:[{text:"Aceptar",handler:()=>{
      this.inventarioPrd.eliminar(id).subscribe(resp => {
        this.inventarioPrd.gets().subscribe(res => {

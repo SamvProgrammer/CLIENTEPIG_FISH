@@ -27,6 +27,7 @@ export class CombosProvider {
 
    public getCombosDetalle(id):Observable<any>{   
     let ruta = this.direccion+"/detalle/"+id;
+    
     this.data = this.http.get(ruta);
     return this.data;
    }

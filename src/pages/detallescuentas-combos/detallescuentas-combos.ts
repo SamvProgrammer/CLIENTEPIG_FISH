@@ -32,6 +32,7 @@ export class DetallescuentasCombosPage {
         item.observaciones = "";
         this.combosPrd.getCombosDetalle(item.id_combo).subscribe(respu => {
           item.lista = respu;
+          
         });
       }
 
@@ -75,7 +76,8 @@ export class DetallescuentasCombosPage {
       id_ticket: this.identificador,
       id_producto: obj.id_combo,
       cantidad: obj.cantidad,
-      observaciones:this.arreglo[indice].observaciones
+      observaciones:this.arreglo[indice].observaciones,
+      tipo_producto:2
     }
     
     this.TikectPdr.insertDetalle(enviar).subscribe(datos => {

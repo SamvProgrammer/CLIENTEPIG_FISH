@@ -31,6 +31,7 @@ export class CatalogoscombosypromocionesPage {
           for (let item of this.arreglo) {
             this.combosPrd.getCombosDetalle(item.id_combo).subscribe(resp => {
               item.lista = resp;
+              console.log(resp);
             });
           }
         });

@@ -47,6 +47,7 @@ import { InventarioAddPage } from '../pages/inventario-add/inventario-add';
 import { EnlaceProductoinventarioPage } from '../pages/enlace-productoinventario/enlace-productoinventario';
 import { EnlaceProductoinventarioAddPage } from '../pages/enlace-productoinventario-add/enlace-productoinventario-add';
 import { EnlaceProductodetalleinventarioPage } from '../pages/enlace-productodetalleinventario/enlace-productodetalleinventario';
+import { PaginaentrarRolesPage } from '../pages/paginaentrar-roles/paginaentrar-roles';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -101,7 +102,8 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     InventarioAddPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
-    EnlaceProductodetalleinventarioPage
+    EnlaceProductodetalleinventarioPage,
+    PaginaentrarRolesPage
   ],
   imports: [
     BrowserModule,
@@ -147,7 +149,8 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     InventarioAddPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
-    EnlaceProductodetalleinventarioPage
+    EnlaceProductodetalleinventarioPage,
+    PaginaentrarRolesPage
   ],
   providers: [
     StatusBar,

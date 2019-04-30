@@ -70,7 +70,8 @@ export class DetallecuentasProductosPage {
       id_ticket: this.identificador,
       id_producto: obj.id_producto,
       cantidad: obj.cantidad,
-      observaciones:this.arreglo[indice].observaciones
+      observaciones:this.arreglo[indice].observaciones,
+      tipo_producto:1
     }
     
     this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
