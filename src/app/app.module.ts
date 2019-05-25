@@ -9,6 +9,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { CurrencyPipe } from '@angular/common';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { Camera } from '@ionic-native/camera';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -51,6 +53,8 @@ import { PaginaentrarRolesPage } from '../pages/paginaentrar-roles/paginaentrar-
 import { CajaPage } from '../pages/caja/caja';
 import { CajaCortePage } from '../pages/caja-corte/caja-corte';
 import { CajaMesasPage } from '../pages/caja-mesas/caja-mesas';
+import { BluetoothPage } from '../pages/bluetooth/bluetooth';
+import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -64,6 +68,8 @@ import { TicketsProvider } from '../providers/tickets/tickets';
 import { CombosProvider } from '../providers/combos/combos';
 import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
 import { InventarioProvider } from '../providers/inventario/inventario';
+import { GlobalesProvider } from '../providers/globales/globales';
+import { ImpresionesProvider } from '../providers/impresiones/impresiones';
 
 
 @NgModule({
@@ -109,7 +115,9 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     PaginaentrarRolesPage,
     CajaPage,
     CajaCortePage,
-    CajaMesasPage
+    CajaMesasPage,
+    BluetoothPage,
+    BluetoothDispositivosPage
   ],
   imports: [
     BrowserModule,
@@ -159,7 +167,9 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     PaginaentrarRolesPage,
     CajaPage,
     CajaCortePage,
-    CajaMesasPage
+    CajaMesasPage,
+    BluetoothPage,
+    BluetoothDispositivosPage
   ],
   providers: [
     StatusBar,
@@ -180,7 +190,11 @@ import { InventarioProvider } from '../providers/inventario/inventario';
     ApiyoutubeProvider,
     YoutubeVideoPlayer,
     GooglePlus,
-    InventarioProvider
+    InventarioProvider,
+    GlobalesProvider,
+    ImpresionesProvider,
+    BluetoothSerial,
+    Camera
   ]
 })
 export class AppModule {}

@@ -89,5 +89,7 @@
         <variable name="REVERSED_CLIENT_ID" value="744279275328-csjee9enqqt2ce05k6gmg0blhcv2j3l5.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
+    <plugin name="cordova-plugin-bluetooth-serial" spec="0.4.7" />
+    <plugin name="cordova-plugin-camera" spec="4.0.3" />
     <engine name="android" spec="7.1.2" />
 </widget>

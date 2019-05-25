@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController,ToastController,ModalControll
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CombosProvider } from '../../providers/combos/combos';
 import { ProductoscombosAddmodalproductoPage } from '../productoscombos-addmodalproducto/productoscombos-addmodalproducto';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the ProductoscombosAddPage page.
@@ -22,6 +23,9 @@ export class ProductoscombosAddPage {
   private id;
   private variable;
   public productos:any = [];
+  public imagen = "";
+  public texto = "Imagen no seleccionada";
+  public nueva: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,7 +34,8 @@ export class ProductoscombosAddPage {
     private parametros: NavParams,
     private toasCtrl:ToastController,
     private combosPrd:CombosProvider,
-    private modalCtrl:ModalController
+    private modalCtrl:ModalController,
+    private camera: Camera
   ) {
     this.variable = this.parametros.get("parametro");
 
@@ -41,6 +46,8 @@ export class ProductoscombosAddPage {
     } else {
 
       this.id = this.variable.id_combo;
+      this.imagen = this.variable.imagen;
+      this.texto = (this.variable.imagen.length != 0) ? "Imagen seleccionada" : "Imagen no seleccionada";
       this.myForm = this.createMyForm(this.variable);
       this.combosPrd.getCombosDetalle(this.id).subscribe(datos => {
         this.productos = datos;
@@ -71,7 +78,9 @@ export class ProductoscombosAddPage {
       nombre: nombre,
       descripcion: descripcion,
       precio : precio,
-      detalle:detalle
+      detalle:detalle,
+      imagen:this.imagen,
+      nueva:this.nueva
     }
     
     if (this.boton == "Actualizar") {
@@ -101,6 +110,50 @@ export class ProductoscombosAddPage {
        }
      });
   }
+
+
+  public subirFoto() {
+    console.log("subiendo una foto");
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imagen =  imageData;
+      this.nueva = true;
+      this.texto = "Imagen seleccinada";
+
+    }, (err) => {
+      console.log("Error en obtener imagen" + JSON.stringify(err));
+    });
+  }
+
+  public galeria() {
+  
+    console.log("subiendo una foto");
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum: false,
+      allowEdit:true,
+      targetWidth:300,
+      targetHeight:300
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imagen =  imageData;
+      this.nueva = true;
+      this.texto = "Imagen seleccinada";
+
+    }, (err) => {
+      console.log("Error en obtener imagen" + JSON.stringify(err));
+    });
+  }
+
 
   
 }

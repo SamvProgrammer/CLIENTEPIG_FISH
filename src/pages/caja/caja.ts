@@ -15,10 +15,11 @@ import { CajaMesasPage } from '../caja-mesas/caja-mesas';
   templateUrl: 'caja.html',
 })
 export class CajaPage {
-  caja = CajaCortePage;
-  mesas = CajaMesasPage;
+  tab1Root=CajaMesasPage;
+  tab2Root=CajaCortePage;
 
-  constructor() { }
+
+  constructor() {  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CajaPage');

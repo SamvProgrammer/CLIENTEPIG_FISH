@@ -1,4 +1,4 @@
-<ion-menu id="menu-dark" [content]="content" *ngIf="verificaRol();">
+<ion-menu id="menu-dark" [content]="content"  *ngIf="activaMenu()">
   <ion-header class="sidemenuHeader">
     <ion-toolbar>
       <ion-item no-lines>
@@ -26,6 +26,9 @@
       <button menuClose="left" ion-item (click)="openPage(productos)">
         <ion-icon name="pizza" item-left></ion-icon> Productos
       </button>
+      <button menuClose="left" ion-item (click)="openPage(caja)">
+        <ion-icon name="cash" item-left></ion-icon> Caja
+    </button>
       <button menuClose="left" ion-item (click)="openPage(historial)">
         <ion-icon name="paper" item-left></ion-icon> Historial de cuentas
       </button>

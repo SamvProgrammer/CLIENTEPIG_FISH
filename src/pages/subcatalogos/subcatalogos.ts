@@ -21,13 +21,17 @@ export class SubcatalogosPage {
   private combosPrd:CombosProvider) {
     this.identificador = this.navParams.get("obj");
       this.productosPrd.getProductosCategoria(this.identificador).subscribe(datos => {
+        for (let item of datos)
+        item.ruta_imagen = "data:image/png;base64," + item.ruta_imagen;
+        
         this.arreglo = datos;
+        console.log(datos);
       });
   }
 
   public ingresarSistema(fab: FabContainer): any {
     fab.close();
-    this.login.entrarSistema();
+    
   }
 
   public agregarOrden(obj): any {

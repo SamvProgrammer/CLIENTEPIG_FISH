@@ -21,6 +21,8 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/android-permissions": "^4.19.0",
+    "@ionic-native/bluetooth-serial": "^4.20.0",
+    "@ionic-native/camera": "^4.20.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/google-plus": "^4.20.0",
     "@ionic-native/sms": "^4.19.0",
@@ -32,6 +34,8 @@
     "@ionic/storage": "2.2.0",
     "cordova-android": "7.1.2",
     "cordova-plugin-android-permissions": "1.0.0",
+    "cordova-plugin-bluetooth-serial": "0.4.7",
+    "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
@@ -72,7 +76,9 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "744279275328-csjee9enqqt2ce05k6gmg0blhcv2j3l5.apps.googleusercontent.com",
         "PLAY_SERVICES_VERSION": "11.8.0"
-      }
+      },
+      "cordova-plugin-bluetooth-serial": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android"

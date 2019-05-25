@@ -13,7 +13,6 @@ import { CarritoProvider } from '../../providers/carrito/carrito';
 export class UsuariosAddPage {
   myForm: FormGroup;
   public boton: string = "";
-  private id;
   public arregloRoles: any = [];
   public arregloCarrito: any = [];
   private variable;
@@ -25,22 +24,22 @@ export class UsuariosAddPage {
     private alertCtrl: AlertController,
     private parametros: NavParams,
     private rolesPrd: RolesProvider,
-    private carritoPrd: CarritoProvider,
+    private sucursalesPrd: CarritoProvider,
     private toasCtrl:ToastController
   ) {
     this.variable = this.parametros.get("parametro");
 
     this.boton = this.parametros.get("boton");
     if (this.variable == undefined) {
-      const obj = { nombre: "", descripcion: "", precio: 0 }
+      const obj = { usuario: "", nombre: "", password1: "",password2:"", roles:"",sucursales:"",menu:false,inicio:false,barra:false,cocina:false,transacciones:false}
       this.myForm = this.createMyForm(obj);
     } else {
-
-      this.id = this.variable.id;
+      
       this.myForm = this.createMyForm(this.variable);
     }
-    this.arregloRoles = this.rolesPrd.getRoles();
-    this.carritoPrd.getCarritos().subscribe(datos => {
+    
+      this.arregloRoles = this.rolesPrd.getRoles();
+    this.sucursalesPrd.getCarritos().subscribe(datos => {
       this.arregloCarrito = datos;
     });
   }
@@ -52,7 +51,13 @@ export class UsuariosAddPage {
       password1: [obj.password, Validators.required],
       password2: [obj.password, Validators.required],
       roles: [obj.id_rol, Validators.required],
-      carritos: [obj.id_carrito, Validators.required]
+      sucursales: [obj.id_carrito, Validators.required],
+      menu: obj.menu,
+      inicio: obj.catalogos,
+      cuentas:obj.cuentas,
+      barra: obj.bar,
+      cocina: obj.cocina,
+      transacciones: obj.transacciones
     });
   }
   saveData() {
@@ -61,7 +66,13 @@ export class UsuariosAddPage {
     let nombre = obj.nombre;
     let password = obj.password1;
     let id_rol = obj.roles;
-    let id_carrito = obj.carritos;
+    let id_sucursal = obj.sucursales;
+    let menu = obj.menu;
+    let catalogos = obj.inicio;
+    let cuentas = obj.cuentas;
+    let bar = obj.barra;
+    let cocina = obj.cocina;
+    let transacciones = obj.transacciones;
 
 
 
@@ -69,9 +80,14 @@ export class UsuariosAddPage {
       login: login,
       nombre: nombre,
       idRol: id_rol,
-      idCarrito:id_carrito,
+      idCarrito:id_sucursal,
       password:password,
-      nombreRol:this.arregloRoles[id_rol-1].nombre
+      menu:menu,
+      catalogos:catalogos,
+      bar:bar,
+      cocina:cocina,
+      cuentas:cuentas,
+      transacciones:transacciones
     }
     
     if (this.boton == "Actualizar") {
@@ -82,7 +98,6 @@ export class UsuariosAddPage {
         });
     } else {
        this.usuariosPrd.insertar(obj).subscribe(datos => {
-
          let toas = this.toasCtrl.create({message:"Registro insertado correctamente",duration:1500});
          toas.present();
        });

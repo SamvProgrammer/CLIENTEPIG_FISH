@@ -5,6 +5,10 @@ import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { DetallecuentasResumenPage } from '../detallecuentas-resumen/detallecuentas-resumen';
 import { TicketPage } from '../ticket/ticket';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
+import { GlobalesProvider } from '../../providers/globales/globales';
+import { ImpresionesProvider } from '../../providers/impresiones/impresiones';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @Component({
   selector: 'page-cuentas',
@@ -17,7 +21,9 @@ export class cuentasPage {
   public arreglo: any = [];
   private id_carrito;
   constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController,
-    private ticketsPrd: TicketsProvider, private toasCtrl: ToastController) {
+    private ticketsPrd: TicketsProvider, private toasCtrl: ToastController,
+  private usuariosPrd:UsuariosProvider,private globales:GlobalesProvider,private impPrd:ImpresionesProvider,
+private bt:BluetoothSerial) {
     this.id_carrito = login.getCarrito();
     this.traerCuentas();
   }
@@ -36,6 +42,8 @@ export class cuentasPage {
     });
   }
   public agregarCuenta(fab: FabContainer) {
+    let id_usuario = this.usuariosPrd.getIdUsuario();
+    let id_sucursal = this.usuariosPrd.getSucursal();
     fab.close();
     let alerta1 = this.alerta.create({
       title: 'Agregando',
@@ -52,9 +60,9 @@ export class cuentasPage {
           
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
-            id_user: 12,
+            id_user: id_usuario,
             nombre: identificadorCuenta,
-            id_carrito: this.login.getCarrito(),
+            id_carrito: id_sucursal,
             fecha : today
           };
 
@@ -99,7 +107,7 @@ export class cuentasPage {
 
   public ingresarSistema(fab: FabContainer): any {
     fab.close();
-    this.login.entrarSistema();
+    
   }
 
   public entrarDetalle(obj): any {
@@ -113,18 +121,25 @@ export class cuentasPage {
     });
   }
 
-  public cobrar(id): any {
-    let modal = this.modal.create(DetallecuentasResumenPage, { id_ticket: id });
-    modal.present();
+  public cobrar(obj): any {
+    let idSucursal = this.usuariosPrd.getSucursal();
 
-    modal.onDidDismiss(datos => {
-      if (datos) {
-        this.traerCuentas();
-        this.traerCuentas();
-        this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
-      }
-    });
+    
+
+    
+      this.impPrd.getPreticket(obj).then(mensaje => {
+        console.log(mensaje);
+         this.bt.write(mensaje);
+      }).catch(err =>{
+          let toast = this.toasCtrl.create({message:err,duration:1500});
+          toast.present();
+      });
+    
   }
 
+
+  public salir(){
+    this.globales.cerrarAplicacion();
+  }
 
 }

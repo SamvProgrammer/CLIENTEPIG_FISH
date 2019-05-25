@@ -4,6 +4,7 @@ import { SubcatalogosPage } from '../subcatalogos/subcatalogos';
 import { LoginProvider } from '../../providers/login/login';
 import { ProductoscategoriasProvider } from '../../providers/productoscategorias/productoscategorias';
 import { CatalogoscombosypromocionesPage } from '../catalogoscombosypromociones/catalogoscombosypromociones';
+import { GlobalesProvider } from '../../providers/globales/globales';
 
 @Component({
   selector: 'page-catalogos',
@@ -13,7 +14,8 @@ export class catalogosTab {
 
   public arreglo:any = [];
 
-  constructor(public navCtrl: NavController,private login:LoginProvider,private productoPrd:ProductoscategoriasProvider) {
+  constructor(public navCtrl: NavController,private login:LoginProvider,private productoPrd:ProductoscategoriasProvider,
+  private globales:GlobalesProvider) {
     this.productoPrd.getCategorias().subscribe(datos => {
         this.arreglo = datos;
     });
@@ -36,10 +38,10 @@ export class catalogosTab {
 
   public ingresarSistema(fab:FabContainer):any{
     fab.close();
-    this.login.entrarSistema();
+    
   }
 
   public salir(){
-    this.login.setEntrar(false);
+    this.globales.cerrarAplicacion();
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { UsuariosProvider } from '../usuarios/usuarios';
+import { TabsPage } from '../../pages/tabs/tabs';
 
 
 @Injectable()
@@ -34,64 +35,52 @@ export class LoginProvider {
   }
 
   //Para logearse al sistema....
-  public entrarSistema() {
-    let alerta1 = this.alerta.create({
-      title: 'Usuario',
-      subTitle: 'Ingresar al sistema',
-      inputs: [{
-        name: 'usuario',
-        placeholder: 'Ingresar usuario'
-      },
-      {
-        name: 'password',
-        placeholder: 'Ingresar contraseña',
-        type: 'password'
-      }],
-      buttons: [{
-        text: "Ingresar",
-        handler: datos => {
-          let respuesta: any = null;
-          this.usuariosPrd.getUsuarioEspecifico(datos.usuario).subscribe(datos2 => {
-            if (datos2.respuesta == undefined) {
-              respuesta = datos2;
-              this.objUsuario = datos2;
+  public entrarSistema(id_sucursal) {
+   
+    let promesa = new Promise((exito,error) =>{
+      let alerta1 = this.alerta.create({
+        title: 'Usuario',
+        subTitle: 'Ingresar al sistema',
+        inputs: [{
+          name: 'usuario',
+          placeholder: 'Ingresar usuario'
+        },
+        {
+          name: 'password',
+          placeholder: 'Ingresar contraseña',
+          type: 'password'
+        }],
+        buttons: [{
+          text: "Ingresar",
+          handler: datos => {
+            let obj = {
+              login:datos.usuario,
+              password:datos.password,
+              idCarrito:id_sucursal
             }
-            console.log(datos2);
-            respuesta = respuesta != null ? respuesta : false;
-            if (!respuesta) {
-              const toast = this.toasCtrl.create({
-                message: 'Usuario y/o Contraseña invalida',
-                duration: 3000
-              });
-              toast.present();
-            } else {
-              this.objUsuario = respuesta;
-        
-              if (respuesta.login == datos.usuario && respuesta.password == datos.password) {
-
-                this.activarMenu = true;
-                const toast = this.toasCtrl.create({
-                  message: 'Se ingreso al sistema con exito',
-                  duration: 3000
-                });
-                toast.present();
+            let respuesta: any = null;
+            this.usuariosPrd.ingresarSistema(obj).subscribe(datos =>{
+              let ingresar = datos.entrar;
+              if(ingresar == true){
+               // let toas = this.toasCtrl.create({message:"Sistema ingresado con exito",duration:1500});
+                //toas.present();
+//                this.usuariosPrd.guardarUsuario(datos);
+                exito(datos);
               }else{
-
-                const toast = this.toasCtrl.create({
-                  message: 'Usuario y/o Contraseña invalida',
-                  duration: 3000
-                });
-                toast.present();
+                //let toas = this.toasCtrl.create({message:"Usuario / Contraseña invalidos",duration:1500});
+                //toas.present();
+                error("Usuario / Contraseña invalidos");
               }
-
-            }
           });
+  
+          }
+        }]
+  
+      });
+      alerta1.present();
+    })
 
-        }
-      }]
-
-    });
-    alerta1.present();
+    return promesa;
   }
 
 

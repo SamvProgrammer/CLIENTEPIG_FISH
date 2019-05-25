@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, ToastController }
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 import { CombosProvider } from '../../providers/combos/combos';
+import { GlobalesProvider } from '../../providers/globales/globales';
 
 /**
  * Generated class for the DetallecocineroPage page.
@@ -25,7 +26,7 @@ export class DetallecocineroPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ticketPrd: TicketsProvider,
     private loginPrd: LoginProvider, private alerta: AlertController, private toasCtrl: ToastController,
-    private combosPrd: CombosProvider) {
+    private combosPrd: CombosProvider,private globales:GlobalesProvider) {
 
     this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
       for (let item of datos) {
@@ -126,6 +127,10 @@ export class DetallecocineroPage {
       ]
     });
     alerta.present();
+  }
+
+  public salir(){
+    this.globales.cerrarAplicacion();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EnlaceProductoinventarioPage } from '../enlace-productoinventario/enlace-productoinventario';
+import { BluetoothPage } from '../bluetooth/bluetooth';
 
 /**
  * Generated class for the ConfiguracionPage page.
@@ -27,5 +28,9 @@ export class ConfiguracionPage {
   public abrirpagina():any{
 
       this.navCtrl.push(EnlaceProductoinventarioPage);
+  }
+
+  public abrirpaginabluetooth(){
+    this.navCtrl.push(BluetoothPage);
   }
 }

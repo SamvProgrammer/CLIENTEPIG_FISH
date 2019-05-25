@@ -12,7 +12,7 @@
 
 <ion-content style="background-image: url('../../assets/fondo.jpg')">
   <ion-card *ngFor = "let i of arreglo">
-    <img src="../../assets/imgs/cards.jpg"/>
+    <img [src]="i.ruta_imagen"/>
     <ion-card-content>
       <ion-card-title>
         {{i.nombre}}
@@ -46,12 +46,6 @@
         </ion-col>
       </ion-row>
   </ion-card>
- <ion-fab right bottom #fab>
-    <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
-    <ion-fab-list side="top">
-        <button (click)="ingresarSistema(fab);" ion-fab><ion-icon name="person"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
 </ion-content>
 
 

@@ -3,6 +3,8 @@ import { NavController, NavParams,ToastController,LoadingController ,ModalContro
 import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
 import { PaginaentrarRolesPage } from '../../pages/paginaentrar-roles/paginaentrar-roles';
+import { TabsPage } from '../tabs/tabs';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class PaginaentrarPage {
   public arreglo:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private loginprovider:LoginProvider,
   private toasCtrl:ToastController,private loadCtrl:LoadingController,private carritoPrd:CarritoProvider,
-    private modalCtrl:ModalController) {
+    private modalCtrl:ModalController,private usuariosPrd:UsuariosProvider) {
   }
 
   ionViewDidEnter() {
@@ -37,9 +39,13 @@ export class PaginaentrarPage {
           let toas = this.toasCtrl.create({message:"Se debe elegir la sucursal a entrar",closeButtonText:"Cerrar",showCloseButton:true});
           toas.present();
       }else{
-        this.loginprovider.setEntrar(true);      
-     //  let modal = this.modalCtrl.create(PaginaentrarRolesPage,{id_carrito:this.gender});
-       //modal.present();
+       this.loginprovider.entrarSistema(this.gender).then(datos =>{
+        this.usuariosPrd.guardarUsuario(datos);
+        this.navCtrl.setRoot(TabsPage);
+       }).catch(err =>{
+        let toas = this.toasCtrl.create({message:err,duration:1500});
+        toas.present();
+       });
       }
   }
 

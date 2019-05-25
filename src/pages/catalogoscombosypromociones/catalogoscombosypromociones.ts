@@ -28,7 +28,10 @@ export class CatalogoscombosypromocionesPage {
       case "combos":
         combosPrd.getCombos().subscribe(datos => {
           this.arreglo = datos;
+          
+        
           for (let item of this.arreglo) {
+            item.ruta_imagen = "data:image/png;base64," + item.imagen;
             this.combosPrd.getCombosDetalle(item.id_combo).subscribe(resp => {
               item.lista = resp;
               console.log(resp);

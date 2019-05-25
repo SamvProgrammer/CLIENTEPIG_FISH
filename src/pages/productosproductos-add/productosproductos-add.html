@@ -38,12 +38,26 @@
       <ion-item>
         <ion-icon name="logo-youtube" item-start></ion-icon>
         <ion-label stacked>Video youtube:</ion-label>
-        <ion-input formControlName="video"  type="text" placeholder="Vídeo youtube" [(ngModel)]="video"></ion-input>
+        <ion-input formControlName="video" type="text" placeholder="Vídeo youtube" [(ngModel)]="video"></ion-input>
       </ion-item>
-      <ion-item >
+      <ion-item>
         <button (click)="agregarvideo()" item-end style="width:10%" ion-button icon-only color="light" type="button">
-          
+
           <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item>
+        <ion-label [ngClass] = "{'sinimagen':imagen=='','conimagen':imagen!=''}">
+          {{texto}}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <button item-end (click)="subirFoto()" style="width:10%" ion-button icon-only color="light" type="button">
+
+          <ion-icon name="camera"></ion-icon>
+        </button>
+        <button item-end (click)="galeria()" style="width:10%" ion-button icon-only color="light" type="button">
+          <ion-icon name="photos"></ion-icon>
         </button>
       </ion-item>
     </ion-list>

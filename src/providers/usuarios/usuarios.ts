@@ -13,6 +13,7 @@ import { ToastController } from 'ionic-angular';
 export class UsuariosProvider {
   private direccion = "";
   private data:Observable<any>;
+  private obj;
 
   constructor(public http: HttpClient,private toas:ToastController) {
     this.direccion = direcciones.usuarios;
@@ -61,5 +62,52 @@ export class UsuariosProvider {
     return this.data;
    }
   
+   public ingresarSistema(obj): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let url = this.direccion + "/login";
+    let json = JSON.stringify(obj);
+    return this.http.post(url, json, httpOptions);
+  }
+
+  public guardarUsuario(obj) {
+    this.obj = obj;
+  }
+
+  public getUsuario() {
+    return this.obj;
+  }
+
+  public getSucursal(){
+    return this.obj.id_carrito;
+  }
+
+  public getIdUsuario(){
+    return this.obj.id;
+  }
+
+  public activarMenu(): boolean {
+    return this.obj.menu;
+  }
+  public activarCatalogos(): boolean {
+    return this.obj.catalogos;
+  }
+  public activarBar(): boolean {
+    return this.obj.bar;
+  }
+  public activarCocina(): boolean {
+    return this.obj.cocina;
+  }
+  public activarTransacciones(): boolean {
+    return this.obj.transacciones;
+  }
+
+  public activarCuentas():boolean{
+    return this.obj.cuentas;
+  }
 
 }

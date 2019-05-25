@@ -15,8 +15,9 @@ import { InventarioPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { ProductosPage } from '../pages/productos/productos';
+import { CajaPage } from '../pages/caja/caja';
 
-
+import { UsuariosProvider } from '../providers/usuarios/usuarios';
 
 
 @Component({
@@ -24,7 +25,6 @@ import { ProductosPage } from '../pages/productos/productos';
 })
 export class MyApp {
   rootPage: any = PaginaentrarPage;
-  rootPage2: any = TabsPage;
   usuarios: any = UsuariosPage;
   inicio: any = TabsPage;
   sucursales: any = SucursalesPage;
@@ -33,10 +33,11 @@ export class MyApp {
   pedidos: any = PedidosPage;
   configuracion: any = ConfiguracionPage;
   productos: any = ProductosPage;
+  caja:any = CajaPage;
 
   constructor(platform: Platform, public androidPermissions: AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
-    private toasCtrl: ToastController) {
+    private toasCtrl: ToastController,private usuariosPrd:UsuariosProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -56,6 +57,8 @@ export class MyApp {
       }
     });
 
+
+    usuariosPrd.guardarUsuario({ menu: false });
   }
 
   public verificaEntrar(): boolean {
@@ -68,35 +71,16 @@ export class MyApp {
 
   public openPage(pagina) {
     this.menuCtrl.close();
-    this.rootPage2 = pagina;
+    this.rootPage = pagina;
   }
 
   public salir() {
 
-    let ms1 = this.alerta.create({
-      title: 'Aviso',
-      subTitle: '¿Desea salir del menú?',
-      buttons: [{
-        text: "Aceptar",
-        handler: () => {
-          this.menuCtrl.close();
-          this.rootPage2 = this.inicio;
-          const toast = this.toasCtrl.create({
-            message: 'Se cerro sesión con exito',
-            duration: 3000
-          });
-          toast.present();
-          setTimeout(o => {
-            this.prdVerificaEntrar.setActivaMenu(false);
-          }, 100);
-        }
-      }, {
-        text: "Cancelar",
-        handler: () => { }
-      }]
+    console.log("Metodo para salir");
+  }
 
-    });
-
-    ms1.present();
+  
+  public activaMenu(): boolean {
+    return this.usuariosPrd.activarMenu() == true;
   }
 }

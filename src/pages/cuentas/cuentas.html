@@ -7,6 +7,12 @@
     <ion-title>
       Cuentas abiertas
     </ion-title>
+    <ion-buttons end>
+      <button (click)="salir()" ion-button icon-end>
+          Salir
+        
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -24,7 +30,7 @@
             <p>Número de folio: {{i.id_folio}}</p>
           </ion-item>  
           <ion-item-options side="right">
-            <button color="success" (click)  = "cobrar(i.id_ticket);" ion-button><ion-icon name="checkmark-circle"></ion-icon>Cobrar</button>
+            <button color="light" (click)  = "cobrar(i);" ion-button><ion-icon name="print"></ion-icon>PreTicket</button>
             <button color="danger" (click) = "cancelar(i.id_ticket)" ion-button><ion-icon name="trash" ></ion-icon>Cancelar
             </button>
           </ion-item-options>
@@ -34,7 +40,6 @@
   <ion-fab right bottom #fab>
     <button ion-fab color="botonflotante"><ion-icon name="arrow-dropup"></ion-icon></button>
     <ion-fab-list side="top">
-        <button ion-fab (click)="ingresarSistema(fab);"><ion-icon name="person"></ion-icon></button>
         <button ion-fab (click)="agregarCuenta(fab);"><ion-icon name="cart"></ion-icon></button>        
     </ion-fab-list>
   </ion-fab>
