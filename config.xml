@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="pigfish.foodtruck.entrecodigos" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Pigfish</name>
     <description>Aplicación de pig and fish Oaxaca</description>
     <author email="santiagoantoniomariscal@gmail.com" href="http://ionicframework.com/">Santiago Antonio</author>
@@ -91,5 +91,5 @@
     </plugin>
     <plugin name="cordova-plugin-bluetooth-serial" spec="0.4.7" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
-    <engine name="android" spec="7.1.2" />
+    <engine name="android" spec="7.1.4" />
 </widget>

@@ -23,6 +23,7 @@ export class ProductosproductosAddPage {
   public imagen = "";
   public texto = "Imagen no seleccionada";
   public nueva: boolean = false;
+  public id_categoria;
 
   constructor(
     public navCtrl: NavController,
@@ -36,6 +37,7 @@ export class ProductosproductosAddPage {
   ) {
     this.variable = this.parametros.get("parametro");
     console.log(JSON.stringify(this.variable))
+    this.id_categoria = this.parametros.get("id_categoria");
 
     this.boton = this.parametros.get("boton");
     if (this.variable == undefined) {
@@ -46,7 +48,12 @@ export class ProductosproductosAddPage {
       this.id = this.variable.id;
       this.video = this.variable.nombre_video;
       this.imagen = this.variable.ruta_imagen;
-      this.texto = (this.variable.ruta_imagen.length != 0) ? "Imagen seleccionada" : "Imagen no seleccionada";
+      if(this.variable.ruta_imagen != null || this.variable.ruta_imagen != undefined){
+        this.texto = (this.variable.ruta_imagen.length != 0) ? "Imagen seleccionada" : "Imagen no seleccionada";
+      }else{
+        this.texto = "Imagen no seleccionada";
+        this.imagen = "";
+      }
       this.myForm = this.createMyForm(this.variable);
     }
 
@@ -60,7 +67,7 @@ export class ProductosproductosAddPage {
       nombre: [obj.nombre, Validators.required],
       descripcion: [obj.descripcion, Validators.required],
       precio: [obj.precio, Validators.required],
-      categoria: [obj.id_categoria, Validators.required],
+      categoria: [this.id_categoria, Validators.required],
       video: [obj.nombre_video]
     });
   }

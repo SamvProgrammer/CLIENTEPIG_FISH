@@ -55,6 +55,7 @@ import { CajaCortePage } from '../pages/caja-corte/caja-corte';
 import { CajaMesasPage } from '../pages/caja-mesas/caja-mesas';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
+import { ProductosproductosCategoriasPage } from '../pages/productosproductos-categorias/productosproductos-categorias';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -117,7 +118,8 @@ import { ImpresionesProvider } from '../providers/impresiones/impresiones';
     CajaCortePage,
     CajaMesasPage,
     BluetoothPage,
-    BluetoothDispositivosPage
+    BluetoothDispositivosPage,
+    ProductosproductosCategoriasPage
   ],
   imports: [
     BrowserModule,
@@ -169,7 +171,8 @@ import { ImpresionesProvider } from '../providers/impresiones/impresiones';
     CajaCortePage,
     CajaMesasPage,
     BluetoothPage,
-    BluetoothDispositivosPage
+    BluetoothDispositivosPage,
+    ProductosproductosCategoriasPage
   ],
   providers: [
     StatusBar,

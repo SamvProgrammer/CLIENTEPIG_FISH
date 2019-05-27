@@ -28,20 +28,17 @@
                 <ion-row>
                   <ion-col *ngFor = "let i of arreglo" (click) = "agregar(i,1)">
                     <ion-card color="verdesito">
-                      <h4 orange><strong>{{i.nombre}}</strong></h4>
-                      <p>{{i.descripcion}} </p>
+                      <h4 orange><strong class="fuente">{{i.nombre}}</strong></h4>
                     </ion-card>
                   </ion-col> 
                   <ion-col  (click) = "agregarCombo('combo')">
                     <ion-card color="verdesito">
-                      <h4 orange><strong>Combos</strong></h4>
-                      <p> Combos  </p>
+                      <h4 orange><strong class="fuente">Combos</strong></h4>
                     </ion-card>
                   </ion-col> 
                   <ion-col  (click) = "agregarPromocion('promocion')">
                     <ion-card color="verdesito">
-                      <h4 orange><strong>Promociones</strong></h4>
-                      <p>Promociones de día</p>
+                      <h4 orange><strong class="fuente">Promociones</strong></h4>
                     </ion-card>
                   </ion-col>          
                 </ion-row>
@@ -86,13 +83,6 @@
           </ion-row>
         </ion-grid>
       </ion-content>
-      <ion-footer>
-        <ion-toolbar color="gris">
-          <button (click) = "cobrar();" ion-button icon-only color="primary" style="width: 80%;">            
-            Ver cuenta
-          </button>
-        </ion-toolbar>
-      </ion-footer>
     </ion-slide>
   </ion-slides>
 </ion-content>

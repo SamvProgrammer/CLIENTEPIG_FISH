@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { CategoriasPage } from '../productoscategorias/categorias';
-import { ProductosproductosPage } from '../productosproductos/productosproductos';
+import { ProductosproductosCategoriasPage } from '../productosproductos-categorias/productosproductos-categorias';
 import { ProductoscombosPage } from '../productoscombos/productoscombos';
 import { ProductospromocionesPage } from '../productospromociones/productospromociones';
 
@@ -31,7 +31,7 @@ export class ProductosPage {
 
     switch(tipo){
       case 'productos':
-      this.navCtrl.push(ProductosproductosPage);
+      this.navCtrl.push(ProductosproductosCategoriasPage);
       break;
       case 'combos':
       this.navCtrl.push(ProductoscombosPage);
