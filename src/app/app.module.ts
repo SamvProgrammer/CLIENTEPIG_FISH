@@ -11,6 +11,9 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { Camera } from '@ionic-native/camera';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -71,6 +74,7 @@ import { ApiyoutubeProvider } from '../providers/apiyoutube/apiyoutube';
 import { InventarioProvider } from '../providers/inventario/inventario';
 import { GlobalesProvider } from '../providers/globales/globales';
 import { ImpresionesProvider } from '../providers/impresiones/impresiones';
+import { ReportesProvider } from '../providers/reportes/reportes';
 
 
 @NgModule({
@@ -197,7 +201,11 @@ import { ImpresionesProvider } from '../providers/impresiones/impresiones';
     GlobalesProvider,
     ImpresionesProvider,
     BluetoothSerial,
-    Camera
+    Camera,
+    ReportesProvider,
+    DocumentViewer,
+    File,
+    FileTransfer
   ]
 })
 export class AppModule {}

@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
 import { TicketPage } from '../ticket/ticket';
 import { ReportetransaccionesPage } from '../reportetransacciones/reportetransacciones';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { ReportesProvider } from '../../providers/reportes/reportes';
 
 /**
  * Generated class for the HistorialPage page.
@@ -26,7 +30,10 @@ export class HistorialPage {
   public gender: any = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ticktPrd: TicketsProvider,
-    private loginPrd: LoginProvider, private carritoPrd: CarritoProvider) {
+    private loginPrd: LoginProvider, private carritoPrd: CarritoProvider,private reportePrd: ReportesProvider, private document: DocumentViewer, private platadorma: Platform,
+    private alertCtrl: AlertController, private file: File, private ft: FileTransfer,
+    private toasCtrl: ToastController, private loadCtrl: LoadingController
+  ) {
     let idCarrito = loginPrd.getCarrito();
     let today = new Date();
     let dd = today.getDate();
@@ -75,7 +82,51 @@ export class HistorialPage {
   }
 
   public reporte():any{
-      this.navCtrl.push(ReportetransaccionesPage,{arreglo:this.arreglo,fecha:this.fecha});
+    const fileTransfer: FileTransferObject = this.ft.create();
+    const options: DocumentViewerOptions = {
+      title: 'Reporte'
+    }
+
+    let cargando = this.loadCtrl.create({ content: "Generando reporte" });
+    cargando.present();
+    this.reportePrd.getHistoricoCuentas(this.gender).subscribe(datos => {
+      cargando.dismiss();
+      if (this.platadorma.is('cordova')) {
+        let filename = "reporte.pdf";
+        const writeDirectory = this.platadorma.is('ios') ? this.file.dataDirectory : this.file.externalDataDirectory;
+        this.file.writeFile(writeDirectory, filename, this.convertBaseb64ToBlob(datos.respuesta, 'data:application/pdf;base64'), {replace: true})
+        .then(() => {
+            
+            this.document.viewDocument(writeDirectory+filename,'application/pdf',options);
+        })
+        .catch(() => {
+            console.error('Error writing pdf file');
+        });        
+      } else {
+        console.log(datos);
+        let pdfWindow = window.open("")
+        pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64," + datos.respuesta+"'></iframe>")
+      }
+    });
   }
+
+  public convertBaseb64ToBlob(b64Data, contentType): Blob {
+    contentType = contentType || '';
+    const sliceSize = 512;
+    b64Data = b64Data.replace(/^[^,]+,/, '');
+    b64Data = b64Data.replace(/\s/g, '');
+    const byteCharacters = window.atob(b64Data);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+         const slice = byteCharacters.slice(offset, offset + sliceSize);
+         const byteNumbers = new Array(slice.length);
+         for (let i = 0; i < slice.length; i++) {
+             byteNumbers[i] = slice.charCodeAt(i);
+         }
+         const byteArray = new Uint8Array(byteNumbers);
+         byteArrays.push(byteArray);
+    }
+   return new Blob(byteArrays, {type: contentType});
+}
 
 }

@@ -124,10 +124,7 @@ private bt:BluetoothSerial) {
   public cobrar(obj): any {
     let idSucursal = this.usuariosPrd.getSucursal();
 
-    
-
-    
-      this.impPrd.getPreticket(obj).then(mensaje => {
+    this.impPrd.getPreticket(obj).then(mensaje => {
         console.log(mensaje);
          this.bt.write(mensaje);
       }).catch(err =>{

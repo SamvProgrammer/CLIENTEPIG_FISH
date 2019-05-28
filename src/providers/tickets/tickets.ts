@@ -53,7 +53,7 @@ export class TicketsProvider {
     }
 
   
-    let filtrarDireccion = this.direccion +"/canceladoscobrados/"+id_carrito+"/"+auxFecha;
+    let filtrarDireccion = this.direccion + "/sucursal/" + id_carrito + "/fecha/" + auxFecha;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
    }

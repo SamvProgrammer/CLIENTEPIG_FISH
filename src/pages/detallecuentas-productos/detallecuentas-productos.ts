@@ -66,6 +66,71 @@ export class DetallecuentasProductosPage {
   }
 
   public agregarCarrito(obj,indice): any {
+    console.log(obj);
+    if(obj.esmixta == true){
+      let alerta = this.alertCtrl.create({
+        message:"¿Deseas agregar producto a la orden?",
+        inputs:[{
+          type: "checkbox",
+          value: "camaron",
+          name: "camaron",
+          label: "Cámaron",
+          checked: false
+        },
+        {
+          type: "checkbox",
+          value: "lechon",
+          name: "lechon",
+          label: "Lechon",
+          checked: false
+        },
+        {
+          type: "checkbox",
+          value: "arrachera",
+          name: "arrachera",
+          label: "Arrachera",
+          checked: false
+        },
+        {
+          type: "checkbox",
+          value: "cochinita",
+          name: "cochinita",
+          label: "Cochinita",
+          checked: false
+        },
+        {
+          type: "checkbox",
+          value: "pescado",
+          name: "pescado",
+          label: "Pescado",
+          checked: false
+        }],
+        buttons:[{text:"Sí",handler : (datos)=>{
+          let observaciones = "";
+          for(let item of datos){
+              observaciones = observaciones + item + ", ";
+          }
+          this.agregaralCarrito(obj,indice,observaciones);
+        }},"No"]
+
+    });
+
+    alerta.present();
+
+    }else{
+      let alerta = this.alertCtrl.create({
+        message:"¿Deseas agregar producto a la orden?",
+        buttons:[{text:"Sí",handler : ()=>{
+          this.agregaralCarrito(obj,indice,"");
+        }},"No"]
+
+    });
+
+    alerta.present();
+    }
+  }
+
+  private agregaralCarrito(obj,indice,obervacionextendido){
     var enviar = {
       id_ticket: this.identificador,
       id_producto: obj.id_producto,
@@ -73,6 +138,8 @@ export class DetallecuentasProductosPage {
       observaciones:this.arreglo[indice].observaciones,
       tipo_producto:1
     }
+
+    enviar.observaciones = obervacionextendido;
     
     this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
       let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
@@ -80,14 +147,14 @@ export class DetallecuentasProductosPage {
       
       this.arreglo[indice].observaciones = "";
     });
-
   }
 
   public observaciones(indice): any {
     let mensajeObservaciones = this.alertCtrl.create({
       title: "Observaciones",
       message: "Observaciones a la orden",
-      inputs:[{
+      inputs:[
+      {
         placeholder:"Observaciones",
         type:"text",
         name:"observaciones"
