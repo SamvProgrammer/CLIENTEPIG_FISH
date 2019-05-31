@@ -95,7 +95,7 @@ export class SubcatalogosOrdenPage {
 
           let enviar = {
             id_ticket: obj.id_ticket,
-            id_producto: this.producto.id_producto,
+            id_producto: this.producto,
             cantidad: datos.cant,
             observaciones:datos.observaciones,
             tipo_producto:this.tipo

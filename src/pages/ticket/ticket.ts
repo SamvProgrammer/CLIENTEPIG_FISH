@@ -38,7 +38,7 @@ export class TicketPage {
     public http: HttpClient) {
     this.billete = navParams.get("billete");
     let id_ticket = navParams.get("id_ticket");
-    ticketsPrd.getTicketsDetalleAgrupado(id_ticket).subscribe(datos => {
+    ticketsPrd.getTicketsDetalleAgrupadoTicketFinal(id_ticket).subscribe(datos => {
       this.arreglo = datos;
       for (let i of datos) {
         this.total = this.total + i.precio_total;

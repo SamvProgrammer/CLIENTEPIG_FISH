@@ -52,7 +52,7 @@ export class ProductosproductosPage {
   }
 
   public actualizar(obj:any){
-    this.navCtrl.push(ProductosproductosAddPage,{boton:"Agregar",id_categoria:this.id_categoria,parametro:obj});
+    this.navCtrl.push(ProductosproductosAddPage,{boton:"Actualizar",id_categoria:this.id_categoria,parametro:obj});
   }
 
   public eliminar(obj){
