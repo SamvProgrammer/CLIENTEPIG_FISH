@@ -12,7 +12,7 @@
   </ion-header>
 
 
-  <ion-content class="menu" style="background-image: url('../../assets/fondo.jpg');">
+  <ion-content class="menu" >
     <ion-list>
       <button menuClose="left" ion-item (click)="openPage(inicio)">
         <ion-icon name="home" item-left></ion-icon> Inicio
@@ -49,5 +49,4 @@
 </ion-menu>
 
 <ion-nav id="nav" #content></ion-nav>
-<ion-nav *ngIf="!verificaEntrar();" [root]="rootPage"></ion-nav>
-<ion-nav *ngIf="verificaEntrar();" [root]="rootPage2"></ion-nav>
+<ion-nav [root]="rootPage"></ion-nav>

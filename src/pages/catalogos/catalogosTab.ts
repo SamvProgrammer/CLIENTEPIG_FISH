@@ -36,6 +36,10 @@ export class catalogosTab {
     }
   }
 
+  public subcatalogo(id){
+    this.navCtrl.push(SubcatalogosPage,{'obj':id});
+  }
+
   public ingresarSistema(fab:FabContainer):any{
     fab.close();
     

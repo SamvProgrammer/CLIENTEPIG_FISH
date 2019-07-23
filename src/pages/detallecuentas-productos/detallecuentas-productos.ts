@@ -18,6 +18,7 @@ import { TicketsProvider } from '../../providers/tickets/tickets';
 export class DetallecuentasProductosPage {
 
   public arreglo: any = [];
+  public arregloPedidoCliente:any = [];
 
   public identificador;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
@@ -26,14 +27,17 @@ export class DetallecuentasProductosPage {
     let id = navParams.get("id");
 
     this.identificador = navParams.get("folio");
-    productosPrd.getProductosCategoria(id).subscribe(datos => {
+    let datos = navParams.get("productos");
+    this.arregloPedidoCliente = navParams.get("pedidosCliente");
+    console.log("Los pedidos del cliente son");
+    console.log(this.arregloPedidoCliente);
       for (let item of datos) {
         item.cantidad = 1;
         item.observaciones = "";
       }
 
       this.arreglo = datos;
-    });
+    
   }
 
   ionViewDidLoad() {
@@ -41,7 +45,7 @@ export class DetallecuentasProductosPage {
   }
 
   public salir() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.arregloPedidoCliente);
   }
 
   public getcantidad(indice): any {
@@ -136,17 +140,36 @@ export class DetallecuentasProductosPage {
       id_producto: obj.id_producto,
       cantidad: obj.cantidad,
       observaciones:this.arreglo[indice].observaciones,
-      tipo_producto:1
+      tipo_producto:1,
+      ruta_imagen:"",
+      servido:false
     }
 
     enviar.observaciones = obervacionextendido;
+
+    if (enviar.observaciones == null) {
+      enviar.observaciones = "";
+    }
     
-    this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
-      let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
-      toas.present();
+   // this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
+     // let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
+      //toas.present();
       
-      this.arreglo[indice].observaciones = "";
-    });
+     // this.arreglo[indice].observaciones = "";
+    //});
+    enviar.ruta_imagen = obj.ruta_imagen;
+    enviar.servido = false;
+    console.log(enviar);
+    this.insertarDetalleConsumidor(enviar);
+    obj.cantidad = 1;
+  }
+
+
+  public insertarDetalleConsumidor(obj) {
+    let arreglo = this.arregloPedidoCliente.cliente1;
+    arreglo.push(obj);
+    let mensaje = this.toasCtrl.create({ message: "Producto agregado a la orden a enviar", duration: 1500 });
+    mensaje.present();
   }
 
   public observaciones(indice): any {

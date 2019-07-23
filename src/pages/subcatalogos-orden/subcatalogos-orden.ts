@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, FabContainer, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 
 /**
@@ -24,8 +25,9 @@ export class SubcatalogosOrdenPage {
   private tipo;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
     private alerta: AlertController, private toasCtrl: ToastController,
-    private tickPrd: TicketsProvider, private loginPrd: LoginProvider, private modal: ModalController) {
-    let carrito = loginPrd.getCarrito();
+    private tickPrd: TicketsProvider, private loginPrd: LoginProvider, private modal: ModalController,
+    private usuariosPrd:UsuariosProvider) {
+    let carrito = usuariosPrd.getSucursal();
     this.id_carrito = carrito;
     tickPrd.getTickets(carrito).subscribe(datos => {
       console.log(carrito);
@@ -63,7 +65,7 @@ export class SubcatalogosOrdenPage {
           let objTicket = {
             id_user: 12,
             nombre: identificadorCuenta,
-            id_carrito: this.loginPrd.getCarrito(),
+            id_carrito: this.usuariosPrd.getSucursal,
             fecha: today
           };
           this.tickPrd.getTickets(this.id_carrito).subscribe(d1 => {

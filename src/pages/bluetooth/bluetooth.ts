@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { BluetoothDispositivosPage } from '../bluetooth-dispositivos/bluetooth-dispositivos';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { GlobalesProvider } from '../../providers/globales/globales';
 
 /**
  * Generated class for the BluetoothPage page.
@@ -18,15 +19,15 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 export class BluetoothPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private toasCtrl:ToastController,
-    private bt:BluetoothSerial) {
+    private bt:BluetoothSerial,private globales:GlobalesProvider) {
     }
   
     ionViewDidLoad() {
       console.log('ionViewDidLoad BluetoothPage');
     }
   
-    public dispositivos(){
-        this.navCtrl.push(BluetoothDispositivosPage);
+    public dispositivos(tipo){
+        this.navCtrl.push(BluetoothDispositivosPage,{tipo:tipo});
     }
   
     public imprimir(){
@@ -34,10 +35,19 @@ export class BluetoothPage {
         console.log("SE VA A IMPRIMIR----");
         let toas = this.toasCtrl.create({message:"Impresión prueba mandada a impresora",duration:1500});
         toas.present();
-        this.bt.write("Impresión prueba\notra impresion \n").then(datos =>{
-          console.log(JSON.stringify(datos));
-        },err =>{
-          console.log(JSON.stringify(err));
+        let mensajeCajero = "prueba de impresora en caja\n\n\n\n\n\n";
+  
+        let mensajeCocina = "prueba de impresora en cocina\n\n\n\n\n\n";
+  
+        let mensajeBarra = "prueba de impresora en barra\n\n\n\n\n\n";
+  
+        this.globales.conectarCajero(mensajeCajero).then(aux1 =>{
+          this.globales.conectarCocina(mensajeCocina).then(aux2=>{
+            this.globales.conectarBarra(mensajeBarra).then(aux3=>{
+              
+            });
+          });
         });
+        
     }
 }

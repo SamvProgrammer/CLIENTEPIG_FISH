@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, FabContainer } from 'ionic-angular';
-import { LoginProvider } from '../../providers/login/login';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { TicketPage } from '../ticket/ticket';
 import { GlobalesProvider } from '../../providers/globales/globales';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 @Component({
   selector: 'page-transacciones',
@@ -13,10 +13,10 @@ export class TransaccionesPage {
 
   private id_carrito;
   public arreglo:any = [];
-  constructor(public navCtrl: NavController, private login: LoginProvider,
+  constructor(public navCtrl: NavController, private usuariosPrd:UsuariosProvider,
               private ticketsPrd:TicketsProvider,private globales:GlobalesProvider) {
 
-      this.id_carrito = this.login.getCarrito();
+      this.id_carrito = this.usuariosPrd.getSucursal();
       this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {
         this.arreglo = datos;
       });

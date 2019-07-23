@@ -24,7 +24,7 @@ export class cuentasPage {
     private ticketsPrd: TicketsProvider, private toasCtrl: ToastController,
   private usuariosPrd:UsuariosProvider,private globales:GlobalesProvider,private impPrd:ImpresionesProvider,
 private bt:BluetoothSerial) {
-    this.id_carrito = login.getCarrito();
+    this.id_carrito = usuariosPrd.getSucursal();
     this.traerCuentas();
   }
 

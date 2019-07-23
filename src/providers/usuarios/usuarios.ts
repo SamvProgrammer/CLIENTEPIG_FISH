@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { direcciones } from '../../assets/direcciones';
 import { Observable } from 'rxjs/observable';
-import { ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { LoadingController } from 'ionic-angular';
+import { ProductosProvider } from '../../providers/productos/productos';
+import { CategoriasProvider } from '../../providers/categorias/categorias';
 /*
   Generated class for the UsuariosProvider provider.
 
@@ -15,9 +18,12 @@ export class UsuariosProvider {
   private data:Observable<any>;
   private obj;
 
-  constructor(public http: HttpClient,private toas:ToastController) {
+  constructor(public http: HttpClient,private productosPrd:ProductosProvider,
+    private cargandoCtrl:LoadingController,private categoriasPrd:CategoriasProvider,
+    private storage:Storage) {
     this.direccion = direcciones.usuarios;
   }
+  
 
   public getUsuarios():Observable<any>{    
 
@@ -74,8 +80,25 @@ export class UsuariosProvider {
     return this.http.post(url, json, httpOptions);
   }
 
-  public guardarUsuario(obj) {
+  public guardarUsuario(obj,cargarCatalogos) {
     this.obj = obj;
+    console.log(obj);
+    if(cargarCatalogos == true){
+
+      let cargando = this.cargandoCtrl.create({content:"Cargando catalogo de productos"});
+      cargando.present();
+      this.productosPrd.getCategoriaConListaproductos().subscribe(listadoproductos => {
+        this.categoriasPrd.gets().subscribe(categorias=>{
+           let objetoGuardar = {
+             categorias:categorias,
+             listaproductos:listadoproductos
+           };
+  
+           this.storage.set("listaproductosdetallemesa",objetoGuardar);
+           cargando.dismiss();
+        });
+      });
+    }
   }
 
   public getUsuario() {
@@ -108,6 +131,10 @@ export class UsuariosProvider {
 
   public activarCuentas():boolean{
     return this.obj.cuentas;
+  }
+
+  public getNombreUsuario(){
+    return this.obj.nombre;
   }
 
 }

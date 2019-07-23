@@ -11,26 +11,27 @@
       </ion-buttons>
 
     <ion-title>
-      Cátalogos
+      Menú
     </ion-title>
    
   </ion-navbar>
 </ion-header>
-
-<ion-content style="background-image: url('../../assets/fondo.jpg')" class="card-background-page">
-  <ion-card *ngFor="let i of arreglo" (click)="clickimagen(i.id)">
-    <img src="../../assets/imgs/presentaciones.jpg"/>
-    <div class="card-title">{{i.nombre}}</div>
-    <div class="card-subtitle">{{i.descripcion}}</div>
-  </ion-card>
-  <ion-card (click)="clickimagen('combos')">
-    <img src="../../assets/combos.jpg"/>
-    <div class="card-title">COMBOS</div>
-    <div class="card-subtitle">Checa nuestros combos</div>
-  </ion-card>
-  <ion-card (click)="clickimagen('promociones')">
-    <img src="../../assets/imgs/promociones.jpg"/>
-    <div class="card-title">PROMOCIONES</div>
-    <div class="card-subtitle">Promociones del día</div>
-  </ion-card>
-</ion-content>
+  
+  <ion-content class="fondo">
+      <ion-grid class="background" >
+        <ion-row  style="height: 100%;">
+          
+        </ion-row>
+      </ion-grid>
+    <h3>Categorias</h3>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of arreglo" col-6 col-sm-4  col-md-3 col-lg-2 col-xl-1>
+          <div class="divs" (click) = "subcatalogo(item.id)">
+            <img src="../../assets/icon/iconcatalogos.png" alt="">
+            <h5>{{item.nombre}}</h5>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

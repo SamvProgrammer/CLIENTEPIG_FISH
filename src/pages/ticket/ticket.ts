@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 import { CarritoProvider } from '../../providers/carrito/carrito';
@@ -8,6 +8,7 @@ import { SMS } from '@ionic-native/sms';
 import { CurrencyPipe } from '@angular/common';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 
 
@@ -35,7 +36,7 @@ export class TicketPage {
     private sms: SMS,
     private currency: CurrencyPipe,
     private google: GooglePlus,
-    public http: HttpClient) {
+    public http: HttpClient,private usuariosPrd:UsuariosProvider) {
     this.billete = navParams.get("billete");
     let id_ticket = navParams.get("id_ticket");
     ticketsPrd.getTicketsDetalleAgrupadoTicketFinal(id_ticket).subscribe(datos => {
@@ -47,7 +48,7 @@ export class TicketPage {
       }
     });
 
-    let id_carrito = this.login.getCarrito();
+    let id_carrito = this.usuariosPrd.getSucursal();
     this.carritoPrd.getCarritosEspecifico(id_carrito).subscribe(datos => {
       this.nombre_sucursal = datos.nombre;
     });

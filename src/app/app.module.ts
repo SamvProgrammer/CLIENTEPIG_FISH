@@ -14,6 +14,7 @@ import { Camera } from '@ionic-native/camera';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -59,6 +60,7 @@ import { CajaMesasPage } from '../pages/caja-mesas/caja-mesas';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
 import { ProductosproductosCategoriasPage } from '../pages/productosproductos-categorias/productosproductos-categorias';
+import { CuentasDetalleAntesdeenviarPage } from '../pages/cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -75,6 +77,7 @@ import { InventarioProvider } from '../providers/inventario/inventario';
 import { GlobalesProvider } from '../providers/globales/globales';
 import { ImpresionesProvider } from '../providers/impresiones/impresiones';
 import { ReportesProvider } from '../providers/reportes/reportes';
+import { CategoriasProvider } from '../providers/categorias/categorias';
 
 
 @NgModule({
@@ -123,12 +126,14 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CajaMesasPage,
     BluetoothPage,
     BluetoothDispositivosPage,
-    ProductosproductosCategoriasPage
+    ProductosproductosCategoriasPage,
+    CuentasDetalleAntesdeenviarPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -176,7 +181,8 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CajaMesasPage,
     BluetoothPage,
     BluetoothDispositivosPage,
-    ProductosproductosCategoriasPage
+    ProductosproductosCategoriasPage,
+    CuentasDetalleAntesdeenviarPage
   ],
   providers: [
     StatusBar,
@@ -205,7 +211,8 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     ReportesProvider,
     DocumentViewer,
     File,
-    FileTransfer
+    FileTransfer,
+    CategoriasProvider
   ]
 })
 export class AppModule {}

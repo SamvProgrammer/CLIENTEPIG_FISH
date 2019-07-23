@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import {  NavController, NavParams, LoadingController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the BluetoothDispositivosPage page.
@@ -18,8 +19,9 @@ export class BluetoothDispositivosPage {
 
  
   public arreglo: any = [];
+  public tipo;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private bt: BluetoothSerial, private loadCtrl: LoadingController) {
+    private bt: BluetoothSerial, private loadCtrl: LoadingController,private storage:Storage) {
   }
 
   ionViewDidLoad() {
@@ -33,20 +35,49 @@ export class BluetoothDispositivosPage {
       console.log(JSON.stringify(err))
       cargando.dismiss();
     });
+
+    this.tipo = this.navParams.get("tipo");
   }
 
 
   public conectar(obj) {
-   console.log("CONECTANDO A DISPOSITIVO YEEEIII");
+   
     let cargando = this.loadCtrl.create({ content: "Conectando a impresora" });
     cargando.present();
-    this.bt.connect(obj.address).subscribe(datos => {
-      console.log(JSON.stringify(datos));
-      cargando.dismiss();
-      this.navCtrl.pop();
-    }, err => {
-      console.log(JSON.stringify(err));
-      cargando.dismiss();
+    let objblue = {
+      mac:obj.address,
+      conectar:true
+    }
+    this.storage.set(this.tipo,objblue);
+
+    this.bt.isConnected().then(m => {
+      this.bt.disconnect().then(mm => {
+        this.bt.connect(obj.address).subscribe(datos => {
+          console.log(JSON.stringify(datos));
+          cargando.dismiss();
+          this.navCtrl.pop();
+          let mensajeConectado = `DISPOSITIVO SE CONECTO A LA\nIMPRESORA DE TIPO ${this.tipo}\n\n\n\n\n\n\n\n\n\n`;
+          this.bt.write(mensajeConectado).then(escribio =>{
+            this.bt.disconnect();
+          });
+        }, err => {
+          console.log(JSON.stringify(err));
+          cargando.dismiss();
+        });
+      });
+    }).catch(err =>{
+      this.bt.connect(obj.address).subscribe(datos => {
+        console.log(JSON.stringify(datos));
+        cargando.dismiss();
+        this.navCtrl.pop();
+        let mensajeConectado = `DISPOSITIVO SE CONECTO A LA\nIMPRESORA DE TIPO ${this.tipo}\n\n\n\n\n\n\n\n\n\n`;
+        this.bt.write(mensajeConectado).then(escribio =>{
+          this.bt.disconnect();
+        });
+      }, err => {
+        console.log(JSON.stringify(err));
+        cargando.dismiss();
+      });
     });
   }
 

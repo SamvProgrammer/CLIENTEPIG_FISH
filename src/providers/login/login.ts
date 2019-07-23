@@ -18,21 +18,7 @@ export class LoginProvider {
   }
 
 
-  //Establece si aparece la pantalla número uno....
-  public getEntrar(): boolean {
-    return this.entrar;
-  }
-  public setEntrar(parametro: boolean): void {
-    this.entrar = parametro;
-  }
-
-  public setActivaMenu(activa: boolean) {
-    this.activarMenu = activa;
-  }
-  public getActivaMenu(): boolean {
-
-    return this.activarMenu;
-  }
+  
 
   //Para logearse al sistema....
   public entrarSistema(id_sucursal) {
@@ -58,21 +44,8 @@ export class LoginProvider {
               password:datos.password,
               idCarrito:id_sucursal
             }
-            let respuesta: any = null;
-            this.usuariosPrd.ingresarSistema(obj).subscribe(datos =>{
-              let ingresar = datos.entrar;
-              if(ingresar == true){
-               // let toas = this.toasCtrl.create({message:"Sistema ingresado con exito",duration:1500});
-                //toas.present();
-//                this.usuariosPrd.guardarUsuario(datos);
-                exito(datos);
-              }else{
-                //let toas = this.toasCtrl.create({message:"Usuario / Contraseña invalidos",duration:1500});
-                //toas.present();
-                error("Usuario / Contraseña invalidos");
-              }
-          });
-  
+            
+            exito(obj);
           }
         }]
   
@@ -86,9 +59,7 @@ export class LoginProvider {
 
 
   //Se obtiene el rol del usuario validos solamente 1:Adminitrador, 2:Mesero y 3:Inventarios....
-  public guardaUsuario(): any {
-    return this.objUsuario;
-  }
+ 
 
 
   public ingresarUsuarios(usuario: any, contraseña: any): any {
@@ -107,12 +78,5 @@ export class LoginProvider {
     return respuesta;
   }
 
-  public setCarrito(id):any{
-    this.id_carrito = id;
-  }
-
-  public getCarrito():any{
-    return this.id_carrito;
-  }
 
 }

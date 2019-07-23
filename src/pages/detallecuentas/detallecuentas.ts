@@ -4,7 +4,8 @@ import { ProductoscategoriasProvider } from '../../providers/productoscategorias
 import { DetallecuentasProductosPage } from '../detallecuentas-productos/detallecuentas-productos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { DetallecuentasResumenPage } from '../../pages/detallecuentas-resumen/detallecuentas-resumen';
-import { DetallescuentasCombosPage } from '../detallescuentas-combos/detallescuentas-combos';
+import { CuentasDetalleAntesdeenviarPage } from '../cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-detallecuentas',
@@ -21,17 +22,25 @@ export class DetallecuentasPage {
   public detalle: any = [];
   public total = 0;
   public servidosTodos = true;
+  public arregloCategoria: any = [];
+  public arregloPedidoCliente: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private toastCtrl: ToastController, private alertaCtrl: AlertController, private actionSheetCtrl: ActionSheetController,
     private categoriasPrd: ProductoscategoriasProvider, private modalCtrl: ModalController,
-    private ticketsPrd: TicketsProvider) {
+    private ticketsPrd: TicketsProvider,private storage:Storage) {
 
-    this.orden = navParams.get("orden");
-    this.folio = navParams.get("folio");
+    this.orden = navParams.get("orden");//nombre del cliente
+    this.folio = navParams.get("folio");//Folio de la cuenta
 
-    this.categoriasPrd.getCategorias().subscribe(datos => {
-      this.arreglo = datos;
+    this.storage.get("listaproductosdetallemesa").then(valor => {
+      this.arreglo = valor.listaproductos;
+      for (let x of this.arreglo) {
+        for (let y of x.productos) {
+          y.cantidad = 1;
+          y.ruta_imagen = "data:image/png;base64," + y.ruta_imagen;
+        }
+      }
     });
 
     this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
@@ -49,11 +58,22 @@ export class DetallecuentasPage {
         }
       }
     });
+
+    this.arregloPedidoCliente.cliente1 = [];
+
+    this.storage.get(this.folio).then(storagepedido => {
+      if (storagepedido != null || storagepedido != undefined) {
+        this.arregloPedidoCliente = storagepedido;
+      }
+    });
   }
 
   // Initialize slider
   ionViewDidEnter() {
     this.slideChanged();
+  }
+  ionViewDidLeave() {
+    this.storage.set(this.folio, this.arregloPedidoCliente);
   }
 
   // On segment click
@@ -158,7 +178,19 @@ export class DetallecuentasPage {
   }
 
   public verCuenta() {
-    //this.navCtrl.push(DetalleCuentaPage);
+    let ventana = this.modalCtrl.create(CuentasDetalleAntesdeenviarPage, { arreglo: this.arregloPedidoCliente, orden: this.orden });
+    ventana.present();
+    ventana.onDidDismiss(datos => {
+      if (datos != null || datos != undefined) {
+        if (datos.servido == true) {
+          for (let llave in this.arregloPedidoCliente) {
+            for (let item of this.arregloPedidoCliente[llave]) {
+              item.servido = true;
+            }
+          }
+        }
+      }
+    });
   }
 
   public modificaCuenta(obj) {
@@ -258,11 +290,16 @@ export class DetallecuentasPage {
 
   }
 
-  public agregar(obj, tipo): any {
-    let modal = this.modalCtrl.create(DetallecuentasProductosPage, { id: obj.id, folio: this.folio });
+  public agregar(obj): any {
+    let modal = this.modalCtrl.create(DetallecuentasProductosPage, { id: obj.id, folio: this.folio,productos:obj.productos,pedidosCliente:this.arregloPedidoCliente });
     modal.present();
 
-    modal.onDidDismiss(() => {
+    modal.onDidDismiss((datos) => {
+
+      console.log("Los datos regresados son");
+      console.log(datos);
+
+
       this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
         this.total = 0;
         for (let item of datos) {
@@ -295,21 +332,7 @@ export class DetallecuentasPage {
     });
   }
 
-  public agregarCombo(): any {
-    let modal = this.modalCtrl.create(DetallescuentasCombosPage, { folio: this.folio });
-    modal.present();
-
-    modal.onDidDismiss(() => {
-      this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
-        this.detalle = datos;
-        this.total = 0;
-        for (let item of datos) {
-          this.total = this.total + (item.cantidad * item.precio);
-        }
-      });
-    });
-
-  }
+ 
 
 
 
