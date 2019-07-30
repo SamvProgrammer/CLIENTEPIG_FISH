@@ -18,6 +18,8 @@ import { ProductosPage } from '../pages/productos/productos';
 import { CajaPage } from '../pages/caja/caja';
 
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
+import { Storage } from '@ionic/storage';
+import { GlobalesProvider } from '../providers/globales/globales';
 
 
 @Component({
@@ -37,12 +39,17 @@ export class MyApp {
 
   constructor(platform: Platform, public androidPermissions: AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
-    private toasCtrl: ToastController,private usuariosPrd:UsuariosProvider) {
+    private toasCtrl: ToastController,private usuariosPrd:UsuariosProvider,private globales:GlobalesProvider,
+    private storage:Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.storage.get("configuraciones").then(resultado => {
+        this.globales.setConfiguraciones(resultado);
+      });
 
     });
 
@@ -81,4 +88,42 @@ export class MyApp {
   public activaMenu(): boolean {
     return this.usuariosPrd.activarMenu() == true;
   }
+
+  public activaInicio():boolean{
+    return this.usuariosPrd.inicio();
+  }
+
+  public activaUsuarios():boolean{
+    return this.usuariosPrd.usuarios();
+  }
+
+  public activaSucursales():boolean{
+    return this.usuariosPrd.sucursales();
+  }
+
+  public activaProductos():boolean{
+    return this.usuariosPrd.productos();
+  }
+
+  public activaCaja():boolean{
+    return this.usuariosPrd.caja();
+  }
+
+  public activaHistorial():boolean{
+    return this.usuariosPrd.historial_cuentas();
+  }
+
+  public activaInventario():boolean{
+    return this.usuariosPrd.inventario();
+  }
+
+  public activaPedidos():boolean{
+    return this.usuariosPrd.pedidos();
+  }
+
+  public activaConfiguraciones():boolean{
+    return this.usuariosPrd.configuraciones();
+  }
+
+
 }

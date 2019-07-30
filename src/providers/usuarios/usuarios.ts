@@ -137,4 +137,42 @@ export class UsuariosProvider {
     return this.obj.nombre;
   }
 
+  public inicio():boolean{
+    return this.obj.inicio;
+  }
+  public usuarios():boolean{
+    return this.obj.usuarios;
+  }
+
+  public sucursales():boolean{
+    return this.obj.sucursales;
+  }
+
+  public productos():boolean{
+    return this.obj.productos;
+  }
+  public caja():boolean{
+    return this.obj.caja;
+  }
+  public historial_cuentas():boolean{
+    return this.obj.historial_cuentas;
+  }
+
+  public inventario():boolean{
+    return this.obj.inventario;
+  }
+
+  public pedidos():boolean{
+    return this.obj.pedidos;
+  }
+
+  public configuraciones():boolean{
+    return this.obj.configuraciones;
+  }
+
+  public iniciar_en(){
+    return this.obj.iniciar_en;
+  }
+
+ 
 }

@@ -78,6 +78,24 @@
           <ion-label >Visualizar transacciones</ion-label>
         <ion-checkbox formControlName="transacciones" color="primary" ></ion-checkbox>
       </ion-item>
+      <ion-list>
+        <ion-list-header color="gris" style="text-align: center">
+           -- Sección menu --
+          </ion-list-header>
+        <ion-item *ngFor="let auxitem of objMenu.menu">
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/menuicon.jpg">
+          </ion-avatar>
+          <h2><strong>{{auxitem.nombre}}</strong></h2>
+        </ion-item>
+    </ion-list>
+      <ion-item>
+        <ion-label style="TEXT-ALIGN: RIGHT; color: #ff3a52; font-weight: 500;">SUBMENU: </ion-label>
+        <button (click)="agregarSubmenu()" item-end style="width:10%" ion-button icon-only color="light" type="button">
+
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-item>
   </ion-list>
   <div padding>
     <button ion-button block type="submit" [disabled]="!myForm.valid">{{boton}}</button>

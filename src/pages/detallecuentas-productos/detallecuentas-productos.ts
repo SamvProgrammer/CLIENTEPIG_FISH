@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { ProductosProvider } from '../../providers/productos/productos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
+import { DetallecuentasProductosMixtasPage } from '../detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 
-/**
- * Generated class for the DetallecuentasProductosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 
 @Component({
@@ -23,7 +19,7 @@ export class DetallecuentasProductosPage {
   public identificador;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
     private productosPrd: ProductosProvider, private toasCtrl: ToastController,
-    private TikectPdr: TicketsProvider, private alertCtrl: AlertController) {
+    private TikectPdr: TicketsProvider, private alertCtrl: AlertController,private modal:ModalController) {
     let id = navParams.get("id");
 
     this.identificador = navParams.get("folio");
@@ -71,7 +67,7 @@ export class DetallecuentasProductosPage {
 
   public agregarCarrito(obj,indice): any {
     console.log(obj);
-    if(obj.esmixta == true){
+    if(obj.esmixta == 1){
       let alerta = this.alertCtrl.create({
         message:"¿Deseas agregar producto a la orden?",
         inputs:[{
@@ -110,6 +106,7 @@ export class DetallecuentasProductosPage {
           checked: false
         }],
         buttons:[{text:"Sí",handler : (datos)=>{
+
           let observaciones = "";
           for(let item of datos){
               observaciones = observaciones + item + ", ";
@@ -121,7 +118,30 @@ export class DetallecuentasProductosPage {
 
     alerta.present();
 
-    }else{
+  
+
+    }else if(obj.esmixta == 2){
+
+      let modalmixta = this.modal.create(DetallecuentasProductosMixtasPage);
+      modalmixta.present();
+
+      modalmixta.onDidDismiss(productosRecibidos => {
+        console.log(productosRecibidos);
+        if(productosRecibidos != null && productosRecibidos != undefined){
+
+          let observaciones = "";
+          console.log("Estas son observaciones");
+          console.log(productosRecibidos);
+          for(let item of productosRecibidos.productos){
+              let auxObservacion = item.cantidad+" "+item.nombre;
+              observaciones = observaciones + auxObservacion+"\n";
+          }
+          this.agregaralCarrito(obj,indice,observaciones);
+
+        }
+      });
+
+    } else{
       let alerta = this.alertCtrl.create({
         message:"¿Deseas agregar producto a la orden?",
         buttons:[{text:"Sí",handler : ()=>{
@@ -139,13 +159,18 @@ export class DetallecuentasProductosPage {
       id_ticket: this.identificador,
       id_producto: obj.id_producto,
       cantidad: obj.cantidad,
-      observaciones:this.arreglo[indice].observaciones,
-      tipo_producto:1,
+      observaciones:obj.observaciones + " "+obervacionextendido,
+      notificacion:obj.notificacion,  
       ruta_imagen:"",
-      servido:false
+      servido:false,
+      nombre:obj.nombre
     }
 
-    enviar.observaciones = obervacionextendido;
+    console.log("Este es el obj a agregar");
+    console.log(obj);
+
+    
+    console.log("ObservacionExtendi");
 
     if (enviar.observaciones == null) {
       enviar.observaciones = "";

@@ -44,6 +44,8 @@ export class DetallecuentasPage {
     });
 
     this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
+      console.log("Este es el detalle del ticket");
+      console.log(datos);
       this.detalle = datos;
       this.total = 0;
       for (let item of datos) {
@@ -295,10 +297,6 @@ export class DetallecuentasPage {
     modal.present();
 
     modal.onDidDismiss((datos) => {
-
-      console.log("Los datos regresados son");
-      console.log(datos);
-
 
       this.ticketsPrd.getTicketsDetalle(this.folio).subscribe(datos => {
         this.total = 0;

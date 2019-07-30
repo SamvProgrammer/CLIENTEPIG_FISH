@@ -20,11 +20,11 @@ import { GlobalesProvider } from '../../providers/globales/globales';
 })
 export class ConfiguracionPage {
 
-  public notificacion;
-  public cancelacion;
-  public autorizacion;
-  public enviarCocina:boolean;
-  public enviarBarra:boolean;
+  public notificacion = false;
+  public cancelacion = false;
+  public autorizacion = false;
+  public enviarCocina:boolean = false;
+  public enviarBarra:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     private globales: GlobalesProvider, private alertCtrl: AlertController,
   private toasCtrl:ToastController) {
@@ -65,6 +65,8 @@ export class ConfiguracionPage {
             enviarCocina:this.enviarCocina,
             enviarBarra:this.enviarBarra
           }
+
+          console.log(obj);
 
           this.storage.set("configuraciones", obj);
           this.globales.setConfiguraciones(obj);

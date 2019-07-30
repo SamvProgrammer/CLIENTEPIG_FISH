@@ -68,7 +68,8 @@ export class ProductosproductosAddPage {
       descripcion: [obj.descripcion, Validators.required],
       precio: [obj.precio, Validators.required],
       categoria: [this.id_categoria, Validators.required],
-      video: [obj.nombre_video]
+      video: [obj.nombre_video],
+      esmixta:[obj.esmixta,Validators.required]
     });
   }
   saveData() {
@@ -78,6 +79,7 @@ export class ProductosproductosAddPage {
     let precio = obj.precio;
     let id_categoria = obj.categoria;
     let nombre_video = obj.video;
+    let esmixta = obj.esmixta;
 
     obj = {
       nombre: nombre,
@@ -87,7 +89,8 @@ export class ProductosproductosAddPage {
       id_video: this.id_video,
       nombre_video: nombre_video,
       imagen:this.imagen,
-      subirImagen:this.nueva
+      subirImagen:this.nueva,
+      esmixta:esmixta
     }
 
 

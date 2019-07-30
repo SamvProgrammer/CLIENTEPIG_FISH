@@ -61,6 +61,8 @@ import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
 import { ProductosproductosCategoriasPage } from '../pages/productosproductos-categorias/productosproductos-categorias';
 import { CuentasDetalleAntesdeenviarPage } from '../pages/cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
+import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-add-submenu';
+import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -78,6 +80,7 @@ import { GlobalesProvider } from '../providers/globales/globales';
 import { ImpresionesProvider } from '../providers/impresiones/impresiones';
 import { ReportesProvider } from '../providers/reportes/reportes';
 import { CategoriasProvider } from '../providers/categorias/categorias';
+import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
 
 
 @NgModule({
@@ -127,7 +130,9 @@ import { CategoriasProvider } from '../providers/categorias/categorias';
     BluetoothPage,
     BluetoothDispositivosPage,
     ProductosproductosCategoriasPage,
-    CuentasDetalleAntesdeenviarPage
+    CuentasDetalleAntesdeenviarPage,
+    UsuariosAddSubmenuPage,
+    DetallecuentasProductosMixtasPage
   ],
   imports: [
     BrowserModule,
@@ -182,7 +187,9 @@ import { CategoriasProvider } from '../providers/categorias/categorias';
     BluetoothPage,
     BluetoothDispositivosPage,
     ProductosproductosCategoriasPage,
-    CuentasDetalleAntesdeenviarPage
+    CuentasDetalleAntesdeenviarPage,
+    UsuariosAddSubmenuPage,
+    DetallecuentasProductosMixtasPage
   ],
   providers: [
     StatusBar,
@@ -212,7 +219,8 @@ import { CategoriasProvider } from '../providers/categorias/categorias';
     DocumentViewer,
     File,
     FileTransfer,
-    CategoriasProvider
+    CategoriasProvider,
+    CortecajaProvider
   ]
 })
 export class AppModule {}

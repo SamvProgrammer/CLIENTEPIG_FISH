@@ -19,6 +19,7 @@ export class TransaccionesPage {
       this.id_carrito = this.usuariosPrd.getSucursal();
       this.ticketsPrd.getTicketsCanceladosCobrados(this.id_carrito,undefined).subscribe(datos => {
         this.arreglo = datos;
+        console.log(this.arreglo);
       });
   }
 

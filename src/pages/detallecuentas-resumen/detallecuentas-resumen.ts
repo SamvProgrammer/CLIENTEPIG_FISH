@@ -18,18 +18,39 @@ export class DetallecuentasResumenPage {
   public arreglo: any = [];
   private id_ticket;
   public total = 0;
+  public promociones:any = [];
+  public totalPromocion = 0;
+  public productosDescontar = 0;
+  public totalNeto = 0;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
     private ticketsPrd: TicketsProvider, private alertCtrl: AlertController, private toasCtrl: ToastController) {
 
-    this.id_ticket = this.navParams.get("id_ticket");
-    this.ticketsPrd.getTicketsDetalleAgrupado(this.id_ticket).subscribe(datos => {
-      this.arreglo = datos;
-      for (let i of datos) {
+      this.id_ticket = this.navParams.get("id_ticket");
+      this.ticketsPrd.getTicketsDetalleAgrupado(this.id_ticket).subscribe(resultado => {
+        let datos = resultado.resultado;
+        this.promociones = resultado.promociones;
+    
+        this.arreglo = datos;
+        for (let i of datos) {        
+          this.total = this.total + i.precio_total;
+        }
+  
+  
+        console.log(this.promociones);
+  
+        for(let item of this.promociones){
+          this.totalPromocion = this.totalPromocion + (item.totalPromocion * item.precio);
+          for(let producto of item.productos){
+            this.productosDescontar = this.productosDescontar + producto.total;
+          }
+        }
+  
+        this.totalNeto = this.total - this.productosDescontar;
+        this.totalNeto = this.totalNeto + this.totalPromocion;
         
-        this.total = this.total + i.precio_total;
-      }
-    });
+      });
   }
 
   ionViewDidLoad() {

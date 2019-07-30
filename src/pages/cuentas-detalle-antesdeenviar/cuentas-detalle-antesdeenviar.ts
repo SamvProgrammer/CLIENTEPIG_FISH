@@ -12,19 +12,20 @@ import { ImpresionesProvider } from '../../providers/impresiones/impresiones';
 export class CuentasDetalleAntesdeenviarPage {
 
   public arreglo: any = [];
-  public id_mesa;
+  public orden = "";
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ViewController, private alertCtrl: AlertController, private ticketPrd: TicketsProvider,
     private toasCtrl: ToastController, private plataforma: Platform, private storage: Storage, private usuariosPrd: UsuariosProvider,
     private globales: GlobalesProvider, private impresionesPrd: ImpresionesProvider, private configuraciones: GlobalesProvider,
     private loadCtrl:LoadingController) {
     let aux = this.navParams.get("arreglo");
-    this.id_mesa = this.navParams.get("id_mesa");
+    this.orden = this.navParams.get("orden");
     
     for (let llave in aux) {
       let arregloAux = aux[llave];
       this.arreglo.push(arregloAux);
     }
+    console.log(this.arreglo);
   }
 
   ionViewDidLoad() {
@@ -70,6 +71,8 @@ export class CuentasDetalleAntesdeenviarPage {
     barra = barra == undefined ? false : barra;
 
 
+    console.log(configuraciones);
+
 
     let arregloPedidosCopia = {};
     for (let llave in this.arreglo) {
@@ -107,6 +110,9 @@ export class CuentasDetalleAntesdeenviarPage {
     }
     let cargando = this.loadCtrl.create({content:"Levantando orden espere"});
     cargando.present();
+    
+
+    console.log(arregloEnviar);
     this.ticketPrd.insertDetalleLista(arregloEnviar).subscribe(datos => {
 
       let codigos = this.impresionesPrd.getCodigosImpresora();
@@ -118,24 +124,24 @@ export class CuentasDetalleAntesdeenviarPage {
       for (let item of arregloEnviar) {
         if (item.notificacion == 1) {
           let aux = "";
-          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Mesa:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.id_mesa}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
+          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
           aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
           mensajeCocina = mensajeCocina + aux;
         } else if (item.notificacion == 2) {
           let aux = "";
-          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Mesa:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.id_mesa}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
+          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
           aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
           mensajeBarra = mensajeBarra + aux;
 
         } else {
 
           let aux = "";
-          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Mesa:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.id_mesa}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
+          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
           aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
           mensajeCocina = mensajeCocina + aux;
 
           aux = "";
-          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Mesa:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.id_mesa}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
+          aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
           aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
           mensajeBarra = mensajeBarra + aux;
 
@@ -144,6 +150,11 @@ export class CuentasDetalleAntesdeenviarPage {
 
       mensajeBarra = mensajeBarra + "_______________________________\n\n";
       mensajeCocina = mensajeCocina + "_______________________________\n\n";
+
+      console.log("Este es el mensaje de cocina");
+      console.log(mensajeCocina);
+      console.log("Este es mensaje de barra");
+      console.log(mensajeBarra);
 
 
       this.globales.conectarCocina(mensajeCocina).then(cocina => {

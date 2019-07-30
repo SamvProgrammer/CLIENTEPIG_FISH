@@ -32,7 +32,7 @@ export class PaginaentrarPage {
           console.log("El objeto es tal");
           console.log(objeto);
           this.usuariosPrd.guardarUsuario(objeto,true);
-         // let iniciar = this.usuariosPdr.iniciar_en();
+          let iniciar = this.usuariosPrd.iniciar_en();
           //this.elegirIniciar(iniciar);
           this.navCtrl.setRoot(TabsPage);
         });

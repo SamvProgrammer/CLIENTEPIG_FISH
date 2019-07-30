@@ -36,6 +36,15 @@
         </ion-select>
       </ion-item>
       <ion-item>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-label stacked>Seleccionar si es mixta</ion-label>
+        <ion-select formControlName="esmixta" multiple="false">
+          <ion-option value="0">No es mixta</ion-option>
+          <ion-option value="1">Mixta simple</ion-option>
+          <ion-option value="2">Mixta multiple</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
         <ion-icon name="logo-youtube" item-start></ion-icon>
         <ion-label stacked>Video youtube:</ion-label>
         <ion-input formControlName="video" type="text" placeholder="Vídeo youtube" [(ngModel)]="video"></ion-input>

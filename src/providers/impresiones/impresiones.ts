@@ -179,12 +179,16 @@ export class ImpresionesProvider {
    console.log(datosTicket);
     var promise = new Promise((resolve, reject) => {
       this.ticketsprd.getTicketsDetalleAgrupado(datosTicket.id_ticket).subscribe(resultado => {
+        console.log("Esto es el epreticket agrupado");
+        console.log(resultado);
         let datos = resultado.resultado;
         let promocionesArreglo = resultado.promociones;
         if(datos.length > 0){
           let productosaux = "";
           let f = new Date();
           this.total = 0;
+          console.log("Este son los daatos del preticket");
+          console.log(datosTicket);
           for (let i of datos) { 
             this.total = this.total + i.precio_total;
             let cantidad = i.cantidad;
@@ -198,11 +202,12 @@ export class ImpresionesProvider {
     
           let mensaje = "";
     
-          let sucursal = this.codigos.TEXT_FORMAT.TXT_ALIGN_CT+this.codigos.TEXT_FORMAT.TXT_4SQUARE+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"TICKET DE COMPRA"+this.codigos.LF+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+this.codigos.TEXT_FORMAT.TXT_NORMAL+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"NOMBRE DEL RESTAURANTE"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+"\n\n"+this.codigos.TEXT_FORMAT.TXT_ALIGN_LT+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Sucursal:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF + this.nombre_sucursal + this.codigos.LF;
+
+          let sucursal = this.codigos.TEXT_FORMAT.TXT_ALIGN_CT+this.codigos.TEXT_FORMAT.TXT_4SQUARE+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"TICKET DE COMPRA"+this.codigos.LF+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+this.codigos.TEXT_FORMAT.TXT_NORMAL+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"PIG&FISH FOODTRUCK"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+"\n\n"+this.codigos.TEXT_FORMAT.TXT_ALIGN_LT+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Sucursal:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF + this.nombre_sucursal + this.codigos.LF;
           let fecha =this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Fecha:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+ f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
           let mesero = this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"\tMesero:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+this.usuariosPrd.getNombreUsuario()+this.codigos.LF;
           let cuenta = this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Folio:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF + datosTicket.id_folio + "\t";
-          let mesa = this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Mesa:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+datosTicket.id_mesa+this.codigos.LF+this.codigos.LF+this.codigos.TEXT_FORMAT.TXT_ALIGN_CT+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"PRODUCTOS CONSUMIDOS"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+this.codigos.LF+this.codigos.LF;
+          let mesa = this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Cuenta:"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+datosTicket.nombre+this.codigos.LF+this.codigos.LF+this.codigos.TEXT_FORMAT.TXT_ALIGN_CT+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"PRODUCTOS CONSUMIDOS"+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+this.codigos.LF+this.codigos.LF;
           let productos =this.codigos.TEXT_FORMAT.TXT_NORMAL+this.codigos.TEXT_FORMAT.TXT_FONT_B+this.codigos.TEXT_FORMAT.TXT_ALIGN_LT+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"Cant. | Nombre\t| Precio\t| Importe"+this.codigos.LF+"______________________________________"+this.codigos.LF+this.codigos.TEXT_FORMAT.TXT_BOLD_OFF+ productosaux+this.codigos.TEXT_FORMAT.TXT_BOLD_ON+"\n______________________________________\n";
           let total = "\tTotal:" + this.currency.transform(this.total)+"\n\t----------------\n";
           let promociones = "\n\n";
