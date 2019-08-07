@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Entradas y Salidas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<div>
+  <h3>Tipo de Movimiento</h3>
+</div>
+<ion-content>
+  <form [formGroup]="myForm" (ngSubmit)="saveData()">
+
+      <ion-item>
+          <strong>Seleccione Tipo de Movimiento</strong>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-select formControlName="tipo_mov" multiple="false">
+            <ion-option value="+">ENTRADA</ion-option>
+            <ion-option value="-">SALIDA</ion-option>
+          </ion-select>
+        </ion-item>
+    
+    
+    <ion-item>
+      <strong>Seleccione Producto</strong>
+    </ion-item>
+
+    <button (click)="agregarinventario()" item-end style="width:10%" ion-button icon-only color="light" type="button">
+
+      <ion-icon name="add-circle"></ion-icon>
+    </button>
+
+    <ion-item *ngFor="let item of inventario">
+      <ion-avatar item-start>
+        <img src="../../assets/imgs/enlace.png">
+      </ion-avatar>
+      <h2><strong>{{item.descripcion +' ' +item.marca}}</strong></h2>
+    </ion-item>
+
+
+    <ion-item>
+      <strong>Seleccione Ubicación</strong>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="person" item-start></ion-icon>
+      <ion-select formControlName="ubicacion" multiple="false">
+        <ion-option value="BODEGA">Bodega</ion-option>
+        <ion-option value="COCINA">Cocina</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <strong>Inserte Cantidad</strong>
+    </ion-item>
+    <ion-item *ngFor="let item of inventario" formControlName="cantidad">
+      <ion-input  type="number" placeholder="Cantidad"></ion-input>
+      <strong style="color:red " item-end>{{item.unidad_medida}}</strong>
+    </ion-item>
+    <button ion-button block type="submit" [disabled]="!myForm.valid">{{boton}}</button>
+
+  </form>
+</ion-content>
+
+
+
+
+
+
+
+<

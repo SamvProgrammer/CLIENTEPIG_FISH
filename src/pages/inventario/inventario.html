@@ -6,13 +6,15 @@
     </button>
 
     <ion-title>
-      Cátalogos de Inventarios
+      Cátalogos de Inventario
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content style="background-image: url('../../assets/fondo.jpg')">
+
+
+<ion-content >
   <ion-refresher (ionRefresh)="actualizando($event)" >
       <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -21,16 +23,21 @@
       <strong>Inventarios</strong>
       <ion-icon item-end name="person"></ion-icon>
     </ion-list-header>
-    <ion-item-sliding *ngFor="let i of arreglo">
+    <ion-item-sliding *ngFor="let i of arreglo" >
       <ion-item>
         <ion-avatar item-start>
-          <img src="../../assets/imgs/food.PNG">
+          <img src="../../assets/imgs/inventario.jpg">
         </ion-avatar>
       <h2><strong>Nombre: </strong> {{i.descripcion}}</h2>
-      <p><strong>Cantidad: </strong>{{i.cantidad}} </p>
-        <strong item-end >{{i.unidad_medida}}</strong>
+      <p><strong>Proveedor: </strong>{{i.proveedor}} </p>
+      <p><strong>Marca: </strong>{{i.marca}} </p>
+        <strong style= "color:red " item-end >{{i.cantidad}}</strong>
+        <strong style= "color:mediumseagreen " item-end >{{i.unidad_medida}}</strong> 
       </ion-item>
       <ion-item-options side="right">
+          <button color="primary" ion-button (click)="desglose(i)">
+              <ion-icon name="clipboard"></ion-icon>Historial
+            </button>
           <button color="success" ion-button (click) = "actualizar(i)">
               <ion-icon name="brush"></ion-icon>Modificar
             </button>
@@ -39,9 +46,9 @@
         </button>
       </ion-item-options>
     </ion-item-sliding>
-
-
   </ion-list>
+
+
   <ion-fab right bottom #fab>
     <button ion-fab color="botonflotante">
       <ion-icon name="arrow-dropup"></ion-icon>
@@ -49,6 +56,9 @@
     <ion-fab-list  side="top">
       <button ion-fab  (click) = "agregar(fab);">
         <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-fab  (click) = "ajustes(fab);">
+        <ion-icon name="build"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>

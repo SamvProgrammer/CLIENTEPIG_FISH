@@ -13,13 +13,30 @@ import { Observable } from 'rxjs/observable';
 export class InventarioProvider {
 
   private direccion:string="";
+  private direccion1:string="";
   constructor(public http: HttpClient) {
     this.direccion = direcciones.inventarios;
   }
 
+  public modificarajustes(obj):Observable<any>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    
+    let json = JSON.stringify(obj);
+    return this.http.put(this.direccion+"/ajustes",json,httpOptions);
+    
+  }
+
+  
+
   public gets():Observable<any>{
     return   this.http.get(this.direccion);
   }
+  
 
   public insertar(obj):Observable<any>{
     
@@ -50,4 +67,11 @@ export class InventarioProvider {
     return this.http.delete(this.direccion+"/"+id);
    }
 
+   public getHistorialInventario(id_inventario):Observable<any>{
+
+    let direccionHistorial = this.direccion+"/historial/"+id_inventario;
+     return this.http.get(direccionHistorial);
+  }
+
+   
 }
