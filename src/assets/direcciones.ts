@@ -1,5 +1,5 @@
-const ip:string = "https://pigfish.herokuapp.com";
-//const ip:string = "http://localhost:8080";
+//const ip:string = "https://pigfish.herokuapp.com";
+const ip:string = "http://localhost:8080";
 export const direcciones:any = {
     usuarios:ip+"/catalogos/usuarios",
     carritos:ip+"/catalogos/carritos",

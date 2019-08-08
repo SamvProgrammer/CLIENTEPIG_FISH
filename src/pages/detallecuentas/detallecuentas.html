@@ -42,7 +42,7 @@
         <ion-grid class="fondo letras">
           <ion-row *ngFor="let i of detalle">
             <ion-col col-5>
-              {{i.nombre}}
+              <marquee>{{i.nombre}} {{i.observaciones}}</marquee>
             </ion-col>
             <ion-col col-2 *ngIf="!i.servido">
               <button (click)="modificaCuenta(i)" style="top: -10px;" ion-button icon-only color="amarillo">

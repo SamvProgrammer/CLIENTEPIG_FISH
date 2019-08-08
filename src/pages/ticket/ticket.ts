@@ -10,6 +10,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { GlobalesProvider } from '../../providers/globales/globales';
 
 
 
@@ -43,7 +44,8 @@ export class TicketPage {
     public http: HttpClient,
     private usuariosPrd: UsuariosProvider,
     private bt: BluetoothSerial,
-    private loadCtrl:LoadingController) {
+    private loadCtrl:LoadingController,
+    private globales:GlobalesProvider) {
     this.billete = navParams.get("billete");
     let id_ticket = navParams.get("id_ticket");
     console.log("Aqui se recibe los parametros del preticket");
@@ -134,8 +136,11 @@ export class TicketPage {
             productos = productos + cantidad + " " + nombre + " " + precioTotalCantidad + "\n";
           }
 
-          mensaje = sucursal + cuenta + lineas + lineas2 + productos + lineas + total + "\n";
 
+
+          mensaje = sucursal + cuenta + lineas + lineas2 + productos + lineas + total + "\n\n\n";
+  
+          
 
           if (datos == 1) {//Este es para envíar el ticket por correo electrónico de gmail...
             this.google.login({
@@ -215,13 +220,10 @@ export class TicketPage {
           } else {
               let loading = this.loadCtrl.create({content:"Imprimiendo"});
               loading.present();
-              this.bt.write(mensaje).then(datos => {
-                  let toas = this.toasCtrl.create({message:"Mensaje enviado correctamente",duration:1500});
-                  toas.present();
-                  loading.dismiss();
-              },err=>{
-                let toas = this.toasCtrl.create({message:"Error a imprimir en impresora",duration:1500});
-                toas.present();
+              console.log(mensaje);
+              this.globales.conectarCajero(mensaje).then((correcto)=>{
+                loading.dismiss();
+              }).catch(erro =>{
                 loading.dismiss();
               });
           }

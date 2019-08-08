@@ -19,7 +19,7 @@ export class CajaCortePage {
 
   public fecha;
   public efectivo: any = [];
-  public salidas: any = [];
+  public salidas:any = [];
   public totales = 0;
   public totalSalida = 0;
   public id_sucursal;
@@ -194,6 +194,20 @@ this.aparecer = true;
         }
       }]
     });
+    alerta.present();
+  }
+
+
+  public eliminar(index){
+    let alerta = this.alertCtrl.create({
+      message:"¿Deseas eliminar el Registro?",
+      buttons:[{text:"Sí",handler : ()=>{
+          
+          this.salidas.splice(index,1);
+
+      }},"No"]
+    });
+
     alerta.present();
   }
 

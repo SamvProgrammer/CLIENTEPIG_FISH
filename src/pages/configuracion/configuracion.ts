@@ -25,6 +25,7 @@ export class ConfiguracionPage {
   public autorizacion = false;
   public enviarCocina:boolean = false;
   public enviarBarra:boolean = false;
+  public impresoraCocina:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     private globales: GlobalesProvider, private alertCtrl: AlertController,
   private toasCtrl:ToastController) {
@@ -39,6 +40,7 @@ export class ConfiguracionPage {
       this.autorizacion = configuraciones.autorizacion;
       this.enviarCocina = configuraciones.enviarCocina;
       this.enviarBarra = configuraciones.enviarBarra;
+      this.impresoraCocina = configuraciones.impresoraCocina;
     }
   }
 
@@ -63,7 +65,8 @@ export class ConfiguracionPage {
             cancelacion:this.cancelacion,
             autorizacion:this.autorizacion,
             enviarCocina:this.enviarCocina,
-            enviarBarra:this.enviarBarra
+            enviarBarra:this.enviarBarra,
+            impresoraCocina:this.impresoraCocina
           }
 
           console.log(obj);
