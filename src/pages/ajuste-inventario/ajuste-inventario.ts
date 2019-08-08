@@ -102,9 +102,6 @@ export class AjusteInventarioPage {
         toas.present();
         this.navCtrl.pop();
       });
-    
-  
 
-   
   }
 }

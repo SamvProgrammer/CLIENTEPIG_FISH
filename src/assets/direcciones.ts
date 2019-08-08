@@ -11,5 +11,6 @@ export const  direcciones:any = {
     reportes:ip+"/reportes",
     cortecaja:ip+"/cortecaja",
     ajustes:ip+"/catalogos/inventariosajustes",
+    insumos:ip+"/catalogos/insumos"
 
 };

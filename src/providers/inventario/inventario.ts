@@ -16,6 +16,7 @@ export class InventarioProvider {
   private direccion1:string="";
   constructor(public http: HttpClient) {
     this.direccion = direcciones.inventarios;
+    this.direccion1=direcciones.insumos;
   }
 
   public modificarajustes(obj):Observable<any>{
@@ -32,11 +33,15 @@ export class InventarioProvider {
   }
 
   
-
+  
   public gets():Observable<any>{
     return   this.http.get(this.direccion);
   }
-  
+
+
+    public Producto(cantidad,id_producto):Observable<any>{
+    return   this.http.get(this.direccion);
+  }
 
   public insertar(obj):Observable<any>{
     

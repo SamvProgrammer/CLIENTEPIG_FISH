@@ -4,7 +4,7 @@ import { InventarioProvider } from '../../providers/inventario/inventario';
 import { InventariosAddPage } from '../inventarios-add/inventarios-add';
 import {AjusteInventarioPage} from '../ajuste-inventario/ajuste-inventario';
 import {ControlMovimientoPage} from '../control-movimiento/control-movimiento';
-
+import {CaluladoraInsumosPage} from '../caluladora-insumos/caluladora-insumos';
 
 
 @Component({
@@ -44,6 +44,10 @@ export class InventariosPage {
   public ajustes(fab: FabContainer) {
     fab.close();
     this.navCtrl.push(AjusteInventarioPage, { boton: "Agregar" })
+  }
+  public calculadora(fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push(CaluladoraInsumosPage, { boton: "Agregar" })
   }
 
   public actualizando(refresher): any {

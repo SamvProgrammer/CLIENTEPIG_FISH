@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  
+      <ion-title>
+        Calculadora de Insumos 
+      </ion-title>
+      <ion-buttons end>
+        <button (click)="salir()" ion-button icon-end>
+            Salir
+          
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+      <form [formGroup]="myForm" (ngSubmit)="saveData()">
+    
+
+              <ion-item formControlName="cantidad">
+                  <ion-icon name="nutrition" item-start></ion-icon>
+                  <ion-label fixed >Cantidad</ion-label>
+                  <ion-input type="number" value="0.00"></ion-input>
+                </ion-item>
+      
+                <button (click)="agregarproducto()" item-end style="width:10%" ion-button icon-only color="light" type="button">
+
+                    <ion-icon name="add-circle"></ion-icon>
+                  </button>
+              <ion-title>Selecciona el Producto a Calcular</ion-title>
+                  <ion-item *ngFor="let item of inventario">
+                    <ion-avatar item-start>
+                      <img src="../../assets/imgs/enlace.png">
+                    </ion-avatar>
+                    <h2><strong>{{item.descripcion +' ' +item.marca}}</strong></h2>
+                   </ion-item>
+      </form>  
+    </ion-content>
+    
+    
