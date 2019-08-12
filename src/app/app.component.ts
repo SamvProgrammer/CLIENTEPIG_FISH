@@ -11,7 +11,7 @@ import { LoginProvider } from '../providers/login/login';
 import { UsuariosPage } from '../pages/usuarios/usuarios';
 import { SucursalesPage } from '../pages/sucursales/sucursales';
 import { HistorialPage } from '../pages/historial/historial';
-import { InventarioPage } from '../pages/inventario/inventario';
+import { InventariosPage } from '../pages/inventario/inventario';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { ProductosPage } from '../pages/productos/productos';
@@ -31,7 +31,7 @@ export class MyApp {
   inicio: any = TabsPage;
   sucursales: any = SucursalesPage;
   historial: any = HistorialPage;
-  inventario: any = InventarioPage;
+  inventario: any = InventariosPage;
   pedidos: any = PedidosPage;
   configuracion: any = ConfiguracionPage;
   productos: any = ProductosPage;

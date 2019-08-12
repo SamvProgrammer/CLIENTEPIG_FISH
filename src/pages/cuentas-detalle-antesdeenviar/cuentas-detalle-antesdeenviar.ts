@@ -193,6 +193,14 @@ export class CuentasDetalleAntesdeenviarPage {
           console.log("No se manda a impresora");
         }
   
+      },error =>{
+          
+        cargando.dismiss();
+      console.log(error);
+      let alerta = this.alertCtrl.create({message:error.error.message,buttons:["Entendido"]});
+      alerta.present();
+
+        
       });
     }else{
         console.log("Ahora si entra al método apra reeenviar");

@@ -48,8 +48,11 @@ import { DetallecocineroPage } from '../pages/detallecocinero/detallecocinero';
 import { CatalogoscombosypromocionesPage } from '../pages/catalogoscombosypromociones/catalogoscombosypromociones';
 import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detallescuentas-combos';
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
-import { InventarioPage } from '../pages/inventario/inventario';
-import { InventarioAddPage } from '../pages/inventario-add/inventario-add';
+import { InventariosPage } from '../pages/inventario/inventario';
+import { InventariosAddPage } from '../pages/inventarios-add/inventarios-add';
+import {AjusteInventarioPage} from '../pages/ajuste-inventario/ajuste-inventario';
+import {ControlMovimientoPage} from '../pages/control-movimiento/control-movimiento';
+import {AgregaMobimientoPage} from '../pages/agrega-mobimiento/agrega-mobimiento';
 import { EnlaceProductoinventarioPage } from '../pages/enlace-productoinventario/enlace-productoinventario';
 import { EnlaceProductoinventarioAddPage } from '../pages/enlace-productoinventario-add/enlace-productoinventario-add';
 import { EnlaceProductodetalleinventarioPage } from '../pages/enlace-productodetalleinventario/enlace-productodetalleinventario';
@@ -63,6 +66,8 @@ import { ProductosproductosCategoriasPage } from '../pages/productosproductos-ca
 import { CuentasDetalleAntesdeenviarPage } from '../pages/cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
 import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-add-submenu';
 import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
+import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
+import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -118,8 +123,11 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage,
-    InventarioAddPage,
+    InventariosPage,
+    InventariosAddPage,
+    ControlMovimientoPage,
+    AjusteInventarioPage,
+    AgregaMobimientoPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
     EnlaceProductodetalleinventarioPage,
@@ -132,7 +140,9 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     ProductosproductosCategoriasPage,
     CuentasDetalleAntesdeenviarPage,
     UsuariosAddSubmenuPage,
-    DetallecuentasProductosMixtasPage
+    DetallecuentasProductosMixtasPage,
+    CaluladoraInsumosPage,
+    AgregaProductoPage
   ],
   imports: [
     BrowserModule,
@@ -175,8 +185,11 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage,
-    InventarioAddPage,
+    InventariosPage,
+    InventariosAddPage,
+    ControlMovimientoPage,
+    AjusteInventarioPage,
+    AgregaMobimientoPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
     EnlaceProductodetalleinventarioPage,
@@ -189,7 +202,9 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     ProductosproductosCategoriasPage,
     CuentasDetalleAntesdeenviarPage,
     UsuariosAddSubmenuPage,
-    DetallecuentasProductosMixtasPage
+    DetallecuentasProductosMixtasPage,
+    CaluladoraInsumosPage,
+    AgregaProductoPage
   ],
   providers: [
     StatusBar,
@@ -220,7 +235,7 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     File,
     FileTransfer,
     CategoriasProvider,
-    CortecajaProvider
+    CortecajaProvider,
   ]
 })
 export class AppModule {}

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Historial de inventario</ion-title>
+    <ion-buttons left>
+      <button (click)="salir()" ion-button icon-end icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+
+<ion-card *ngFor="let item of arreglo">
+  <ion-card-header>
+   <h4>Fecha:<strong style=" color: red">{{item.fecha  | date}}  </strong> </h4> 
+   <h4>Hora:<strong> {{(item.fecha.substring(19,11))}} </strong> </h4>
+  </ion-card-header>
+  <ion-card-content>
+      <h4> Movimiento :<strong style="color: forestgreen">
+          <label *ngIf="item.tipo_mov == '+'">Entrada</label>
+          <label *ngIf="item.tipo_mov == '-'">Salida</label>
+          <label *ngIf="item.tipo_mov == '#'">Inicial</label>
+
+      </strong></h4>  
+      <h4> Cantidad :<strong style="color: forestgreen">{{item.cantidad_historial+ ' '+ item.unidad_medida}} </strong></h4>  
+   <h4>Ubicación:<strong>{{item.ubicacion}}</strong></h4>  
+  
+  </ion-card-content>
+</ion-card>
+
+</ion-content>
+

@@ -135,6 +135,20 @@ export class cuentasPage {
 
   }
 
+  public cobrarT(obj): any {
+    let modal = this.modal.create(DetallecuentasResumenPage, { id_ticket: obj.id_ticket });
+    modal.present();
+
+    modal.onDidDismiss(datos => {
+      if (datos) {
+        this.traerCuentas();
+        this.traerCuentas();
+        this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
+      }
+    });
+    
+  }
+
 
   public salir() {
     this.globales.cerrarAplicacion();

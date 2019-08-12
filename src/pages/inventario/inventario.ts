@@ -1,43 +1,57 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, FabContainer ,AlertController,ToastController} from 'ionic-angular';
+import { IonicPage, NavController,FabContainer, NavParams, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { InventarioProvider } from '../../providers/inventario/inventario';
-import { InventarioAddPage } from '../inventario-add/inventario-add';
-
-
-/**
- * Generated class for the InventarioPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { InventariosAddPage } from '../inventarios-add/inventarios-add';
+import {AjusteInventarioPage} from '../ajuste-inventario/ajuste-inventario';
+import {ControlMovimientoPage} from '../control-movimiento/control-movimiento';
+import {CaluladoraInsumosPage} from '../caluladora-insumos/caluladora-insumos';
 
 
 @Component({
-  selector: 'page-inventario',
+  selector: 'page-inventarios',
   templateUrl: 'inventario.html',
 })
-export class InventarioPage {
-
+export class InventariosPage {
   private arreglo: any = [];
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private inventarioPrd: InventarioProvider,private alertaCtrl:AlertController,
-  private toasCtrl:ToastController) {
+  private toasCtrl:ToastController,
+  private modalCtrl: ModalController,private parametros: NavParams) {
+
+    
+
   }
 
   ionViewDidEnter() {
+    
     this.inventarioPrd.gets().subscribe(datos => {
       this.arreglo = datos;
-      
     });
+  }
+  public desglose(obj:any) {
+    let modal = this.modalCtrl.create(ControlMovimientoPage,{valorEnviado:obj});
+    modal.present();
+    
   }
 
   public agregar(fab: FabContainer) {
     fab.close();
-    this.navCtrl.push(InventarioAddPage, { boton: "Agregar" })
+    this.navCtrl.push(InventariosAddPage, { boton: "Agregar" })
+  }
+
+  public ajustes(fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push(AjusteInventarioPage, { boton: "Agregar" })
+  }
+  public calculadora(fab: FabContainer) {
+    fab.close();
+    this.navCtrl.push(CaluladoraInsumosPage, { boton: "Agregar" })
   }
 
   public actualizando(refresher): any {
+    
     this.inventarioPrd.gets().subscribe(res => {
       this.arreglo = res;
       refresher.complete();
@@ -45,7 +59,7 @@ export class InventarioPage {
   }
 
   public actualizar(obj:any){
-    this.navCtrl.push(InventarioAddPage,{parametro:obj,boton:"Actualizar"});
+    this.navCtrl.push(InventariosAddPage,{parametro:obj,boton:"Actualizar"});
   }
 
   public eliminar(obj){
@@ -65,6 +79,7 @@ export class InventarioPage {
     alerta.present();
 
  }
+
 
 
 
