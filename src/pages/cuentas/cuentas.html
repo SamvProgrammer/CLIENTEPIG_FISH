@@ -30,6 +30,7 @@
             <p>Número de folio: {{i.id_folio}}</p>
           </ion-item>  
           <ion-item-options side="right">
+              <button color="success" (click)  = "cobrarT(i);" ion-button><ion-icon name="checkmark-circle"></ion-icon>Cobrar</button>
             <button color="light" (click)  = "cobrar(i);" ion-button><ion-icon name="print"></ion-icon>PreTicket</button>
             <button color="danger" (click) = "cancelar(i.id_ticket)" ion-button><ion-icon name="trash" ></ion-icon>Cancelar
             </button>

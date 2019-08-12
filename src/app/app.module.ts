@@ -14,6 +14,7 @@ import { Camera } from '@ionic-native/camera';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -47,8 +48,11 @@ import { DetallecocineroPage } from '../pages/detallecocinero/detallecocinero';
 import { CatalogoscombosypromocionesPage } from '../pages/catalogoscombosypromociones/catalogoscombosypromociones';
 import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detallescuentas-combos';
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
-import { InventarioPage } from '../pages/inventario/inventario';
-import { InventarioAddPage } from '../pages/inventario-add/inventario-add';
+import { InventariosPage } from '../pages/inventario/inventario';
+import { InventariosAddPage } from '../pages/inventarios-add/inventarios-add';
+import {AjusteInventarioPage} from '../pages/ajuste-inventario/ajuste-inventario';
+import {ControlMovimientoPage} from '../pages/control-movimiento/control-movimiento';
+import {AgregaMobimientoPage} from '../pages/agrega-mobimiento/agrega-mobimiento';
 import { EnlaceProductoinventarioPage } from '../pages/enlace-productoinventario/enlace-productoinventario';
 import { EnlaceProductoinventarioAddPage } from '../pages/enlace-productoinventario-add/enlace-productoinventario-add';
 import { EnlaceProductodetalleinventarioPage } from '../pages/enlace-productodetalleinventario/enlace-productodetalleinventario';
@@ -59,6 +63,11 @@ import { CajaMesasPage } from '../pages/caja-mesas/caja-mesas';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
 import { ProductosproductosCategoriasPage } from '../pages/productosproductos-categorias/productosproductos-categorias';
+import { CuentasDetalleAntesdeenviarPage } from '../pages/cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
+import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-add-submenu';
+import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
+import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
+import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -75,6 +84,8 @@ import { InventarioProvider } from '../providers/inventario/inventario';
 import { GlobalesProvider } from '../providers/globales/globales';
 import { ImpresionesProvider } from '../providers/impresiones/impresiones';
 import { ReportesProvider } from '../providers/reportes/reportes';
+import { CategoriasProvider } from '../providers/categorias/categorias';
+import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
 
 
 @NgModule({
@@ -112,8 +123,11 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage,
-    InventarioAddPage,
+    InventariosPage,
+    InventariosAddPage,
+    ControlMovimientoPage,
+    AjusteInventarioPage,
+    AgregaMobimientoPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
     EnlaceProductodetalleinventarioPage,
@@ -123,12 +137,18 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CajaMesasPage,
     BluetoothPage,
     BluetoothDispositivosPage,
-    ProductosproductosCategoriasPage
+    ProductosproductosCategoriasPage,
+    CuentasDetalleAntesdeenviarPage,
+    UsuariosAddSubmenuPage,
+    DetallecuentasProductosMixtasPage,
+    CaluladoraInsumosPage,
+    AgregaProductoPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -165,8 +185,11 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CatalogoscombosypromocionesPage,
     DetallescuentasCombosPage,
     ReportetransaccionesPage,
-    InventarioPage,
-    InventarioAddPage,
+    InventariosPage,
+    InventariosAddPage,
+    ControlMovimientoPage,
+    AjusteInventarioPage,
+    AgregaMobimientoPage,
     EnlaceProductoinventarioPage,
     EnlaceProductoinventarioAddPage,
     EnlaceProductodetalleinventarioPage,
@@ -176,7 +199,12 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     CajaMesasPage,
     BluetoothPage,
     BluetoothDispositivosPage,
-    ProductosproductosCategoriasPage
+    ProductosproductosCategoriasPage,
+    CuentasDetalleAntesdeenviarPage,
+    UsuariosAddSubmenuPage,
+    DetallecuentasProductosMixtasPage,
+    CaluladoraInsumosPage,
+    AgregaProductoPage
   ],
   providers: [
     StatusBar,
@@ -205,7 +233,9 @@ import { ReportesProvider } from '../providers/reportes/reportes';
     ReportesProvider,
     DocumentViewer,
     File,
-    FileTransfer
+    FileTransfer,
+    CategoriasProvider,
+    CortecajaProvider,
   ]
 })
 export class AppModule {}

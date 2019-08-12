@@ -21,28 +21,19 @@
 <ion-content>
   <ion-slides #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
-      <ion-content>
+      <ion-content class="fondo">
           <div cards>
 
-              <div class="grid-full">
-                <ion-row>
-                  <ion-col *ngFor = "let i of arreglo" (click) = "agregar(i,1)">
-                    <ion-card color="verdesito">
-                      <h4 orange><strong class="fuente">{{i.nombre}}</strong></h4>
-                    </ion-card>
-                  </ion-col> 
-                  <ion-col  (click) = "agregarCombo('combo')">
-                    <ion-card color="verdesito">
-                      <h4 orange><strong class="fuente">Combos</strong></h4>
-                    </ion-card>
-                  </ion-col> 
-                  <ion-col  (click) = "agregarPromocion('promocion')">
-                    <ion-card color="verdesito">
-                      <h4 orange><strong class="fuente">Promociones</strong></h4>
-                    </ion-card>
-                  </ion-col>          
-                </ion-row>
-              </div>          
+            <ion-grid>
+              <ion-row>
+                <ion-col *ngFor="let item of arreglo" col-6 col-sm-4  col-md-3 col-lg-2 col-xl-1>
+                  <div class="divs" (click) = "agregar(item)">
+                    <img src="../../assets/icon/iconcatalogos.png" alt="">
+                    <h5>{{item.nombre}}</h5>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>          
             </div>
       </ion-content>
     </ion-slide>
@@ -51,7 +42,7 @@
         <ion-grid class="fondo letras">
           <ion-row *ngFor="let i of detalle">
             <ion-col col-5>
-              {{i.nombre}}
+              <marquee>{{i.nombre}} {{i.observaciones}}</marquee>
             </ion-col>
             <ion-col col-2 *ngIf="!i.servido">
               <button (click)="modificaCuenta(i)" style="top: -10px;" ion-button icon-only color="amarillo">
@@ -87,7 +78,9 @@
   </ion-slides>
 </ion-content>
 <ion-footer>
-  <ion-toolbar color="gris">
-    <ion-title></ion-title>
+  <ion-toolbar color="gris" style="text-align: center">
+    <button (click) = "verCuenta();" ion-button icon-only color="light" style="width: 80%;">            
+      Ver cuenta
+    </button>
   </ion-toolbar>
 </ion-footer>

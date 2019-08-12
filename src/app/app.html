@@ -12,33 +12,33 @@
   </ion-header>
 
 
-  <ion-content class="menu" style="background-image: url('../../assets/fondo.jpg');">
+  <ion-content class="menu" >
     <ion-list>
-      <button menuClose="left" ion-item (click)="openPage(inicio)">
+      <button menuClose="left" ion-item (click)="openPage(inicio)"  *ngIf = "activaInicio()">
         <ion-icon name="home" item-left></ion-icon> Inicio
       </button>
-      <button menuClose="left" ion-item (click)="openPage(usuarios)">
+      <button menuClose="left" ion-item (click)="openPage(usuarios)" *ngIf = "activaUsuarios()">
         <ion-icon name="person" item-left></ion-icon> Usuarios
       </button>
-      <button menuClose="left" ion-item (click)="openPage(sucursales)">
+      <button menuClose="left" ion-item (click)="openPage(sucursales)" *ngIf = "activaSucursales()">
         <ion-icon name="car" item-left></ion-icon> Sucursales
       </button>
-      <button menuClose="left" ion-item (click)="openPage(productos)">
+      <button menuClose="left" ion-item (click)="openPage(productos)" *ngIf = "activaProductos()">
         <ion-icon name="pizza" item-left></ion-icon> Productos
       </button>
-      <button menuClose="left" ion-item (click)="openPage(caja)">
+      <button menuClose="left" ion-item (click)="openPage(caja)" *ngIf = "activaCaja()">
         <ion-icon name="cash" item-left></ion-icon> Caja
     </button>
-      <button menuClose="left" ion-item (click)="openPage(historial)">
+      <button menuClose="left" ion-item (click)="openPage(historial)" *ngIf = "activaHistorial()">
         <ion-icon name="paper" item-left></ion-icon> Historial de cuentas
       </button>
-      <button menuClose="left" ion-item (click)="openPage(inventario)">
+      <button menuClose="left" ion-item (click)="openPage(inventario)" *ngIf = "activaInventario()">
         <ion-icon name="list-box" item-left></ion-icon> Inventario
       </button>
-      <button menuClose="left" ion-item (click)="openPage(pedidos)">
+      <button menuClose="left" ion-item (click)="openPage(pedidos)" *ngIf = "activaPedidos()">
         <ion-icon name="basket" item-left></ion-icon> Pedidos
       </button>
-      <button menuClose="left" ion-item (click)="openPage(configuracion)">
+      <button menuClose="left" ion-item (click)="openPage(configuracion)" *ngIf = "activaConfiguraciones()">
         <ion-icon name="settings" item-left></ion-icon> Configuraciones
       </button>
       <button menuClose="left" style="color:rgb(145, 0, 0)" color="danger" ion-item (click)="salir()">
@@ -49,5 +49,4 @@
 </ion-menu>
 
 <ion-nav id="nav" #content></ion-nav>
-<ion-nav *ngIf="!verificaEntrar();" [root]="rootPage"></ion-nav>
-<ion-nav *ngIf="verificaEntrar();" [root]="rootPage2"></ion-nav>
+<ion-nav [root]="rootPage"></ion-nav>

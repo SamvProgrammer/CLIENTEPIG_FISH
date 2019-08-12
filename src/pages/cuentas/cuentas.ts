@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, FabContainer, ModalController, ToastController } from 'ionic-angular';
+import { NavController, AlertController, FabContainer, ModalController, ToastController,Platform } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { DetallecuentasPage } from '../detallecuentas/detallecuentas';
 import { TicketsProvider } from '../../providers/tickets/tickets';
@@ -22,9 +22,10 @@ export class cuentasPage {
   private id_carrito;
   constructor(public navCtrl: NavController, public alerta: AlertController, private login: LoginProvider, private modal: ModalController,
     private ticketsPrd: TicketsProvider, private toasCtrl: ToastController,
-  private usuariosPrd:UsuariosProvider,private globales:GlobalesProvider,private impPrd:ImpresionesProvider,
-private bt:BluetoothSerial) {
-    this.id_carrito = login.getCarrito();
+    private usuariosPrd: UsuariosProvider, private globales: GlobalesProvider, private impPrd: ImpresionesProvider,
+    private bt: BluetoothSerial,private platform : Platform) {
+    this.id_carrito = usuariosPrd.getSucursal();
+    console.log(this.id_carrito);
     this.traerCuentas();
   }
 
@@ -57,13 +58,13 @@ private bt:BluetoothSerial) {
         handler: datos => {
           //Para sacar el día de hoy en la comanda....
           let today = new Date();
-          
+
           let identificadorCuenta = datos.cuenta;
           let objTicket = {
             id_user: id_usuario,
             nombre: identificadorCuenta,
             id_carrito: id_sucursal,
-            fecha : today
+            fecha: today
           };
 
 
@@ -107,7 +108,7 @@ private bt:BluetoothSerial) {
 
   public ingresarSistema(fab: FabContainer): any {
     fab.close();
-    
+
   }
 
   public entrarDetalle(obj): any {
@@ -121,21 +122,35 @@ private bt:BluetoothSerial) {
     });
   }
 
-  public cobrar(obj): any {
-    let idSucursal = this.usuariosPrd.getSucursal();
+  public cobrar(obj): any {    
 
     this.impPrd.getPreticket(obj).then(mensaje => {
-        console.log(mensaje);
-         this.bt.write(mensaje);
-      }).catch(err =>{
-          let toast = this.toasCtrl.create({message:err,duration:1500});
-          toast.present();
-      });
+      if(this.platform.is('cordova')){
+        this.globales.conectarCajero(mensaje);
+      }
+    }).catch(err => {
+      let toast = this.toasCtrl.create({ message: err, duration: 1500 });
+      toast.present();
+    });
+
+  }
+
+  public cobrarT(obj): any {
+    let modal = this.modal.create(DetallecuentasResumenPage, { id_ticket: obj.id_ticket });
+    modal.present();
+
+    modal.onDidDismiss(datos => {
+      if (datos) {
+        this.traerCuentas();
+        this.traerCuentas();
+        this.navCtrl.push(TicketPage, { id_ticket: datos.id_ticket, billete: datos.billete });
+      }
+    });
     
   }
 
 
-  public salir(){
+  public salir() {
     this.globales.cerrarAplicacion();
   }
 

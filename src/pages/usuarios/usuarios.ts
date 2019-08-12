@@ -42,7 +42,9 @@ export class UsuariosPage {
   }
 
   public eliminar(obj){
-     let id = obj.id_user;
+     let id = obj.id;
+     console.log("Este es el objeto a eliminar");
+     console.log(obj);
      let alerta = this.alertaCtrl.create({title:"Aviso",subTitle:"¿Deseas eliminar el registro?",buttons:[{text:"Aceptar",handler:()=>{
       this.usuariosprd.eliminarUsuario(id).subscribe(resp => {
         this.usuariosprd.getUsuarios().subscribe(res => {

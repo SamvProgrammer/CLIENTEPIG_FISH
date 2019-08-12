@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { ProductosProvider } from '../../providers/productos/productos';
 import { TicketsProvider } from '../../providers/tickets/tickets';
+import { DetallecuentasProductosMixtasPage } from '../detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 
-/**
- * Generated class for the DetallecuentasProductosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 
 @Component({
@@ -18,22 +14,26 @@ import { TicketsProvider } from '../../providers/tickets/tickets';
 export class DetallecuentasProductosPage {
 
   public arreglo: any = [];
+  public arregloPedidoCliente:any = [];
 
   public identificador;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
     private productosPrd: ProductosProvider, private toasCtrl: ToastController,
-    private TikectPdr: TicketsProvider, private alertCtrl: AlertController) {
+    private TikectPdr: TicketsProvider, private alertCtrl: AlertController,private modal:ModalController) {
     let id = navParams.get("id");
 
     this.identificador = navParams.get("folio");
-    productosPrd.getProductosCategoria(id).subscribe(datos => {
+    let datos = navParams.get("productos");
+    this.arregloPedidoCliente = navParams.get("pedidosCliente");
+    console.log("Los pedidos del cliente son");
+    console.log(this.arregloPedidoCliente);
       for (let item of datos) {
         item.cantidad = 1;
         item.observaciones = "";
       }
 
       this.arreglo = datos;
-    });
+    
   }
 
   ionViewDidLoad() {
@@ -41,7 +41,7 @@ export class DetallecuentasProductosPage {
   }
 
   public salir() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.arregloPedidoCliente);
   }
 
   public getcantidad(indice): any {
@@ -67,7 +67,7 @@ export class DetallecuentasProductosPage {
 
   public agregarCarrito(obj,indice): any {
     console.log(obj);
-    if(obj.esmixta == true){
+    if(obj.esmixta == 1){
       let alerta = this.alertCtrl.create({
         message:"¿Deseas agregar producto a la orden?",
         inputs:[{
@@ -106,6 +106,7 @@ export class DetallecuentasProductosPage {
           checked: false
         }],
         buttons:[{text:"Sí",handler : (datos)=>{
+
           let observaciones = "";
           for(let item of datos){
               observaciones = observaciones + item + ", ";
@@ -117,7 +118,30 @@ export class DetallecuentasProductosPage {
 
     alerta.present();
 
-    }else{
+  
+
+    }else if(obj.esmixta == 2){
+
+      let modalmixta = this.modal.create(DetallecuentasProductosMixtasPage);
+      modalmixta.present();
+
+      modalmixta.onDidDismiss(productosRecibidos => {
+        console.log(productosRecibidos);
+        if(productosRecibidos != null && productosRecibidos != undefined){
+
+          let observaciones = "";
+          console.log("Estas son observaciones");
+          console.log(productosRecibidos);
+          for(let item of productosRecibidos.productos){
+              let auxObservacion = item.cantidad+" "+item.nombre;
+              observaciones = observaciones + auxObservacion+"\n";
+          }
+          this.agregaralCarrito(obj,indice,observaciones);
+
+        }
+      });
+
+    } else{
       let alerta = this.alertCtrl.create({
         message:"¿Deseas agregar producto a la orden?",
         buttons:[{text:"Sí",handler : ()=>{
@@ -135,18 +159,42 @@ export class DetallecuentasProductosPage {
       id_ticket: this.identificador,
       id_producto: obj.id_producto,
       cantidad: obj.cantidad,
-      observaciones:this.arreglo[indice].observaciones,
-      tipo_producto:1
+      observaciones:obj.observaciones + " "+obervacionextendido,
+      notificacion:obj.notificacion,  
+      ruta_imagen:"",
+      servido:false,
+      nombre:obj.nombre
     }
 
-    enviar.observaciones = obervacionextendido;
+    console.log("Este es el obj a agregar");
+    console.log(obj);
+
     
-    this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
-      let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
-      toas.present();
+    console.log("ObservacionExtendi");
+
+    if (enviar.observaciones == null) {
+      enviar.observaciones = "";
+    }
+    
+   // this.TikectPdr.insertDetalle(enviar).subscribe(datos => {
+     // let toas = this.toasCtrl.create({ message: datos.respuesta, duration: 1000 });
+      //toas.present();
       
-      this.arreglo[indice].observaciones = "";
-    });
+     // this.arreglo[indice].observaciones = "";
+    //});
+    enviar.ruta_imagen = obj.ruta_imagen;
+    enviar.servido = false;
+    console.log(enviar);
+    this.insertarDetalleConsumidor(enviar);
+    obj.cantidad = 1;
+  }
+
+
+  public insertarDetalleConsumidor(obj) {
+    let arreglo = this.arregloPedidoCliente.cliente1;
+    arreglo.push(obj);
+    let mensaje = this.toasCtrl.create({ message: "Producto agregado a la orden a enviar", duration: 1500 });
+    mensaje.present();
   }
 
   public observaciones(indice): any {

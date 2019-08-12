@@ -9,6 +9,7 @@ import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vi
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { ReportesProvider } from '../../providers/reportes/reportes';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 /**
  * Generated class for the HistorialPage page.
@@ -32,9 +33,9 @@ export class HistorialPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private ticktPrd: TicketsProvider,
     private loginPrd: LoginProvider, private carritoPrd: CarritoProvider,private reportePrd: ReportesProvider, private document: DocumentViewer, private platadorma: Platform,
     private alertCtrl: AlertController, private file: File, private ft: FileTransfer,
-    private toasCtrl: ToastController, private loadCtrl: LoadingController
+    private toasCtrl: ToastController, private loadCtrl: LoadingController,private usuariosPrd:UsuariosProvider
   ) {
-    let idCarrito = loginPrd.getCarrito();
+    let idCarrito = usuariosPrd.getSucursal();
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!

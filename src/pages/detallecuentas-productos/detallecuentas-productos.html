@@ -28,7 +28,9 @@
             <button ion-button color="rojo" (click)="restar(indice);" icon-only>
               <ion-icon name="remove"></ion-icon>
             </button>
-            <input type="text" placeholder=" " [value]="getcantidad(indice)" disabled>
+            <button ion-button icon-only class="estiloBoton" (click) = "agregarObservaciones(i)">
+              {{getcantidad(indice)}}
+             </button>
             <button ion-button icon-only color="botones" (click)="sumar(indice);">
               <ion-icon name="add"></ion-icon>
             </button>

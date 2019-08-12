@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { LoginProvider } from '../../providers/login/login';
 import { CombosProvider } from '../../providers/combos/combos';
 import { GlobalesProvider } from '../../providers/globales/globales';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 /**
  * Generated class for the DetallecocineroPage page.
@@ -23,22 +24,19 @@ export class DetallecocineroPage {
   private ultimamodificacion;
   private minutos;
   private notificar = -1;
+  private id_sucursal;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ticketPrd: TicketsProvider,
     private loginPrd: LoginProvider, private alerta: AlertController, private toasCtrl: ToastController,
-    private combosPrd: CombosProvider,private globales:GlobalesProvider) {
+    private combosPrd: CombosProvider,private globales:GlobalesProvider,private usuariosPrd:UsuariosProvider) {
 
-    this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-      for (let item of datos) {
-        if (item.categoria == "COMBO") {
-          combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
-            item.lista = respu;
-          });
-        }
-      }
-      this.arreglo = datos;
-      this.ultimamodificacion = new Date();
-    });
+      this.id_sucursal = usuariosPrd.getSucursal();
+      this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
+        this.arreglo = datos;
+        this.ultimamodificacion = new Date();
+        console.log("Este es lo que recibe el cocinero");
+        console.log(this.arreglo);
+      });
   }
 
 
@@ -46,14 +44,7 @@ export class DetallecocineroPage {
     setTimeout(() => {
       this.ticketPrd.getNotificacion().subscribe(datosnotificar => {
         if (datosnotificar.notificar != this.notificar) {
-          this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-            for (let item of datos) {
-              if (item.categoria == "COMBO") {
-                this.combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
-                  item.lista = respu;
-                });
-              }
-            }
+          this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
             this.arreglo = datos;
             this.ultimamodificacion = new Date();
             this.notificar = datosnotificar.notificar;
@@ -66,22 +57,15 @@ export class DetallecocineroPage {
           diferencia = Math.floor(diferencia / 60);
           this.minutos = Math.round(diferencia % 60);
           if (this.minutos >= 1) {
-            this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-              for (let item of datos) {
-                if (item.categoria == "COMBO") {
-                  this.combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
-                    item.lista = respu;
-                  });
-                }
-              }
+            this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
               this.arreglo = datos;
-              
+
             });
             this.ultimamodificacion = new Date();
-            
+
           }
 
-          
+
         }
         this.ionViewDidEnter();
       });
@@ -89,15 +73,11 @@ export class DetallecocineroPage {
   }
 
   public actualizando(refresher): any {
-    this.ticketPrd.detallecocinero(this.loginPrd.getCarrito()).subscribe(datos => {
-      for (let item of datos) {
-        if (item.categoria == "COMBO") {
-          this.combosPrd.getCombosDetalle(item.id_producto).subscribe(respu => {
-            item.lista = respu;
-          });
-        }
-      }
+    this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
       this.arreglo = datos;
+      this.ultimamodificacion = new Date();
+      console.log("Este es lo que recibe el cocinero");
+      console.log(this.arreglo);
       refresher.complete();
     });
   }
@@ -111,6 +91,8 @@ export class DetallecocineroPage {
       servido: true,
       id: obj.id
     };
+
+    console.log(enviarObj);
 
     let alerta = this.alerta.create({
       title: "Aviso", message: "¿El producto ya fue servido?", buttons: [

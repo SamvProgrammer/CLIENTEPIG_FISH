@@ -93,6 +93,22 @@ export class TicketsProvider {
     let json = JSON.stringify(obj);
     return this.http.post(ruta,json,httpOptions);
    }
+   public insertDetalleLista(obj): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let ruta = this.direccion + "/detalle/lista";
+    let json = JSON.stringify(obj);
+    return this.http.post(ruta, json, httpOptions);
+  }
+  public notificaciones(id_sucursal,lugar): Observable<any> {
+    let filtrarDireccion = this.direccion + "/notificaciones/" + id_sucursal +"/lugar/"+lugar;
+    this.data = this.http.get(filtrarDireccion);
+    return this.data;
+  }
 
    public getTicketsDetalle(id_ticket):Observable<any>{   
     let filtrarDireccion = this.direccion +"/detalle/"+id_ticket;

@@ -1,0 +1,42 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Agregar productos</ion-title>
+    <ion-buttons left>
+      <button (click)="salir()" ion-button icon-end icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list class="fondo">
+      <ion-item *ngFor="let i of arreglo;let indice = index" >
+        <ion-thumbnail item-start (click)= "observaciones(indice)">
+          <img [src] = "i.imagen">
+        </ion-thumbnail>
+        <h2 class="colorletra">{{i.nombre}}</h2>
+        <div item-end class="estilobotones">
+          <button ion-button color="rojo" (click)="restar(indice);" icon-only>
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <button ion-button icon-only class="estiloBoton" (click) = "agregarObservaciones(i)">
+            {{getcantidad(indice)}}
+           </button>
+          <button ion-button icon-only color="botones" (click)="sumar(indice);">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="gris" style="text-align: center">
+    <button (click) = "agregar();" ion-button icon-only color="light" style="width: 80%;">            
+      Aceptar
+    </button>
+  </ion-toolbar>
+</ion-footer>

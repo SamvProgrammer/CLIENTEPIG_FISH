@@ -16,6 +16,10 @@ export class UsuariosAddPage {
   public arregloRoles: any = [];
   public arregloCarrito: any = [];
   private variable;
+  public objMenu: any = {
+    menu: [],
+    activoEn: 0
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -34,7 +38,22 @@ export class UsuariosAddPage {
       const obj = { usuario: "", nombre: "", password1: "",password2:"", roles:"",sucursales:"",menu:false,inicio:false,barra:false,cocina:false,transacciones:false}
       this.myForm = this.createMyForm(obj);
     } else {
-      
+      this.objMenu.activoEn = this.variable.iniciar_en;
+      let arreglo = ["inicio", "gestion_usuarios", "sucursales", "mesas", "caja", "productos", "historial_cuentas", "reportes", "autorizar", "inventario", "configuraciones"];
+      for (let llave in this.variable) {
+        for (let item of arreglo) {
+          if (llave == item) {
+            if (this.variable[llave] == true) {
+              let activo = this.variable[llave]
+              let nombre: string = llave;
+
+              let submenu = { nombre: nombre.replace("_", " "), activo: activo, visualizar: true }
+              this.objMenu.menu.push(submenu);
+            }
+          }
+        }
+      }
+
       this.myForm = this.createMyForm(this.variable);
     }
     
