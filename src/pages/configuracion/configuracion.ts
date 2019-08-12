@@ -20,12 +20,12 @@ import { GlobalesProvider } from '../../providers/globales/globales';
 })
 export class ConfiguracionPage {
 
-  public notificacion = false;
   public cancelacion = false;
   public autorizacion = false;
   public enviarCocina:boolean = false;
   public enviarBarra:boolean = false;
   public impresoraCocina:boolean = false;
+  public inventarios:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     private globales: GlobalesProvider, private alertCtrl: AlertController,
   private toasCtrl:ToastController) {
@@ -35,12 +35,12 @@ export class ConfiguracionPage {
     let configuraciones = this.globales.getConfiguraciones();
     
     if (configuraciones != null && configuraciones != undefined) {
-      this.notificacion = configuraciones.notificacion;
       this.cancelacion = configuraciones.cancelacion;
       this.autorizacion = configuraciones.autorizacion;
       this.enviarCocina = configuraciones.enviarCocina;
       this.enviarBarra = configuraciones.enviarBarra;
       this.impresoraCocina = configuraciones.impresoraCocina;
+      this.inventarios = configuraciones.inventarios;
     }
   }
 
@@ -61,12 +61,12 @@ export class ConfiguracionPage {
       buttons: [{
         text: "Si", handler: () => {
           let obj = {
-            notificacion: this.notificacion,
             cancelacion:this.cancelacion,
             autorizacion:this.autorizacion,
             enviarCocina:this.enviarCocina,
             enviarBarra:this.enviarBarra,
-            impresoraCocina:this.impresoraCocina
+            impresoraCocina:this.impresoraCocina,
+            inventarios:this.inventarios
           }
 
           console.log(obj);

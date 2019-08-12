@@ -21,14 +21,15 @@ export class ControlMovimientoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private inventarioPrd: InventarioProvider, private alertaCtrl: AlertController,
     private toasCtrl: ToastController,
-    private modalCtrl: ModalController, private parametros: NavParams,private viewCtrl:ViewController) {
+    private modalCtrl: ModalController, private parametros: NavParams,private viewCtrl:ViewController,private usuariosPrd:UsuariosProvider) {
 
     this.variable = this.parametros.get("valorEnviado");
 
 
     let id_inventario = this.variable["id_inventario"];
 
-    this.inventarioPrd.getHistorialInventario(id_inventario).subscribe(datos => {
+    let id_sucursal = this.usuariosPrd.getSucursal();
+    this.inventarioPrd.getHistorialInventario(id_inventario,id_sucursal).subscribe(datos => {
       this.arreglo = datos;
       console.log("Peticion del webservices");
       console.log(this.arreglo);

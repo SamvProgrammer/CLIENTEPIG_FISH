@@ -34,8 +34,8 @@ export class InventarioProvider {
 
   
   
-  public gets():Observable<any>{
-    return   this.http.get(this.direccion);
+  public gets(id_sucursal):Observable<any>{
+    return   this.http.get(this.direccion+"/sucursal/"+id_sucursal);
   }
 
 
@@ -72,9 +72,9 @@ export class InventarioProvider {
     return this.http.delete(this.direccion+"/"+id);
    }
 
-   public getHistorialInventario(id_inventario):Observable<any>{
+   public getHistorialInventario(id_inventario,id_sucursal):Observable<any>{
 
-    let direccionHistorial = this.direccion+"/historial/"+id_inventario;
+    let direccionHistorial = this.direccion+"/historial/"+id_inventario+"/sucursal/"+id_sucursal;
      return this.http.get(direccionHistorial);
   }
 

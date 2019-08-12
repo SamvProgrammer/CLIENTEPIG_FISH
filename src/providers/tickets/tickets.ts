@@ -1,4 +1,4 @@
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { direcciones } from '../../assets/direcciones';
 import { Observable } from 'rxjs/observable';
@@ -12,88 +12,89 @@ import { Observable } from 'rxjs/observable';
 @Injectable()
 export class TicketsProvider {
 
-  private data:Observable<any>;
+  private data: Observable<any>;
   private direccion = "";
 
   constructor(public http: HttpClient) {
     this.direccion = direcciones.tickets;
   }
 
-  public getTickets(id_carrito):Observable<any>{   
-    let filtrarDireccion = this.direccion +"/carrito/"+id_carrito;
+  public getTickets(id_carrito): Observable<any> {
+    let filtrarDireccion = this.direccion + "/carrito/" + id_carrito;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
-   public getTicketsCanceladosCobrados(id_carrito,fecha):Observable<any>{   
-     let auxFecha = "";
+  }
+  public getTicketsCanceladosCobrados(id_carrito, fecha): Observable<any> {
+    let auxFecha = "";
 
-    if(fecha == undefined){
+    if (fecha == undefined) {
       let today = new Date();
       let dd = today.getDate();
       let mm = today.getMonth() + 1; //January is 0!
       let yyyy = today.getFullYear();
-      let dia:string = "";
-      let mes:string = "";
- 
+      let dia: string = "";
+      let mes: string = "";
+
       if (dd < 10) {
         dia = "0" + dd;
-      }else{
-        dia = ""+dd;
+      } else {
+        dia = "" + dd;
       }
-      
+
       if (mm < 10) {
         mes = '0' + mm;
-      }else{
-        mes = ""+mm;
+      } else {
+        mes = "" + mm;
       }
-      
+
       auxFecha = yyyy + '-' + mes + '-' + dia;
-    }else{
+    } else {
       auxFecha = fecha;
     }
 
-  
+
     let filtrarDireccion = this.direccion + "/sucursal/" + id_carrito + "/fecha/" + auxFecha;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
+  }
 
-   public insert(obj):Observable<any>{
+  public insert(obj): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    
+
     let json = JSON.stringify(obj);
-    return this.http.post(this.direccion,json,httpOptions);
-   }
+    return this.http.post(this.direccion, json, httpOptions);
+  }
 
-   public cancelar(id_Ticket):Observable<any>{   
-    let filtrarDireccion = this.direccion +"/cancelar/"+id_Ticket;
+  public cancelar(id_Ticket): Observable<any> {
+    let filtrarDireccion = this.direccion + "/cancelar/" + id_Ticket;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    this.data = this.http.post(filtrarDireccion,{},httpOptions);
+    this.data = this.http.post(filtrarDireccion, {}, httpOptions);
     return this.data;
-   }
+  }
 
 
-   public insertDetalle(obj):Observable<any>{
+  public insertDetalle(obj): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    let ruta = this.direccion+"/detalle";
+    let ruta = this.direccion + "/detalle";
     let json = JSON.stringify(obj);
-    return this.http.post(ruta,json,httpOptions);
-   }
-   public insertDetalleLista(obj): Observable<any> {
+    return this.http.post(ruta, json, httpOptions);
+  }
+
+  public insertDetalleLista(obj): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -104,98 +105,113 @@ export class TicketsProvider {
     let json = JSON.stringify(obj);
     return this.http.post(ruta, json, httpOptions);
   }
-  public notificaciones(id_sucursal,lugar): Observable<any> {
-    let filtrarDireccion = this.direccion + "/notificaciones/" + id_sucursal +"/lugar/"+lugar;
+
+  public insertDetalleListaIdSucursal(obj,id_sucursal): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let ruta = this.direccion + "/detalle/lista/"+id_sucursal;
+    let json = JSON.stringify(obj);
+    return this.http.post(ruta, json, httpOptions);
+  }
+
+  
+
+  public notificaciones(id_sucursal, lugar): Observable<any> {
+    let filtrarDireccion = this.direccion + "/notificaciones/" + id_sucursal + "/lugar/" + lugar;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
   }
 
-   public getTicketsDetalle(id_ticket):Observable<any>{   
-    let filtrarDireccion = this.direccion +"/detalle/"+id_ticket;
+  public getTicketsDetalle(id_ticket): Observable<any> {
+    let filtrarDireccion = this.direccion + "/detalle/" + id_ticket;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
-   public getTicketsDetalleAgrupado(id_ticket):Observable<any>{   
-    let filtrarDireccion = this.direccion +"/detalle/agrupado/"+id_ticket;
+  }
+  public getTicketsDetalleAgrupado(id_ticket): Observable<any> {
+    let filtrarDireccion = this.direccion + "/detalle/agrupado/" + id_ticket;
     console.log(filtrarDireccion);
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
-   public getTicketsDetalleAgrupadoTicketFinal(id_ticket): Observable<any> {
+  }
+  public getTicketsDetalleAgrupadoTicketFinal(id_ticket): Observable<any> {
     let filtrarDireccion = this.direccion + "/detalle/agrupado/ticketfinal/" + id_ticket;
     console.log(filtrarDireccion);
     this.data = this.http.get(filtrarDireccion);
     return this.data;
   }
 
-   public cobrarTicket(obj):Observable<any>{
+  public cobrarTicket(obj): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    let ruta = this.direccion+"/cobrado";
+    let ruta = this.direccion + "/cobrado";
     let json = JSON.stringify(obj);
-    return this.http.put(ruta,json,httpOptions);
-   }
+    return this.http.put(ruta, json, httpOptions);
+  }
 
 
-   public detallecocinero(id_carrito):Observable<any>{
-    let filtrarDireccion = this.direccion +"/detallecocinero/"+id_carrito;
+  public detallecocinero(id_carrito): Observable<any> {
+    let filtrarDireccion = this.direccion + "/detallecocinero/" + id_carrito;
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
+  }
 
-   public detallecocineroactualizar(obj):Observable<any>{
+  public detallecocineroactualizar(obj): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    let ruta = this.direccion+"/detallecocinero";
+    let ruta = this.direccion + "/detallecocinero";
     let json = JSON.stringify(obj);
-    
-    this.data = this.http.put(ruta,json,httpOptions);
-    return this.data;
-   }
 
-   public getNotificacion():Observable<any>{   
-    let filtrarDireccion = this.direccion +"/notificacion";
+    this.data = this.http.put(ruta, json, httpOptions);
+    return this.data;
+  }
+
+  public getNotificacion(): Observable<any> {
+    let filtrarDireccion = this.direccion + "/notificacion";
     this.data = this.http.get(filtrarDireccion);
     return this.data;
-   }
+  }
 
 
-   public actualizarDetalleTicket(obj):Observable<any>{   
+  public actualizarDetalleTicket(obj): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
-    let filtrarDireccion = this.direccion +"/detalle";
+    let filtrarDireccion = this.direccion + "/detalle";
     let json = JSON.stringify(obj);
-    this.data = this.http.put(filtrarDireccion,json,httpOptions);
+    this.data = this.http.put(filtrarDireccion, json, httpOptions);
     return this.data;
-   }
+  }
 
 
-   public eliminarDetalleTicket(id):Observable<any>{
-       let filtrarDireccion = this.direccion+"/detalle/"+id;
-       return this.http.delete(filtrarDireccion);
-   }
+  public eliminarDetalleTicket(id): Observable<any> {
+    let filtrarDireccion = this.direccion + "/detalle/" + id;
+    return this.http.delete(filtrarDireccion);
+  }
 
-   public cancelarDetalleTicket(obj):Observable<any>{
+  public cancelarDetalleTicket(obj): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type': 'application/json'
       })
     };
 
-    let filtrarDireccion = this.direccion +"/detalle";
+    let filtrarDireccion = this.direccion + "/detalle";
     console.log(obj);
     let json = JSON.stringify(obj);
 
-    return this.http.put(filtrarDireccion,json,httpOptions);
-   }
+    return this.http.put(filtrarDireccion, json, httpOptions);
+  }
 }

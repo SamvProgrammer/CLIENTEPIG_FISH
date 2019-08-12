@@ -49,13 +49,6 @@
   <ion-item-group>
     <ion-item-divider color="light">Configuraciones generales</ion-item-divider>
     <ion-list>
-       <ion-item>
-          <ion-avatar item-start>
-              <img src="../../assets/imgs/iconnotifi.png">
-            </ion-avatar>
-          <ion-label>Tiempo real notif. Cocina/Barra</ion-label>
-          <ion-toggle [(ngModel)]="notificacion" ></ion-toggle>
-        </ion-item>
         <ion-item>
           <ion-avatar item-start>
               <img src="../../assets/imgs/iconnotifi.png">
@@ -91,6 +84,13 @@
           <ion-label>Impresora cocina</ion-label>
           <ion-toggle [(ngModel)]="impresoraCocina" ></ion-toggle>
         </ion-item>
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="../../assets/imgs/iconnotifi.png">
+              </ion-avatar>
+            <ion-label>Utiliza inventarios</ion-label>
+            <ion-toggle [(ngModel)]="inventarios" ></ion-toggle>
+          </ion-item>
     </ion-list>
   </ion-item-group>
 </ion-content>

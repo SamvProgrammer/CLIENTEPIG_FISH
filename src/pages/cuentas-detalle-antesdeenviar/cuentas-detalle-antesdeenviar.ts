@@ -123,7 +123,8 @@ export class CuentasDetalleAntesdeenviarPage {
   
     if(arregloEnviar.length != 0){
 
-      this.ticketPrd.insertDetalleLista(arregloEnviar).subscribe(datos => {
+      let id_sucursal = this.usuariosPrd.getSucursal();
+      this.ticketPrd.insertDetalleListaIdSucursal(arregloEnviar,id_sucursal).subscribe(datos => {
 
         console.log("Si entra a inseetrar en la base de datos");
         let codigos = this.impresionesPrd.getCodigosImpresora();
@@ -197,6 +198,8 @@ export class CuentasDetalleAntesdeenviarPage {
           
         cargando.dismiss();
       console.log(error);
+      console.log(error.error);
+      console.log(error.error.message);
       let alerta = this.alertCtrl.create({message:error.error.message,buttons:["Entendido"]});
       alerta.present();
 

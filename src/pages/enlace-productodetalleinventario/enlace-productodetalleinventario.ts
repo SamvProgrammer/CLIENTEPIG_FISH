@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
 import { InventarioProvider } from '../../providers/inventario/inventario';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 
 @Component({
@@ -13,10 +14,10 @@ export class EnlaceProductodetalleinventarioPage {
   public inventarioElegido = [];
  
    constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
-               private inventarioPrd:InventarioProvider) {
+               private inventarioPrd:InventarioProvider,private usuariosPrd:UsuariosProvider) {
        this.inventarioElegido = navParams.get("inventario");
        let encontrado = false;
-         inventarioPrd.gets().subscribe(datos =>{
+         inventarioPrd.gets(usuariosPrd.getSucursal()).subscribe(datos =>{
                for(let i of datos){
                    for(let x of this.inventarioElegido){
                       if(x.id_inventario == i.id_inventario){

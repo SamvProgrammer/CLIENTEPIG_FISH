@@ -5,6 +5,7 @@ import { InventariosAddPage } from '../inventarios-add/inventarios-add';
 import {AjusteInventarioPage} from '../ajuste-inventario/ajuste-inventario';
 import {ControlMovimientoPage} from '../control-movimiento/control-movimiento';
 import {CaluladoraInsumosPage} from '../caluladora-insumos/caluladora-insumos';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 
 @Component({
@@ -13,11 +14,11 @@ import {CaluladoraInsumosPage} from '../caluladora-insumos/caluladora-insumos';
 })
 export class InventariosPage {
   private arreglo: any = [];
-
+ private id_sucursal;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private inventarioPrd: InventarioProvider,private alertaCtrl:AlertController,
-  private toasCtrl:ToastController,
+  private toasCtrl:ToastController,private usuariosPrd:UsuariosProvider,
   private modalCtrl: ModalController,private parametros: NavParams) {
 
     
@@ -25,8 +26,8 @@ export class InventariosPage {
   }
 
   ionViewDidEnter() {
-    
-    this.inventarioPrd.gets().subscribe(datos => {
+    this.id_sucursal = this.usuariosPrd.getSucursal();
+    this.inventarioPrd.gets(this.id_sucursal).subscribe(datos => {
       this.arreglo = datos;
     });
   }
@@ -52,7 +53,7 @@ export class InventariosPage {
 
   public actualizando(refresher): any {
     
-    this.inventarioPrd.gets().subscribe(res => {
+    this.inventarioPrd.gets(this.id_sucursal).subscribe(res => {
       this.arreglo = res;
       refresher.complete();
     });
@@ -66,7 +67,7 @@ export class InventariosPage {
     let id = obj.id_inventario;
     let alerta = this.alertaCtrl.create({title:"Aviso",subTitle:"¿Deseas eliminar el registro?",buttons:[{text:"Aceptar",handler:()=>{
      this.inventarioPrd.eliminar(id).subscribe(resp => {
-       this.inventarioPrd.gets().subscribe(res => {
+       this.inventarioPrd.gets(this.id_sucursal).subscribe(res => {
          this.arreglo = res;
        });
        let toas = this.toasCtrl.create({message:"Registro Eliminado",duration:1500});
