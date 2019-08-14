@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ToastController, Platform,LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, Platform, LoadingController } from 'ionic-angular';
 import { TicketsProvider } from '../../providers/tickets/tickets';
 import { Storage } from '@ionic/storage';
 import { UsuariosProvider } from '../../providers/usuarios/usuarios';
@@ -17,10 +17,10 @@ export class CuentasDetalleAntesdeenviarPage {
     private viewCtrl: ViewController, private alertCtrl: AlertController, private ticketPrd: TicketsProvider,
     private toasCtrl: ToastController, private plataforma: Platform, private storage: Storage, private usuariosPrd: UsuariosProvider,
     private globales: GlobalesProvider, private impresionesPrd: ImpresionesProvider, private configuraciones: GlobalesProvider,
-    private loadCtrl:LoadingController) {
+    private loadCtrl: LoadingController) {
     let aux = this.navParams.get("arreglo");
     this.orden = this.navParams.get("orden");
-    
+
     for (let llave in aux) {
       let arregloAux = aux[llave];
       this.arreglo.push(arregloAux);
@@ -67,11 +67,13 @@ export class CuentasDetalleAntesdeenviarPage {
     let cocina = configuraciones.enviarCocina;
     let barra = configuraciones.enviarBarra;
     let impresoraCocina = configuraciones.impresoraCocina;
+    let inventarios = configuraciones.inventarios;
 
     cocina = cocina == undefined ? false : cocina;
     barra = barra == undefined ? false : barra;
 
-    impresoraCocina = impresoraCocina == undefined ? false:impresoraCocina;
+    impresoraCocina = impresoraCocina == undefined ? false : impresoraCocina;
+    inventarios = inventarios == undefined ? false : inventarios;
 
 
     console.log(configuraciones);
@@ -114,176 +116,75 @@ export class CuentasDetalleAntesdeenviarPage {
         item.servido = barra;
       }
     }
-    let cargando = this.loadCtrl.create({content:"Levantando orden espere"});
+    let cargando = this.loadCtrl.create({ content: "Levantando orden espere" });
     cargando.present();
-    
 
-    console.log(arregloEnviar);
-    
-  
-    if(arregloEnviar.length != 0){
+
+
+
+
+    if (arregloEnviar.length != 0) {
 
       let id_sucursal = this.usuariosPrd.getSucursal();
-      this.ticketPrd.insertDetalleListaIdSucursal(arregloEnviar,id_sucursal).subscribe(datos => {
+      
+      if(inventarios == true){
+        this.ticketPrd.insertDetalleListaIdSucursal(arregloEnviar, id_sucursal).subscribe(datos => {
 
-        console.log("Si entra a inseetrar en la base de datos");
-        let codigos = this.impresionesPrd.getCodigosImpresora();
+          this.impresionesmetodo(arregloEnviar, cargando, impresoraCocina);
   
+        }, error => {
   
-        let mensajeCocina = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS COCINA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
-        let mensajeBarra = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS BARRA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
-  
-        console.log(arregloEnviar);
-        for (let item of arregloEnviar) {
-          if (item.notificacion == 1) {
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeCocina = mensajeCocina + aux;
-          } else if (item.notificacion == 2) {
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeBarra = mensajeBarra + aux;
-  
-          } else {
-  
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeCocina = mensajeCocina + aux;
-  
-            aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeBarra = mensajeBarra + aux;
-  
-          }
-        }
-  
-        mensajeBarra = mensajeBarra + "_______________________________\n\n";
-        mensajeCocina = mensajeCocina + "_______________________________\n\n";
-  
-        console.log("Este es el mensaje de cocina");
-        console.log(mensajeCocina);
-        console.log("Este es mensaje de barra");
-        console.log(mensajeBarra);
-  
-  
-        if(impresoraCocina == true){
-          this.globales.conectarCocina(mensajeCocina).then(cocina => {
-            this.globales.conectarBarra(mensajeBarra).then(barra => {
-              this.servidoListo("Orden enviada correctamente");
-              cargando.dismiss();
-            }).catch(mensaje => {
-              this.servidoListo("Error al enviar a impresora cocina --> barra");
-              cargando.dismiss();
-            });
-          }).catch(errcocina => {
-            this.globales.conectarBarra(mensajeBarra).then(barra => {
-              this.servidoListo("Orden enviada correctamente");
-              cargando.dismiss();
-            }).catch(objmensaje => {
-              this.servidoListo("Error al enviar a impresora desde barra");
-              cargando.dismiss();
-            });
-          });
-        }else{
-          this.servidoListo("Orden enviada correctamente");
           cargando.dismiss();
-          console.log("No se manda a impresora");
-        }
+          console.log(error);
+          console.log(error.error);
+          console.log(error.error.message);
+          let alerta = this.alertCtrl.create({ message: error.error.message, buttons: ["Entendido"] });
+          alerta.present();
   
-      },error =>{
-          
-        cargando.dismiss();
-      console.log(error);
-      console.log(error.error);
-      console.log(error.error.message);
-      let alerta = this.alertCtrl.create({message:error.error.message,buttons:["Entendido"]});
-      alerta.present();
+  
+        });
 
-        
+      }else{
+        this.ticketPrd.insertDetalleLista(arregloEnviar).subscribe(datos => {
+
+          this.impresionesmetodo(arregloEnviar, cargando, impresoraCocina);
+  
+        }, error => {
+  
+          cargando.dismiss();
+          console.log(error);
+          console.log(error.error);
+          console.log(error.error.message);
+          let alerta = this.alertCtrl.create({ message: error.error.message, buttons: ["Entendido"] });
+          alerta.present();
+  
+  
+        });
+
+      }
+
+
+    } else {
+      console.log("Ahora si entra al método apra reeenviar");
+      console.log("---------------------------------------------------------");
+
+      cargando.dismiss();
+      let alerta = this.alertCtrl.create({
+        message: "¿Deseas reemprimir la orden?", title: "Reimpresión",
+        buttons: [{
+          text: "Sí", handler: () => {
+
+            let im = this.loadCtrl.create({ content: "Reimprimiendo ticket" });
+            im.present();
+
+            this.impresionesmetodo(reenvio, im, cocina);
+
+          }
+        }, "No"]
       });
-    }else{
-        console.log("Ahora si entra al método apra reeenviar");
-        console.log("---------------------------------------------------------");
-
-        cargando.dismiss();
-        let alerta = this.alertCtrl.create({message:"¿Deseas reemprimir la orden?",title:"Reimpresión",
-      buttons:[{text:"Sí",handler:()=>{
-        console.log("Si entra a inseetrar en la base de datos");
-        let codigos = this.impresionesPrd.getCodigosImpresora();
-  
-  
-        let mensajeCocina = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS COCINA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
-        let mensajeBarra = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS BARRA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
-         console.log(reenvio);
-
-        for (let item of reenvio) {
-          if (item.notificacion == 1) {
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeCocina = mensajeCocina + aux;
-          } else if (item.notificacion == 2) {
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeBarra = mensajeBarra + aux;
-  
-          } else {
-  
-            let aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeCocina = mensajeCocina + aux;
-  
-            aux = "";
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
-            aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
-            mensajeBarra = mensajeBarra + aux;
-  
-          }
-        }
-  
-        mensajeBarra = mensajeBarra + "_______________________________\n\n";
-        mensajeCocina = mensajeCocina + "_______________________________\n\n";
-  
-        console.log("Este es el mensaje de cocina");
-        console.log(mensajeCocina);
-        console.log("Este es mensaje de barra");
-        console.log(mensajeBarra);
-  
-  
-        if(impresoraCocina == true){
-          this.globales.conectarCocina(mensajeCocina).then(cocina => {
-            this.globales.conectarBarra(mensajeBarra).then(barra => {
-              this.servidoListo("Orden enviada correctamente");
-              cargando.dismiss();
-            }).catch(mensaje => {
-              this.servidoListo("Error al enviar a impresora cocina --> barra");
-              cargando.dismiss();
-            });
-          }).catch(errcocina => {
-            this.globales.conectarBarra(mensajeBarra).then(barra => {
-              this.servidoListo("Orden enviada correctamente");
-              cargando.dismiss();
-            }).catch(objmensaje => {
-              this.servidoListo("Error al enviar a impresora desde barra");
-              cargando.dismiss();
-            });
-          });
-        }else{
-          this.servidoListo("Orden enviada correctamente");
-          cargando.dismiss();
-          console.log("No se manda a impresora");
-        }
-
-      }},"No"]});
 
       alerta.present();
-        
+
     }
 
 
@@ -314,6 +215,78 @@ export class CuentasDetalleAntesdeenviarPage {
         }, "No"]
       });
       mensaje.present();
+    }
+  }
+
+
+  public impresionesmetodo(arregloEnviar, cargando, impresoraCocina) {
+
+    console.log("Si entra a inseetrar en la base de datos");
+    let codigos = this.impresionesPrd.getCodigosImpresora();
+
+
+    let mensajeCocina = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS COCINA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
+    let mensajeBarra = codigos.TEXT_FORMAT.TXT_ALIGN_CT + codigos.TEXT_FORMAT.TXT_4SQUARE + codigos.TEXT_FORMAT.TXT_BOLD_ON + "PEDIDOS BARRA" + codigos.LF + "PRODUCTO\n" + codigos.TEXT_FORMAT.TXT_NORMAL + codigos.TEXT_FORMAT.TXT_BOLD_OFF + codigos.TEXT_FORMAT.TXT_ALIGN_LT + codigos.LF + codigos.TEXT_FORMAT.TXT_CUSTOM_SIZE(1, 1);
+
+    console.log(arregloEnviar);
+    for (let item of arregloEnviar) {
+      if (item.notificacion == 1) {
+        let aux = "";
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
+        mensajeCocina = mensajeCocina + aux;
+      } else if (item.notificacion == 2) {
+        let aux = "";
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
+        mensajeBarra = mensajeBarra + aux;
+
+      } else {
+
+        let aux = "";
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF} ${this.usuariosPrd.getNombreUsuario()}\n`;
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
+        mensajeCocina = mensajeCocina + aux;
+
+        aux = "";
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + `*${item.nombre}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Cantidad: ${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t${item.cantidad}\n${codigos.TEXT_FORMAT.TXT_BOLD_ON} Cuenta:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}\t\t${this.orden}\n ${codigos.TEXT_FORMAT.TXT_BOLD_ON}Mesero:${codigos.TEXT_FORMAT.TXT_BOLD_OFF}${this.usuariosPrd.getNombreUsuario()}\n`;
+        aux = aux + codigos.TEXT_FORMAT.TXT_BOLD_ON + " Observaciones:" + codigos.TEXT_FORMAT.TXT_BOLD_OFF + item.observaciones + "\n_______________________\n";
+        mensajeBarra = mensajeBarra + aux;
+
+      }
+    }
+
+    mensajeBarra = mensajeBarra + "_______________________________\n\n";
+    mensajeCocina = mensajeCocina + "_______________________________\n\n";
+
+    console.log("Este es el mensaje de cocina");
+    console.log(mensajeCocina);
+    console.log("Este es mensaje de barra");
+    console.log(mensajeBarra);
+
+
+    if (impresoraCocina == true) {
+      this.globales.conectarCocina(mensajeCocina).then(cocina => {
+        this.globales.conectarBarra(mensajeBarra).then(barra => {
+          this.servidoListo("Orden enviada correctamente");
+          cargando.dismiss();
+        }).catch(mensaje => {
+          this.servidoListo("Error al enviar a impresora cocina --> barra");
+          cargando.dismiss();
+        });
+      }).catch(errcocina => {
+        this.globales.conectarBarra(mensajeBarra).then(barra => {
+          this.servidoListo("Orden enviada correctamente");
+          cargando.dismiss();
+        }).catch(objmensaje => {
+          this.servidoListo("Error al enviar a impresora desde barra");
+          cargando.dismiss();
+        });
+      });
+    } else {
+      this.servidoListo("Orden enviada correctamente");
+      cargando.dismiss();
+      console.log("No se manda a impresora");
     }
   }
 
