@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
 import { InventarioProvider } from '../../providers/inventario/inventario';
+import { UsuariosProvider } from '../../providers/usuarios/usuarios';
 
 /**
  * Generated class for the AgregaProductoPage page.
@@ -18,9 +19,11 @@ export class AgregaProductoPage {
   public inventarioElegido = [];
  
    constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
-               private inventarioPrd:InventarioProvider) {
+               private inventarioPrd:InventarioProvider,private usuariosPrd:UsuariosProvider) {
 
-         inventarioPrd.gets().subscribe(datos =>{
+
+                let sucursal = usuariosPrd.getSucursal();
+         inventarioPrd.gets(sucursal).subscribe(datos =>{
                for(let i of datos){
                  
                    }                 
