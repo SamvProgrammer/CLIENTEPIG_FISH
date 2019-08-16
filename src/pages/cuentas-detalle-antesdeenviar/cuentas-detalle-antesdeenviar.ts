@@ -145,12 +145,16 @@ export class CuentasDetalleAntesdeenviarPage {
         });
 
       }else{
+
+        console.log("Antes de enviar");
         this.ticketPrd.insertDetalleLista(arregloEnviar).subscribe(datos => {
 
           this.impresionesmetodo(arregloEnviar, cargando, impresoraCocina);
   
         }, error => {
   
+          console.log("Sale error"
+          );
           cargando.dismiss();
           console.log(error);
           console.log(error.error);
