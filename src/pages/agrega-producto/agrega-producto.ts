@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Select } from 'ionic-angular';
 import { InventarioProvider } from '../../providers/inventario/inventario';
-import { UsuariosProvider } from '../../providers/usuarios/usuarios';
+import { ProductosProvider } from '../../providers/productos/productos';
+
+
 
 /**
  * Generated class for the AgregaProductoPage page.
@@ -15,37 +17,58 @@ import { UsuariosProvider } from '../../providers/usuarios/usuarios';
   templateUrl: 'agrega-producto.html',
 })
 export class AgregaProductoPage {
-  public arreglo:any = [];
+  public arreglo = [];
   public inventarioElegido = [];
- 
-   constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController,
-               private inventarioPrd:InventarioProvider,private usuariosPrd:UsuariosProvider) {
+  public letras: string = "";
+  public descripcion;
+  public verdadero: any = [];
+  public itemSeleccionado;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
+    private inventarioPrd: InventarioProvider, private productosPrd: ProductosProvider) {
+
+    this.productosPrd.getNombre().subscribe(datos => {
+      this.arreglo = datos;
+      this.verdadero = datos;
+      console.log(datos);
+    });
+
+  }
 
 
-                let sucursal = usuariosPrd.getSucursal();
-         inventarioPrd.gets(sucursal).subscribe(datos =>{
-               for(let i of datos){
-                 
-                   }                 
-               
-               
-               this.arreglo = datos;
- 
-           });
-   }
- 
+  public hecho(): any {
+   
+    this.viewCtrl.dismiss({ dato: this.itemSeleccionado });
+  }
 
- 
-  
- 
-   public hecho():any{
-    let enviar = [];
+  getItems(obj) {
+    this.arreglo = this.verdadero.filter(obj => obj.nombre.includes(this.letras));
+  }
+
+  public salir() {
+    this.viewCtrl.dismiss();
+  }
+
+
+  public actualizar(i){
+    
     for(let item of this.arreglo){
-      if(item.elegido){
-          enviar.push(item);
-      }
-    }
-    this.viewCtrl.dismiss({datos:enviar});
-   }
+      item.clase = "";
+  }
+    
+    i.clase = "seleccionado";
+    this.itemSeleccionado = i;
+  }
+
+
+  portChange(event: {
+    component: Select,
+    value: any 
+  }) {
+    console.log('valor:', event.value);
+  }
 }
+
+
+
+
 

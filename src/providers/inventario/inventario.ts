@@ -78,5 +78,9 @@ export class InventarioProvider {
      return this.http.get(direccionHistorial);
   }
 
+  public desglose(cantidad,id_producto):Observable<any>{
+    return   this.http.get(this.direccion1+"/calculoinsumo/"+cantidad+"/"+id_producto);
+  }
+
    
 }

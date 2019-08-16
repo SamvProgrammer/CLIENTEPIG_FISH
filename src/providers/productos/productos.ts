@@ -27,6 +27,11 @@ export class ProductosProvider {
     return this.data;
    }
 
+   public getNombre():Observable<any>{
+    this.data=this.http.get(this.direccion+"/busca");
+    return this.data;
+  }
+
    public getCategoriaConListaproductos():Observable<any>{
     return this.http.get(this.direccion+"/lista/categorias");
 }
