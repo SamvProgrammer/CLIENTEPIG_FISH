@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Promociones
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+<div>
+  <ion-input style ="background-color:gray" type="text" [(ngModel)]="encodText"></ion-input>
+  <button ion-button block (click)="encode()">Encode</button>
+</div>
+<div>
+  <button ion-button block (click)="scan()">Scanner</button>
+  <div *ngIf="scannedData.text">
+<label>Tu Qr es:</label>
+<br>
+<span>{{scannedData.text}}</span>
+  </div>
+</div>
+</ion-content>

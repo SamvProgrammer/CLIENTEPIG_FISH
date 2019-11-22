@@ -15,6 +15,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { IonicStorageModule } from '@ionic/storage';
+import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -68,6 +69,7 @@ import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-
 import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
 import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
+import {PromocionesqrPage} from '../pages/promocionesqr/promocionesqr';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -142,13 +144,15 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     UsuariosAddSubmenuPage,
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
-    AgregaProductoPage
+    AgregaProductoPage,
+    PromocionesqrPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -204,7 +208,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     UsuariosAddSubmenuPage,
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
-    AgregaProductoPage
+    AgregaProductoPage,
+    PromocionesqrPage
   ],
   providers: [
     StatusBar,
@@ -236,6 +241,6 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     FileTransfer,
     CategoriasProvider,
     CortecajaProvider,
-  ]
+    BarcodeScanner  ]
 })
 export class AppModule {}

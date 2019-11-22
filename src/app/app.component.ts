@@ -16,6 +16,7 @@ import { PedidosPage } from '../pages/pedidos/pedidos';
 import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { ProductosPage } from '../pages/productos/productos';
 import { CajaPage } from '../pages/caja/caja';
+import {PromocionesqrPage} from '../pages/promocionesqr/promocionesqr';
 
 import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { Storage } from '@ionic/storage';
@@ -36,6 +37,7 @@ export class MyApp {
   configuracion: any = ConfiguracionPage;
   productos: any = ProductosPage;
   caja:any = CajaPage;
+  promociones :any=PromocionesqrPage;
 
   constructor(platform: Platform, public androidPermissions: AndroidPermissions, statusBar: StatusBar, splashScreen: SplashScreen,
     private prdVerificaEntrar: LoginProvider, private menuCtrl: MenuController, private alerta: AlertController,
@@ -123,6 +125,10 @@ export class MyApp {
 
   public activaConfiguraciones():boolean{
     return this.usuariosPrd.configuraciones();
+  }
+
+  public activaPromociones():boolean{
+    return this.usuariosPrd.promociones();
   }
 
 

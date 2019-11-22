@@ -38,6 +38,9 @@
       <button menuClose="left" ion-item (click)="openPage(pedidos)" *ngIf = "activaPedidos()">
         <ion-icon name="basket" item-left></ion-icon> Pedidos
       </button>
+      <button menuClose="left" ion-item (click)="openPage(promociones)" *ngIf = "activaPromociones()">
+        <ion-icon name="pricetags" item-left></ion-icon> Promociones
+      </button>
       <button menuClose="left" ion-item (click)="openPage(configuracion)" *ngIf = "activaConfiguraciones()">
         <ion-icon name="settings" item-left></ion-icon> Configuraciones
       </button>
