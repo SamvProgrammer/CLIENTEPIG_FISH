@@ -127,5 +127,9 @@ export class MyApp {
     return this.usuariosPrd.configuraciones();
   }
 
+  public activaPromociones():boolean{
+    return this.usuariosPrd.promociones();
+  }
+
 
 }

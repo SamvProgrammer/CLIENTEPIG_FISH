@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 import { ProductosProvider } from '../../providers/productos/productos';
 import { CategoriasProvider } from '../../providers/categorias/categorias';
+
 /*
   Generated class for the UsuariosProvider provider.
 
@@ -46,6 +47,7 @@ export class UsuariosProvider {
     };
     
     let json = JSON.stringify(obj);
+    console.log (obj);
     return this.http.post(this.direccion,json,httpOptions);
   }
 
@@ -168,6 +170,10 @@ export class UsuariosProvider {
 
   public configuraciones():boolean{
     return this.obj.configuraciones;
+  }
+
+  public promociones():boolean{
+    return this.obj.promociones;
   }
 
   public iniciar_en(){

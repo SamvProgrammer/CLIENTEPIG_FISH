@@ -71,6 +71,7 @@ import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-produ
 import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
 import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
 import { TelefonosPage } from '../pages/telefonos/telefonos';
+import {PromocionesqrPage} from '../pages/promocionesqr/promocionesqr';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -146,13 +147,15 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
     AgregaProductoPage,
-    TelefonosPage
+    TelefonosPage,
+    PromocionesqrPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -209,7 +212,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
     AgregaProductoPage,
-    TelefonosPage
+    TelefonosPage,
+    PromocionesqrPage
   ],
   providers: [
     StatusBar,

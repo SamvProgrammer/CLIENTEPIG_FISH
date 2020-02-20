@@ -21,6 +21,7 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/android-permissions": "^4.19.0",
+    "@ionic-native/barcode-scanner": "^4.20.0",
     "@ionic-native/bluetooth-serial": "^4.20.0",
     "@ionic-native/call-directory": "^4.20.0",
     "@ionic-native/camera": "^4.20.0",
@@ -60,6 +61,7 @@
     "cordova-sqlite-storage": "^3.2.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
@@ -94,11 +96,15 @@
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-file-transfer": {},
       "cordova-sqlite-storage": {},
+<<<<<<< HEAD
       "cordova-plugin-call-directory": {
         "EXT_NAME": "Cordova-Directory",
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "NO"
       },
       "cordova-plugin-contacts": {}
+=======
+      "phonegap-plugin-barcodescanner": {}
+>>>>>>> 6ec41195bd32e199231ff75134cb8e9667daea1e
     },
     "platforms": [
       "android"
