@@ -29,6 +29,9 @@
       <button menuClose="left" ion-item (click)="openPage(caja)" *ngIf = "activaCaja()">
         <ion-icon name="cash" item-left></ion-icon> Caja
     </button>
+    <button menuClose="left" ion-item (click)="openPage(telefono)" *ngIf = "activaCaja()">
+      <ion-icon name="call" item-left></ion-icon> Teléfonos
+    </button>
       <button menuClose="left" ion-item (click)="openPage(historial)" *ngIf = "activaHistorial()">
         <ion-icon name="paper" item-left></ion-icon> Historial de cuentas
       </button>

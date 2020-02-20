@@ -28,7 +28,7 @@
       <ion-row>
         <ion-col *ngFor="let item of arreglo" col-6 col-sm-4  col-md-3 col-lg-2 col-xl-1>
           <div class="divs" (click) = "subcatalogo(item.id)">
-            <img src="../../assets/icon/iconcatalogos.png" alt="">
+            <img [src]="item.imagen" alt="">
             <h5>{{item.nombre}}</h5>
           </div>
         </ion-col>

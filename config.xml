@@ -94,5 +94,10 @@
     <plugin name="cordova-plugin-file" spec="6.0.1" />
     <plugin name="cordova-plugin-document-viewer" spec="0.9.10" />
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
+    <plugin name="cordova-plugin-call-directory" spec="^1.6.0">
+        <variable name="EXT_NAME" value="Cordova-Directory" />
+        <variable name="ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES" value="NO" />
+    </plugin>
+    <plugin name="cordova-plugin-contacts" spec="3.0.1" />
     <engine name="android" spec="7.1.4" />
 </widget>

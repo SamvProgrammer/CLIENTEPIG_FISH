@@ -15,6 +15,8 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { IonicStorageModule } from '@ionic/storage';
+import { CallDirectory } from '@ionic-native/call-directory';
+import { Contacts } from '@ionic-native/contacts';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -68,6 +70,7 @@ import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-
 import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
 import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
+import { TelefonosPage } from '../pages/telefonos/telefonos';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -142,7 +145,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     UsuariosAddSubmenuPage,
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
-    AgregaProductoPage
+    AgregaProductoPage,
+    TelefonosPage
   ],
   imports: [
     BrowserModule,
@@ -204,7 +208,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     UsuariosAddSubmenuPage,
     DetallecuentasProductosMixtasPage,
     CaluladoraInsumosPage,
-    AgregaProductoPage
+    AgregaProductoPage,
+    TelefonosPage
   ],
   providers: [
     StatusBar,
@@ -236,6 +241,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     FileTransfer,
     CategoriasProvider,
     CortecajaProvider,
+    CallDirectory,
+    Contacts
   ]
 })
 export class AppModule {}

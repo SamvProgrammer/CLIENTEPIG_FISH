@@ -214,4 +214,24 @@ export class TicketsProvider {
 
     return this.http.put(filtrarDireccion, json, httpOptions);
   }
+
+  public guardarTelefono(obj):Observable<any>{
+  let json = JSON.stringify(obj);
+
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  let filtrarDireccion = this.direccion + "/telefonos";
+  return this.http.post(filtrarDireccion,json,httpOptions);
+  }
+
+  public getTelefonos():Observable<any>{
+  
+    let filtrarDireccion = this.direccion + "/telefonos";
+    return this.http.get(filtrarDireccion);
+    }
 }

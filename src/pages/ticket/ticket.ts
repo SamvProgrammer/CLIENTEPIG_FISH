@@ -209,6 +209,16 @@ export class TicketPage {
                     let toas = this.toasCtrl.create({ message: "Mensaje enviado correctamente", duration: 1500 });
                     this.navCtrl.pop();
                     toas.present();
+
+                    let ale = this.alerta.create({message:"¿Deseas guardar el teléfono en la base?",buttons:[{text:"Si",handler:()=>{
+                      let obj = {id_folio:this.folio,telefono:datos.celular};
+                      this.ticketsPrd.guardarTelefono(obj).subscribe(mensajetelefono =>{
+                            let toast = this.toasCtrl.create({message:"El teléfono se a guardado exitosamente",duration:1500});
+                            toast.present();
+                      });
+                    }},"No"]});
+
+                    ale.present();
                   } else {
                     let toas = this.toasCtrl.create({ message: "Error en número de celular, intente de nuevo", duration: 1500 });
                     toas.present();

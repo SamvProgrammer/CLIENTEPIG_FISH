@@ -35,6 +35,51 @@ export class DetallecuentasPage {
 
     this.storage.get("listaproductosdetallemesa").then(valor => {
       this.arreglo = valor.listaproductos;
+      console.log(this.arreglo);
+      console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      for (let item of this.arreglo) {
+        let nombre = item["nombre"];
+        switch (nombre) {
+          case "TACOS":
+            item["imagen"] = "../../assets/icon/taco.png";
+            break;
+          case "BEBIDAS":
+            item["imagen"] = "../../assets/icon/soda.png";
+            break;
+          case "CHAPATAS":
+            item["imagen"] = "../../assets/icon/pan-de-molde.png";
+            break;
+          case "ENTRADAS":
+            item["imagen"] = "../../assets/icon/iniciar-sesion.png";
+            break;
+          case "COSTRAS":
+            item["imagen"] = "../../assets/icon/taco1.png";
+            break;
+          case "PAPAS":
+            item["imagen"] = "../../assets/icon/comida.png";
+            break;
+          case "Postres":
+            item["imagen"] = "../../assets/icon/helado.png";
+            break;
+          case "Kilos":
+            item["imagen"] = "../../assets/icon/peso.png";
+            break;
+            case "Promos":
+            item["imagen"] = "../../assets/icon/mejor-precio.png";
+            break;
+            case "Ensaladas":
+            item["imagen"] = "../../assets/icon/ensalada.png";
+            break;
+            case "Tostadas":
+            item["imagen"] = "../../assets/icon/tortilla.png";
+            break;
+            case "Ordenes ":
+            item["imagen"] = "../../assets/icon/orden.png";
+            break;
+          default:
+            item["imagen"] = "../../assets/icon/iconcatalogos.png";
+        }
+      }
       for (let x of this.arreglo) {
         for (let y of x.productos) {
           y.cantidad = 1;
