@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  
+      <ion-title>
+        Reporte de ventas
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>Seleccionar fecha 1</ion-label>
+            <ion-datetime [(ngModel)]="fecha1" display-format="MMM DD, YYYY" monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' doneText="Hecho" cancelText="Cancelar" ></ion-datetime>
+          </ion-item>
+          <ion-item>
+              <ion-label>Seleccionar fecha 2</ion-label>
+              <ion-datetime [(ngModel)]="fecha2" display-format="MMM DD, YYYY" monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' doneText="Hecho" cancelText="Cancelar" ></ion-datetime>
+            </ion-item>
+          <ion-item>
+              <ion-label>Seleccionar Carrito</ion-label>
+              <ion-select [(ngModel)]="valor1">
+                <ion-option *ngFor = "let item of carrito"  value = "{{item.id}}">{{item.nombre}}</ion-option>
+              </ion-select>
+            </ion-item>              
+  </ion-list>
+
+  <ion-list radio-group [(ngModel)]="opcion">
+      <ion-item>
+          <ion-label>Total venta productos</ion-label>
+          <ion-radio checked="true"  value="op1" ></ion-radio>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="gris" style="text-align: center">
+      <button (click) = "reporte();" ion-button icon-only color="light" style="width: 80%;">            
+        Ver reporte
+      </button>
+    </ion-toolbar>
+  </ion-footer>

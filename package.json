@@ -31,6 +31,7 @@
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-transfer": "^4.20.0",
     "@ionic-native/google-plus": "^4.20.0",
+    "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic-native/sms": "^4.19.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "~4.15.0",
@@ -49,6 +50,7 @@
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-googleplus": "7.0.0",
+    "cordova-plugin-inappbrowser": "3.2.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.2.3",
     "cordova-plugin-sms": "^1.0.5",
@@ -96,15 +98,12 @@
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-file-transfer": {},
       "cordova-sqlite-storage": {},
-<<<<<<< HEAD
       "cordova-plugin-call-directory": {
         "EXT_NAME": "Cordova-Directory",
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "NO"
       },
-      "cordova-plugin-contacts": {}
-=======
-      "phonegap-plugin-barcodescanner": {}
->>>>>>> 6ec41195bd32e199231ff75134cb8e9667daea1e
+      "cordova-plugin-contacts": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android"

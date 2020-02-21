@@ -17,6 +17,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { IonicStorageModule } from '@ionic/storage';
 import { CallDirectory } from '@ionic-native/call-directory';
 import { Contacts } from '@ionic-native/contacts';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
@@ -52,9 +53,9 @@ import { DetallescuentasCombosPage } from '../pages/detallescuentas-combos/detal
 import { ReportetransaccionesPage } from '../pages/reportetransacciones/reportetransacciones';
 import { InventariosPage } from '../pages/inventario/inventario';
 import { InventariosAddPage } from '../pages/inventarios-add/inventarios-add';
-import {AjusteInventarioPage} from '../pages/ajuste-inventario/ajuste-inventario';
-import {ControlMovimientoPage} from '../pages/control-movimiento/control-movimiento';
-import {AgregaMobimientoPage} from '../pages/agrega-mobimiento/agrega-mobimiento';
+import { AjusteInventarioPage } from '../pages/ajuste-inventario/ajuste-inventario';
+import { ControlMovimientoPage } from '../pages/control-movimiento/control-movimiento';
+import { AgregaMobimientoPage } from '../pages/agrega-mobimiento/agrega-mobimiento';
 import { EnlaceProductoinventarioPage } from '../pages/enlace-productoinventario/enlace-productoinventario';
 import { EnlaceProductoinventarioAddPage } from '../pages/enlace-productoinventario-add/enlace-productoinventario-add';
 import { EnlaceProductodetalleinventarioPage } from '../pages/enlace-productodetalleinventario/enlace-productodetalleinventario';
@@ -66,12 +67,13 @@ import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { BluetoothDispositivosPage } from '../pages/bluetooth-dispositivos/bluetooth-dispositivos';
 import { ProductosproductosCategoriasPage } from '../pages/productosproductos-categorias/productosproductos-categorias';
 import { CuentasDetalleAntesdeenviarPage } from '../pages/cuentas-detalle-antesdeenviar/cuentas-detalle-antesdeenviar';
-import { UsuariosAddSubmenuPage  } from '../pages/usuarios-add-submenu/usuarios-add-submenu';
+import { UsuariosAddSubmenuPage } from '../pages/usuarios-add-submenu/usuarios-add-submenu';
 import { DetallecuentasProductosMixtasPage } from '../pages/detallecuentas-productos-mixtas/detallecuentas-productos-mixtas';
 import { CaluladoraInsumosPage } from "../pages/caluladora-insumos/caluladora-insumos";
-import {AgregaProductoPage} from  '../pages/agrega-producto/agrega-producto';
+import { AgregaProductoPage } from '../pages/agrega-producto/agrega-producto';
 import { TelefonosPage } from '../pages/telefonos/telefonos';
-import {PromocionesqrPage} from '../pages/promocionesqr/promocionesqr';
+import { PromocionesqrPage } from '../pages/promocionesqr/promocionesqr';
+import { ReportesventasPage } from '../pages/reportesventas/reportesventas';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -148,14 +150,15 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CaluladoraInsumosPage,
     AgregaProductoPage,
     TelefonosPage,
-    PromocionesqrPage
+    PromocionesqrPage,
+    ReportesventasPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -213,12 +216,13 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CaluladoraInsumosPage,
     AgregaProductoPage,
     TelefonosPage,
-    PromocionesqrPage
+    PromocionesqrPage,
+    ReportesventasPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AndroidPermissions,
     LoginProvider,
     UsuariosProvider,
@@ -246,7 +250,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CategoriasProvider,
     CortecajaProvider,
     CallDirectory,
-    Contacts
+    Contacts,
+    InAppBrowser
   ]
 })
-export class AppModule {}
+export class AppModule { }

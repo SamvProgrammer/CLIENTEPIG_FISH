@@ -22,4 +22,11 @@ export class ReportesProvider {
     return this.http.get(dire);    
   }
 
+
+  public getVentaTotalProducto(id_sucursal,fecha1,fecha2):Observable<any>{
+    let dire = this.ruta+"/ticket/"+id_sucursal+"/fechas/"+fecha1+"/"+fecha2;
+    return this.http.get(dire);    
+
+  }
+
 }
