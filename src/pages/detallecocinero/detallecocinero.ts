@@ -32,6 +32,9 @@ export class DetallecocineroPage {
 
       this.id_sucursal = usuariosPrd.getSucursal();
       this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
+        if(this.arreglo.lenght != datos.length){
+          this.hacerSonar();
+      }
         this.arreglo = datos;
         this.ultimamodificacion = new Date();
         console.log("Este es lo que recibe el cocinero");
@@ -45,6 +48,9 @@ export class DetallecocineroPage {
       this.ticketPrd.getNotificacion().subscribe(datosnotificar => {
         if (datosnotificar.notificar != this.notificar) {
           this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
+            if(this.arreglo.lenght != datos.length){
+                this.hacerSonar();
+            }
             this.arreglo = datos;
             this.ultimamodificacion = new Date();
             this.notificar = datosnotificar.notificar;
@@ -58,6 +64,9 @@ export class DetallecocineroPage {
           this.minutos = Math.round(diferencia % 60);
           if (this.minutos >= 1) {
             this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
+              if(this.arreglo.lenght != datos.length){
+                this.hacerSonar();
+            }
               this.arreglo = datos;
 
             });
@@ -74,6 +83,9 @@ export class DetallecocineroPage {
 
   public actualizando(refresher): any {
     this.ticketPrd.notificaciones(this.id_sucursal,1).subscribe(datos => {
+      if(this.arreglo.lenght != datos.length){
+        this.hacerSonar();
+    }
       this.arreglo = datos;
       this.ultimamodificacion = new Date();
       console.log("Este es lo que recibe el cocinero");
@@ -115,4 +127,12 @@ export class DetallecocineroPage {
     this.globales.cerrarAplicacion();
   }
 
+
+
+  public hacerSonar(){
+    let audio = new Audio();
+    audio.src = "../../assets/audios/notificacion.mp3";
+    audio.load();
+    audio.play();
+  }
 }

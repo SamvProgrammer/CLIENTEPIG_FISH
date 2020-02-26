@@ -46,9 +46,9 @@ export class ReportesventasPage {
 let url = "";
     switch (this.opcion) {
       case "op1":
-      url = `https://docs.google.com/viewer?url=${direcciones.reportes}/ticket/${this.valor1}/fechas?fecha1=${this.fecha1}&fecha2=${this.fecha2}`
+      url = `https://docs.google.com/viewer?url=${direcciones.reportes}/ticket/${this.valor1}/fechas/${this.fecha1}/${this.fecha2}`
       console.log(url);
-      this.iab.create(url);
+      this.iab.create(url,"_system");
         break;
     }
 

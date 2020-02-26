@@ -33,11 +33,14 @@ export class TelefonosPage {
   }
 
   public guardar(obj) {
+    console.log(obj);
     let alerta = this.alertCtr.create({
       message: "¿Deseas guardar el número a tus contactos?", buttons: [{
         text: "si", handler: () => { 
 
-          let contact: Contact = this.contacts.create();
+          let contact: Contact = this.contacts.create() ;
+          console.log("ESTOS SON LOS CONTAXTOS");
+          console.log(contact);
           contact.name = new ContactName(null,'PigFish'+obj.id_folio);
           contact.phoneNumbers = [new ContactField('mobile', obj.telefono)];
 
