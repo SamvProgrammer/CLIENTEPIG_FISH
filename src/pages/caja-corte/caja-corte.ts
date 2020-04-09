@@ -25,6 +25,9 @@ export class CajaCortePage {
   public id_sucursal;
   public id_usuario;
   public aparecer = false;
+  public cortesiatotal = 0;
+  public tarjeta = 0;
+  public totalEfectivo = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, private cortePrd: CortecajaProvider,
     private usuariosPrd: UsuariosProvider, private alertCtrl: AlertController) {
     this.id_sucursal = usuariosPrd.getSucursal();
@@ -57,12 +60,15 @@ this.aparecer = true;
         switch (item.tipo_pago) {
           case 'E':
             item.tipo_pago = 'Efectivo';
+            this.totalEfectivo = this.totalEfectivo + item.total;
             break;
           case 'C':
             item.tipo_pago = 'Cortesia';
+            this.cortesiatotal = this.cortesiatotal + item.total;
             break;
           case 'T':
             item.tipo_pago = 'Tarjeta credito/debito';
+            this.tarjeta = this.tarjeta + item.total;
             break;
           default:
             item.tipo_pago = 'Otros';

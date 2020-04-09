@@ -37,6 +37,23 @@
       </ion-col>
     </ion-row>
     <div *ngIf = "aparecer == true">
+
+      <ion-row   class="totales">
+        <ion-col>
+          <ion-item style="text-align: center;background-color: bisque;">
+            <ion-label>Efectivo</ion-label>           
+          </ion-item>
+        </ion-col>
+       
+      </ion-row>
+      <ion-row   class="totales">
+        <ion-col>
+          <ion-item style="text-align: center; color: crimson;font-weight: 800;">
+            <ion-label>{{totalEfectivo-totalSalida-cortesiatotal | currency}}</ion-label>           
+          </ion-item>
+        </ion-col>
+       
+      </ion-row>
       
     <ion-row class="totales fondototal">
       <ion-col>
@@ -58,7 +75,7 @@
       </ion-col>
       <ion-col>
         <ion-item>
-          <ion-label>{{totales - totalSalida | currency}}</ion-label>           
+          <ion-label>{{totales - totalSalida - cortesiatotal | currency}}</ion-label>           
         </ion-item>
       </ion-col>
     </ion-row>
