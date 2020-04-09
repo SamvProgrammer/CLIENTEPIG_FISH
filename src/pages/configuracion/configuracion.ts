@@ -4,8 +4,7 @@ import { EnlaceProductoinventarioPage } from '../enlace-productoinventario/enlac
 import { BluetoothPage } from '../bluetooth/bluetooth';
 import { Storage } from '@ionic/storage';
 import { GlobalesProvider } from '../../providers/globales/globales';
-
-
+import {PaypalPage} from '../../pages/paypal/paypal';
 /**
  * Generated class for the ConfiguracionPage page.
  *
@@ -52,6 +51,12 @@ export class ConfiguracionPage {
 
   public abrirpaginabluetooth() {
     this.navCtrl.push(BluetoothPage);
+  }
+
+
+  public abrirpaginaPaypal ()
+  {
+    this.navCtrl.push(PaypalPage);
   }
 
   public guardarCambios() {

@@ -18,7 +18,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { CallDirectory } from '@ionic-native/call-directory';
 import { Contacts } from '@ionic-native/contacts';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import {PayPal} from '@ionic-native/paypal';
 
+import{PaypalPage} from '../pages/paypal/paypal';
 import { cuentasPage } from '../pages/cuentas/cuentas';
 import { DetallecuentasPage } from '../pages/detallecuentas/detallecuentas';
 import { TransaccionesPage } from '../pages/transacciones/transacciones';
@@ -74,7 +76,7 @@ import { AgregaProductoPage } from '../pages/agrega-producto/agrega-producto';
 import { TelefonosPage } from '../pages/telefonos/telefonos';
 import { PromocionesqrPage } from '../pages/promocionesqr/promocionesqr';
 import { ReportesventasPage } from '../pages/reportesventas/reportesventas';
-
+ 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginProvider } from '../providers/login/login';
@@ -151,7 +153,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     AgregaProductoPage,
     TelefonosPage,
     PromocionesqrPage,
-    ReportesventasPage
+    ReportesventasPage,
+    PaypalPage
   ],
   imports: [
     BrowserModule,
@@ -217,7 +220,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     AgregaProductoPage,
     TelefonosPage,
     PromocionesqrPage,
-    ReportesventasPage
+    ReportesventasPage,
+PaypalPage
   ],
   providers: [
     StatusBar,
@@ -251,7 +255,8 @@ import { CortecajaProvider } from '../providers/cortecaja/cortecaja';
     CortecajaProvider,
     CallDirectory,
     Contacts,
-    InAppBrowser
+    InAppBrowser,
+    PayPal
   ]
 })
 export class AppModule { }
