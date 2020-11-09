@@ -236,6 +236,8 @@ export class DetallecuentasPage {
             }
           }
         }
+        console.log("SE va a guardar");
+        this.storage.set(this.folio, this.arregloPedidoCliente);
       }
     });
   }
